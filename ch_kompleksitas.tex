@@ -1,6 +1,204 @@
-\chapter{Kompleksitas Algoritma}\label{ch:modul6}
+\chapter{Pengantar Big O dan Model Matematika}\label{ch:modul1}
+
+\section{Pendahuluan}
+Algoritma merupakan langkah-langkah yang ditempuh untuk menyelesaikan masalah. Ada sebuah, atau sekumpulan, input yang diproses sehingga menghasilkan sebuah (atau sekumpulan) output ataupun kondisi yang didefinisikan sebagai solusi untuk masalah di awal. Langkah-langkah yang ditempuh, bertujuan untuk mentransfer logika manusia dalam menyelesaikan masalah komputasi, ke dalam program komputer.
+
+Masalah komputasi tidak hanya dapat diselesaikan dengan sebuah cara. Bisa jadi, ada banyak jenis cara atau algoritma yang dapat menyelesaikan sebuah pokok permasalahan yang sama. Sebagai contoh, masalah pengurutan dapat diselesaikan dengan algoritma Bubble Sort, Merge Sort, dan berbagai algoritma yang lain.
+
+\section{Kompleksitas Algoritma}
+Algoritma yang berbeda tentu saja memiliki langkah-langkah yang berbeda. Sehingga, ada algoritma yang lebih “cepat” dibandingkan algoritma yang lain. Dan ada pula algoritma yang lebih “hemat” dalam penggunaan memori. Algoritma yang baik adalah algoritma yang dapat menyelesaikan masalah  sekaligus efisien dalam pemakaian waktu dan ruang. Istilah yang digunakan untuk mengukur hal tersebut adalah \textbf{kompleksitas algoritma}. Maka, terdapat 2 jenis kompleksitas algoritma, yakni:
+
+\begin{itemize}
+    \item kompleksitas waktu ($T(n)$), dan
+    \item kompleksitas ruang ($S(n)$).
+\end{itemize}
+
+Tentu diperlukan sebuah metode untuk mengukur seberapa “cepat”-kah sebuah algoritma atau seberapa “hemat”-kah pemakaian ruang memori algoritma tersebut. Menganalisis sebuah algoritma mencakup menganalisis kompleksitas algoritma. Meskipun terdapat 2 jenis kompleksitas, dalam analisis algoritma yang lebih difokuskan adalah analisis “kecepatan” algoritma tersebut, atau kompleksitas waktunya ($T(n)$).
+
+“Cepat – lambat” sebuah algoritma tidak dihitung menggunakan satuan waktu yang umum digunakan dalam kehidupan, seperti detik, menit, ataupun jam. Alasannya karena kecepatan proses sebuah algoritma yang sudah diimplementasikan ke dalam program komputer bergantung pada banyak faktor, seperti processor, sistem operasi, compiler yang digunakan, dan faktor lain. Menghitung komplksitas waktu sebuah algoritma adalah \textbf{menghitung jumlah langkah yang ditempuh, serta perubahan jumlah langkah saat ukuran input berubah}. Jadi, tidak aka nada hubungannya dengan performa komputer atau kompiler yang digunakan sebagai media implementasi algoritma tersebut.
+
+\section{Notasi Asimtotik}
+
+Sebagaimana dijelaskan pada sub-bagian di atas, untuk mengukur kompleksitas waktu algoritma tidak digunakan satuan waktu yang umum. Maka, dibutuhkan sebuah notasi khusus. Notasi matematis yang digunakan disebut \textbf{notasi asimtotik}. Notasi asimtotik digunakan untuk melihat seberapa efisien performa sebuah algoritma bila dibandingkan dengan algoritma yang lain. 
+
+Terdapat beberapa jenis notasi asimtotik dalam bidang ilmu matematika yang digunakan dalam pengukuran kompleksitas algoritma. 3 contoh jenis notasi asimtotik adalah:
+
+\begin{enumerate}
+    \item O (Big-O)
+    \item $\Omega$ (Big-Omega)
+    \item $\Theta$ (Big-Theta)
+\end{enumerate}
+
+Dalam modul ini tidak akan dijelaskan secara terperinci bagaimana menggunakan masing-masing notasi. Namun, yang akan dijelaskan adalah bagaimana kompleksitas waktu sebuah algoritma dapat ditemukan dengan menggunakan notasi tersebut.
+
+Notasi yang paling umum digunakan adalah O (Big-O). Alasannya adalah karena notasi tersebut digunakan untuk menggambarkan batas atas (\textit{upper limit}) dari sebuah fungsi ketika masukan untuk fungsi tersebut meningkat (\textit{increase}). Alhasil, Big-O sangat cocok untuk memperlihatkan \textit{worst case} dari sebuah algoritma. Apa yang dimaksud dengan worst case akan dijelaskan pada salah satu sub-bagian dari modul ini.
+
+Contoh penggunaan Big-O: Algoritma Bubble Sort. $T(n) = O(n^2)$. Artinya: algoritma Bubble Sort memiliki kompleksitas waktu $n^2$. 
+
+\section{Mengukur Kompleksitas Algoritma Menggunakan Big-O}
+
+Cara menghitung kompleksitas algoritma non rekursif tidak persis dengan algoritma rekursif. Namun yang pasti adalah, bahwa penggunaan fungsi matematis dan aturan dasar penjumlahan digunakan dalam perhitungan.
+
+Pada setiap modul, seraya berbagai teknik desain algoritma akan dibahas, juga akan diperlihatkan bagaimana menghitung kompleksitas algoritmanya. 
+
+Secara umum, langkah-langkah untuk mengukur kompleksitas algoritma non rekursif (umum):
+
+\begin{enumerate}
+    \item Mengidentifikasi operasi dasar
+    \item Menentukan ukuran input.
+    \item Memeriksa apakah pertumbuhan operasi dasar hanya bergantung pada ukuran input. Jika ya, maka tidak ada \textit{worst case} ataupun \textit{best case}. Namun jika terdapat faktor lain, maka perhitungan \textit{worst case} dibedakan dengan \textit{best case}.
+    \item Menghitung derajat pertumbuhan langkah operasi dasar terhadap perubahan ukuran input dengan menggunakan fungsi matematika.
+\end{enumerate}
+
+Beberapa rumus matematika yang umum digunakan:
+
+\begin{enumerate}
+    \item $\sum\limits_{i=l}^u 1 = 1 + 1 + 1 + 1 + \ldots = u - l + 1$
+    \item $\sum\limits_{i=1}^n 1 = n$
+    \item $\sum\limits_{i=1}^n i = 1 + 2 + \cdots + n = \frac{n(n + 1)}{2} \approx \frac{1}{2}n^2$
+    \item $\sum\limits_{i=1}^n i^2 = 1^2 + 2^2 + \cdots + n^2 = \frac{n(n + 1)(2n + 1)}{6} \approx \frac{1}{3}n^3$
+    \item $\sum\limits_{i=1}^n i^k = 1^k + 2^k + \cdots + n^k \approx \frac{1}{k + 1}n^{k+1}$
+    \item $\sum\limits_{i=0}^n a^i = 1 + a + \cdots + a^n = \frac{a^{n + 1} - 1}{a - 1}(a \neq 1)$
+    \item $\sum\limits_{i=0}^n 2^i = 2^{n + 1} - 1$
+    \item $\sum\limits_{i=1}^n i \times 2^i = 1 \times 2^1 + 2 \times 2^2 + \cdots + n \times 2^n \approx \frac{1}{3}n^3$
+    \item $\sum\limits_{i=l}^u ca_i = c \sum\limits_{i=l}^u a_i$
+    \item $\sum\limits_{i=l}^u (a_i \pm b_i) = \sum\limits_{i=l}{u} a_i \pm \sum\limits_{i=l}{u} b_i$
+\end{enumerate}
+
+Contoh sederhana:
+
+\begin{algorithm}
+    \caption{MaximumElement($A[n]$)}
+	\label{algo:maxelem}
+	\begin{algorithmic}[1]
+
+    \STATE $i = 0$
+    \STATE $max = A[i]$
+    \WHILE {$i < n$}
+        \IF {$max < A[i]$}
+            \STATE $max = A[i]$
+            \STATE $i++$
+        \ENDIF
+    \ENDWHILE
+
+    \RETURN $max$
+
+	\end{algorithmic}
+\end{algorithm}
+
+\begin{enumerate}
+    \item \textbf{Mengidentifikasi operasi dasar.} Operasi dasar adalah perbandingan antara \textbf{max} dan \textbf{A[i]}, karena itulah operasi yang paling sering dilakukan yang merupakan logika dasar algoritma tersebut untuk memecahkan masalah.
+    \item \textbf{Menentukan ukuran input.} Ukuran input adalah \textbf{n}, yang merupakan besar / panjang dari array atau list \textbf{A}. \textbf{n} menjadi ukuran input karena berpengaruh terhadap banyaknya operasi dasar dilakukan.
+    \item \textbf{Memeriksa apakah pertumbuhan operasi dasar hanya bergantung pada ukuran input.} Untuk algoritma di atas, \textbf{n} merupakan satu-satunya penentu banyaknya operasi dasar dilakukan, sehingga dalam perhitungan kompleksitas tidak diikutsertakan analisis \textit{worst case}, \textit{best case}, maupun \textit{average case}.
+    \item \textbf{Menghitung derajat pertumbuhan langkah operasi dasar terhadap perubahan ukuran input dengan menggunakan fungsi matematika.} Di bawah ini merupakan cara perhitungannya.
+\end{enumerate}
 
 
+\begin{algorithm}
+    \caption{MaximumElement($A[n]$)}
+	\label{algo:maxelem-highlighted}
+	\begin{algorithmic}[1]
+
+    \STATE $i = 0$
+    \STATE $max = A[i]$
+    \WHILE {$i < n$}
+        \IF {$max < A[i]$}
+            \STATE $max = A[i]$
+            \STATE $i++$
+        \ENDIF
+    \ENDWHILE
+
+    \RETURN $max$
+
+	\end{algorithmic}
+\end{algorithm}
+
+$$
+T(n) = \sum\limits_{i=0}^{n-1} 1
+$$
+
+Penjelasan: Perulangan merupakan deret, sehingga perulangan yang terpola dengan baik dapat digantikan ke dalam rumus matematis di atas. Isi dari sigma berisi 1 karena: \textbf{dalam setiap perulangan terdapat 1 kali operasi dasar dilakukan}.
+
+$$
+T(n) = n - 1 + 1 = n
+$$
+
+Penjelasan: Gunakan rumus pertama yang tertera sebelum contoh algoritma.
+
+$$
+T(n) = O(n)
+$$
+
+Penjelasan: Hasil akhir diubah ke dalam notasi asimtotik sesuai dengan aturan notasi.
+
+Alhasil, algoritma di atas memiliki kompleksitas O(n), atau sering disebut dengan kompleksitas linear. Terdapat beberapa pengelompokan kompleksitas yang umum.
+
+\section{Kriteria Efisiensi umum}
+
+Terdapat beberapa kriteria efisiensi umum:
+
+\begin{enumerate}
+    \item \textbf{$O (1)$: Kompleksitas Konstan.} Merupakan kriteria di mana ukuran input sama sekali tidak berpengaruh pada jumlah langkah sebuah algoritma. Kompleksitas ini merupakan jenis yang paling efisien / cepat.
+        
+    \begin{figure}
+        \centering
+        \includegraphics[width=\textwidth]{fig/ConstantGrowth}
+        \caption{Testing}
+    \end{figure}
+
+    \item \textbf{$O (\log n)$: Kompleksitas Logaritmik.} Merupakan kompleksitas di mana perubahan / peningkatan besar dari ukuran input hanya memberikan sedikit sekali pengaruh terhadap pertumbuhan jumlah langkah. Algoritma yang memiliki kompleksitas logaritmik sering dijumpai pada algoritma yang dibuat dengan teknik divide \& conquer yang akan dibahas pada salah satu modul.
+
+    \begin{figure}
+        \centering
+        \includegraphics[width=\textwidth]{fig/LogarithmicGrowth}
+        \caption{Testing}
+    \end{figure}
+
+    \item \textbf{$O (n)$: Linear.} Merupakan kompleksitas algoritma di mana pertumbuhan ukuran input sebanding dengan pertumbuhan jumlah langkah. Algoritma dengan kompleksitas linear dipandang sebagai algoritma yang cepat / efisien, meskipun itu juga bergantung pada permasalahan apa yang diselesaikan oleh sebuah algoritma.
+
+    \begin{figure}
+        \centering
+        \includegraphics[width=\textwidth]{fig/LinearGrowth}
+        \caption{Testing}
+    \end{figure}
+
+    \item \textbf{$O (n \log n)$.} Kompleksitas ini belum memiliki nama khusus. Jenis kompleksitas ini juga sering dijumpai pada algoritma yang berbasis teknik divide \& conquer. Hanya saja, pada kompleksitas jenis ini, perubahan jumlah langkah sedikit lebih besar daripada kompleksitas linear.
+
+    \begin{figure}
+        \centering
+        \includegraphics[width=\textwidth]{fig/NLogNGrowth}
+        \caption{Testing}
+    \end{figure}
+
+    \item \textbf{$O (n^m)$: Kompleksitas Polinomial.} Merupakan jenis kompleksitas yang tinggi. $O (n^2)$ disebut dengan kompleksitas kuadratik. Merupakan jenis kompleksitas di mana sedikit perubahan pada ukuran input akan berpengaruh besar pada jumlah langkah.
+
+    \begin{figure}
+        \centering
+        \includegraphics[width=\textwidth]{fig/ExponentialGrowth}
+        \caption{Testing}
+    \end{figure}
+
+    \item \textbf{$O (n!)$: Kompleksitas faktorial.} Merupakan jenis kompleksitas yang sangat tinggi. Sedikit perubahan pada ukuran input akan berpengaruh sangat besar terhadap jumlah langkah. Kompleksitas ini sangat dihindari, namun untuk sebuah permasalahan komputasi yang sangat kompleks algoritma dengan kompleksitas yang tinggi juga sering digunakan.
+\end{enumerate}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth]{fig/AllComplexityComparison}
+    \caption{Testing}
+\end{figure}
+
+\section{Worst Case, Average Case, dan Best Case}
+
+Dalam pengukuran kompleksitas algoritma, terdapat \textit{worst case}, \textit{average case}, dan \textit{best case}.
+
+\begin{enumerate}
+    \item Best case / kasus terbaik: merupakan kondisi di mana algoritma akan bekerja dengan kompleksitas paling rendah untuk ukuran input yang sama. 
+    \item Worst case / kasus terburuk: merupakan kebalikan dari kasus terbaik, di mana algoritma akan bekerja dengan kompleksitas tertinggi untuk ukuran input yang sama.
+    \item Average case / kasus rata-rata: merupakan kondisi yang paling sering terjadi untuk sebuah permasalahan.
+\end{enumerate}
+
+% Bagian ini nanti perlu diperbaiki / disusun ulang lagi
+% supaya bacanya make sense. Sementara merging punya Vincent dulu.
 \section{Pengenalan Kompleksitas Algoritma}
 Waktu yang diperlukan bagi \textit{Insertion Sort} untuk menyelesaikan proses pengurutannya tergantung pada jumlah masukan. Dengan kata lain, semakin besar jumlah masukan, semakin lama waktu yang diperlukan. Untuk dua masukan dengan jumlah yang sama, \textit{Insertion Sort} bisa memakan waktu yang berbeda tergantung dari seberapa terurutnya mereka. Dari sini, kita bisa mengambil kesimpulan bahwa, waktu yang diperlukan berkembang sesuai dengan ukuran dari masukan.
 
