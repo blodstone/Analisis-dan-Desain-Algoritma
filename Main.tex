@@ -15,6 +15,72 @@
 \usepackage{mathtools}
 \usepackage{bookmark}
 
+\usepackage{etoolbox}
+\usepackage{xcolor} % http://www.ctan.org/tex-archive/macros/latex/contrib/xcolor
+
+% ----------------------------
+% Highlight Box
+% ----------------------------
+
+%\def\HiLi{\leavevmode\rlap{\hbox to \hsize{\color{yellow!50}\leaders\hrule height .9\baselineskip depth .5ex\hfill}}}
+\def\HiLi{\leavevmode\rlap{\hbox to \hsize{\color{yellow!50}\leaders\hrule height 1\baselineskip depth .9ex\hfill}}}
+
+% ----------------------------
+% Highlight Algorithm Commands
+% ----------------------------
+
+\newcommand{\algorithmichreturn}{}
+\makeatletter
+\AtBeginEnvironment{algorithm}{%
+    \newcommand{\HRETURN}[2][default]{
+        \ALC@it \HiLi \algorithmicreturn #2\ %
+    }%
+}
+\makeatother
+
+\newcommand{\algorithmichstate}{}
+\makeatletter
+\AtBeginEnvironment{algorithm}{%
+    \newcommand{\HSTATE}[2][default]{
+        \ALC@it \HiLi #2\ %
+    }%
+}
+\makeatother
+
+\newcommand{\algorithmichwhile}{}
+\makeatletter
+\AtBeginEnvironment{algorithm}{%
+  \newcommand{\HWHILE}[2][default]{\ALC@it \HiLi \algorithmicwhile\ #2\ %
+    \ALC@com{#1}\begin{ALC@whl}}%
+}
+\makeatother
+
+\newcommand{\algorithmichif}{}
+\makeatletter
+\AtBeginEnvironment{algorithm}{%
+  \newcommand{\HIF}[2][default]{\ALC@it\HiLi \algorithmicif\ #2\ %
+    \ALC@com{#1}\begin{ALC@if}}%
+}
+\makeatother
+
+\newcommand{\algorithmichendif}{}
+\makeatletter
+\AtBeginEnvironment{algorithm}{%
+    \newcommand{\ENDHIF}{\end{ALC@if}\ALC@it\HiLi\algorithmicendif}
+}
+\makeatother
+
+\newcommand{\algorithmichendwhile}{}
+\makeatletter
+\AtBeginEnvironment{algorithm}{%
+    \newcommand{\ENDHWHILE}{\end{ALC@whl}\ALC@it\HiLi\algorithmicendwhile}
+}
+\makeatother
+
+%\algnewcommand\HRETURN{\HiLi \algorithmicreturn}%
+
+%\newcommand{\algorithmicreturn}{\HiLi \textbf{return}}
+
 %\usepackage{letterspace}
 %\renewcommand\allcapsspacing[1]{{\addfontfeature{LetterSpace=15}#1}}
 %\renewcommand\smallcapsspacing[1]{{\addfontfeature{LetterSpace=10}#1}}

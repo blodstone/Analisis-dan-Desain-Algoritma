@@ -86,6 +86,8 @@ Contoh sederhana:
 	\end{algorithmic}
 \end{algorithm}
 
+\FloatBarrier
+
 \begin{enumerate}
     \item \textbf{Mengidentifikasi operasi dasar.} Operasi dasar adalah perbandingan antara \textbf{max} dan \textbf{A[i]}, karena itulah operasi yang paling sering dilakukan yang merupakan logika dasar algoritma tersebut untuk memecahkan masalah.
     \item \textbf{Menentukan ukuran input.} Ukuran input adalah \textbf{n}, yang merupakan besar / panjang dari array atau list \textbf{A}. \textbf{n} menjadi ukuran input karena berpengaruh terhadap banyaknya operasi dasar dilakukan.
@@ -101,17 +103,19 @@ Contoh sederhana:
 
     \STATE $i = 0$
     \STATE $max = A[i]$
-    \WHILE {$i < n$}
-        \IF {$max < A[i]$}
-            \STATE $max = A[i]$
-            \STATE $i++$
-        \ENDIF
-    \ENDWHILE
+    \HWHILE {$i < n$}
+        \HIF {$max < A[i]$}
+            \HSTATE $max = A[i]$
+            \HSTATE $i++$
+        \ENDHIF
+    \ENDHWHILE
 
-    \RETURN $max$
+    \RETURN $maxi$
 
 	\end{algorithmic}
 \end{algorithm}
+
+\FloatBarrier
 
 $$
 T(n) = \sum\limits_{i=0}^{n-1} 1
@@ -146,6 +150,8 @@ Terdapat beberapa kriteria efisiensi umum:
         \caption{Testing}
     \end{figure}
 
+    \FloatBarrier
+
     \item \textbf{$O (\log n)$: Kompleksitas Logaritmik.} Merupakan kompleksitas di mana perubahan / peningkatan besar dari ukuran input hanya memberikan sedikit sekali pengaruh terhadap pertumbuhan jumlah langkah. Algoritma yang memiliki kompleksitas logaritmik sering dijumpai pada algoritma yang dibuat dengan teknik divide \& conquer yang akan dibahas pada salah satu modul.
 
     \begin{figure}
@@ -153,6 +159,8 @@ Terdapat beberapa kriteria efisiensi umum:
         \includegraphics[width=\textwidth]{fig/LogarithmicGrowth}
         \caption{Testing}
     \end{figure}
+
+    \FloatBarrier
 
     \item \textbf{$O (n)$: Linear.} Merupakan kompleksitas algoritma di mana pertumbuhan ukuran input sebanding dengan pertumbuhan jumlah langkah. Algoritma dengan kompleksitas linear dipandang sebagai algoritma yang cepat / efisien, meskipun itu juga bergantung pada permasalahan apa yang diselesaikan oleh sebuah algoritma.
 
@@ -162,6 +170,8 @@ Terdapat beberapa kriteria efisiensi umum:
         \caption{Testing}
     \end{figure}
 
+    \FloatBarrier
+
     \item \textbf{$O (n \log n)$.} Kompleksitas ini belum memiliki nama khusus. Jenis kompleksitas ini juga sering dijumpai pada algoritma yang berbasis teknik divide \& conquer. Hanya saja, pada kompleksitas jenis ini, perubahan jumlah langkah sedikit lebih besar daripada kompleksitas linear.
 
     \begin{figure}
@@ -169,6 +179,8 @@ Terdapat beberapa kriteria efisiensi umum:
         \includegraphics[width=\textwidth]{fig/NLogNGrowth}
         \caption{Testing}
     \end{figure}
+
+    \FloatBarrier
 
     \item \textbf{$O (n^m)$: Kompleksitas Polinomial.} Merupakan jenis kompleksitas yang tinggi. $O (n^2)$ disebut dengan kompleksitas kuadratik. Merupakan jenis kompleksitas di mana sedikit perubahan pada ukuran input akan berpengaruh besar pada jumlah langkah.
 
@@ -178,6 +190,8 @@ Terdapat beberapa kriteria efisiensi umum:
         \caption{Testing}
     \end{figure}
 
+    \FloatBarrier
+
     \item \textbf{$O (n!)$: Kompleksitas faktorial.} Merupakan jenis kompleksitas yang sangat tinggi. Sedikit perubahan pada ukuran input akan berpengaruh sangat besar terhadap jumlah langkah. Kompleksitas ini sangat dihindari, namun untuk sebuah permasalahan komputasi yang sangat kompleks algoritma dengan kompleksitas yang tinggi juga sering digunakan.
 \end{enumerate}
 
@@ -186,6 +200,8 @@ Terdapat beberapa kriteria efisiensi umum:
     \includegraphics[width=\textwidth]{fig/AllComplexityComparison}
     \caption{Testing}
 \end{figure}
+
+    \FloatBarrier
 
 \section{Worst Case, Average Case, dan Best Case}
 
