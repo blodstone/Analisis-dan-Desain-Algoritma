@@ -67,24 +67,7 @@ Beberapa rumus matematika yang umum digunakan:
 
 Contoh sederhana:
 
-\begin{algorithm}
-    \caption{MaximumElement($A[n]$)}
-	\label{algo:maxelem}
-	\begin{algorithmic}[1]
-
-    \STATE $i = 0$
-    \STATE $max = A[i]$
-    \WHILE {$i < n$}
-        \IF {$max < A[i]$}
-            \STATE $max = A[i]$
-            \STATE $i++$
-        \ENDIF
-    \ENDWHILE
-
-    \RETURN $max$
-
-	\end{algorithmic}
-\end{algorithm}
+\lstinputlisting[language=Python, caption=Maximum Element]{code/1-max-element.py}
 
 \FloatBarrier
 
@@ -95,25 +78,11 @@ Contoh sederhana:
     \item \textbf{Menghitung derajat pertumbuhan langkah operasi dasar terhadap perubahan ukuran input dengan menggunakan fungsi matematika.} Di bawah ini merupakan cara perhitungannya.
 \end{enumerate}
 
-
-\begin{algorithm}
-    \caption{MaximumElement($A[n]$)}
-	\label{algo:maxelem-highlighted}
-	\begin{algorithmic}[1]
-
-    \STATE $i = 0$
-    \STATE $max = A[i]$
-    \HWHILE {$i < n$}
-        \HIF {$max < A[i]$}
-            \HSTATE $max = A[i]$
-            \HSTATE $i++$
-        \ENDHIF
-    \ENDHWHILE
-
-    \RETURN $maxi$
-
-	\end{algorithmic}
-\end{algorithm}
+\lstinputlisting[language=Python, 
+                 caption=Perulangan pada Maximum Element, 
+                 linebackgroundcolor={\ifnum\value{lstnumber}>5\ifnum\value{lstnumber}<11\color{codehighlight}\fi\fi}
+                ]
+                {code/1-max-element.py}
 
 \FloatBarrier
 
@@ -265,21 +234,7 @@ Dari persamaan \ref{eq:eksekusiFaktorial1} yaitu $an$ + $b$, terdapat dua konsta
 
 Berikut adalah \textit{pseudocode} dari Bubble Sort:
 
-\begin{algorithm}
-	\caption{BUBBLE-SORT($A$)}
-	\label{algo:bubble}
-	\begin{algorithmic}[1]
-	\FOR {$i = 1$ \TO $A.length-1$}
-		\FOR {$j = i+1$ \TO $A.length$}
-			\IF {$A[i] \leq A[j]$}
-			\STATE $temp = A[i]$
-			\STATE $A[i] = A[j]$
-			\STATE $A[j] = temp$
-			\ENDIF
-		\ENDFOR
-	\ENDFOR
-	\end{algorithmic}
-\end{algorithm}
+\lstinputlisting[language=Python, caption=Algoritma Bubble Sort]{code/2-bubble-sort.py}
 
 Sebelum menganalisis Algoritma \ref{algo:bubble} ada dua hal penting yang harus dipahami terlebih dahulu: besar masukan (\textit{input size}) dan waktu eksekusi (\textit{running time}). 
 \begin{figure}[htbp]%
@@ -290,22 +245,7 @@ Sebelum menganalisis Algoritma \ref{algo:bubble} ada dua hal penting yang harus 
 
 \FloatBarrier
 
-Algoritma \textit{Insertion Sort} bisa dilihat di Algoritma \ref{algo:insertion}. 
-\begin{algorithm}[H]
-	\caption{\textit{INSERTION-SORT(A)}}
-	\label{algo:insertion}
-	\begin{algorithmic}[1]
-	\FOR {$j = 2$ to $A.length$}
-		\STATE $key = A[j]$
-		\STATE $i = j - 1$
-		\WHILE {$i > 0$ and $A[i] > key$}
-			\STATE $A[i+1] = A[i]$
-			\STATE $i = i - 1$
-		\ENDWHILE
-		\STATE $A[i+1] = key$
-	\ENDFOR
-	\end{algorithmic}
-\end{algorithm} 
+\lstinputlisting[language=Python, caption=Algoritma Insertion Sort]{code/3-insertion-sort.py}
 
 Penjelasan lebih detil dari Gambar \ref{fig:analisisInsertionSort} adalah sebagai berikut.
 \begin{enumerate}

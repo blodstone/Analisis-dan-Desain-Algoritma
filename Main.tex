@@ -6,80 +6,16 @@
 \renewcommand\theclatihan{\arabic{clatihan}}
 \renewcommand\theclisting{\arabic{clisting}}
 \usepackage{soul,color}
+\usepackage{placeins}
 \usepackage{algorithmic}
 \usepackage{algorithm}
-\usepackage{placeins}
 \usepackage{listings}
+\usepackage{lstlinebgrd}
 \usepackage{graphicx}
 \usepackage{makeidx}
 \usepackage{mathtools}
 \usepackage{bookmark}
-
-\usepackage{etoolbox}
-\usepackage{xcolor} % http://www.ctan.org/tex-archive/macros/latex/contrib/xcolor
-
-% ----------------------------
-% Highlight Box
-% ----------------------------
-
-%\def\HiLi{\leavevmode\rlap{\hbox to \hsize{\color{yellow!50}\leaders\hrule height .9\baselineskip depth .5ex\hfill}}}
-\def\HiLi{\leavevmode\rlap{\hbox to \hsize{\color{yellow!50}\leaders\hrule height 1\baselineskip depth .9ex\hfill}}}
-
-% ----------------------------
-% Highlight Algorithm Commands
-% ----------------------------
-
-\newcommand{\algorithmichreturn}{}
-\makeatletter
-\AtBeginEnvironment{algorithm}{%
-    \newcommand{\HRETURN}[2][default]{
-        \ALC@it \HiLi \algorithmicreturn #2\ %
-    }%
-}
-\makeatother
-
-\newcommand{\algorithmichstate}{}
-\makeatletter
-\AtBeginEnvironment{algorithm}{%
-    \newcommand{\HSTATE}[2][default]{
-        \ALC@it \HiLi #2\ %
-    }%
-}
-\makeatother
-
-\newcommand{\algorithmichwhile}{}
-\makeatletter
-\AtBeginEnvironment{algorithm}{%
-  \newcommand{\HWHILE}[2][default]{\ALC@it \HiLi \algorithmicwhile\ #2\ %
-    \ALC@com{#1}\begin{ALC@whl}}%
-}
-\makeatother
-
-\newcommand{\algorithmichif}{}
-\makeatletter
-\AtBeginEnvironment{algorithm}{%
-  \newcommand{\HIF}[2][default]{\ALC@it\HiLi \algorithmicif\ #2\ %
-    \ALC@com{#1}\begin{ALC@if}}%
-}
-\makeatother
-
-\newcommand{\algorithmichendif}{}
-\makeatletter
-\AtBeginEnvironment{algorithm}{%
-    \newcommand{\ENDHIF}{\end{ALC@if}\ALC@it\HiLi\algorithmicendif}
-}
-\makeatother
-
-\newcommand{\algorithmichendwhile}{}
-\makeatletter
-\AtBeginEnvironment{algorithm}{%
-    \newcommand{\ENDHWHILE}{\end{ALC@whl}\ALC@it\HiLi\algorithmicendwhile}
-}
-\makeatother
-
-%\algnewcommand\HRETURN{\HiLi \algorithmicreturn}%
-
-%\newcommand{\algorithmicreturn}{\HiLi \textbf{return}}
+\usepackage{color}
 
 %\usepackage{letterspace}
 %\renewcommand\allcapsspacing[1]{{\addfontfeature{LetterSpace=15}#1}}
@@ -106,6 +42,33 @@
 	frame=single,
 % backgroundcolor=\color{lbcolor},
 }
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\definecolor{codehighlight}{rgb}{1,0.65,0.65}
+ 
+\lstdefinestyle{pylist}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+ 
+\lstset{style=pylist}
+
 \author{STMIK Mikroskil}
 \title{Desain dan Analisis Algoritma}
 \publisher{Teknik Informatika -- STMIK Mikroskil}
