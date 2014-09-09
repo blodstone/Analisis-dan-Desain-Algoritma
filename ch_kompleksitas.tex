@@ -33,82 +33,122 @@ Dalam modul ini tidak akan dijelaskan secara terperinci bagaimana menggunakan ma
 
 Notasi yang paling umum digunakan adalah O (Big-O). Alasannya adalah karena notasi tersebut digunakan untuk menggambarkan batas atas (\textit{upper limit}) dari sebuah fungsi ketika masukan untuk fungsi tersebut meningkat (\textit{increase}). Alhasil, Big-O sangat cocok untuk memperlihatkan \textit{worst case} dari sebuah algoritma. Apa yang dimaksud dengan worst case akan dijelaskan pada salah satu sub-bagian dari modul ini.
 
-Contoh penggunaan Big-O: Algoritma Bubble Sort. $T(n) = O(n^2)$. Artinya: algoritma Bubble Sort memiliki kompleksitas waktu $n^2$. 
+Contoh notasi Big-O: Algoritma Bubble Sort memiliki kompleksitas $T(n) = O(n^2)$. Artinya: algoritma Bubble Sort memiliki kompleksitas waktu $n^2$. 
 
 \section{Mengukur Kompleksitas Algoritma Menggunakan Big-O}
 
-Cara menghitung kompleksitas algoritma non rekursif tidak persis dengan algoritma rekursif. Namun yang pasti adalah, bahwa penggunaan fungsi matematis dan aturan dasar penjumlahan digunakan dalam perhitungan.
+Secara umum pengukuran kompleksitas algoritma dilakukan dengan melakukan perhitungan terhadap \textbf{pertumbuhan} jumlah langkah yang diperlukan untuk menyelesaikan sebuah algoritma. Biasanya langkah-langkah ini dihitung dengan cukup gamblang, yaitu dengan langsung menghitung berapa kali satu baris algoritma dijalankan.
+
+Walaupun kedengarannya cukup mudah, perlu dicatat juga bahwa yang dijelaskan sebelumnya hanyalah cara menghitung kompleksitas algoritma non rekursif. Perhitungan kompleksitas algoritma non-rekursif tidak persis dengan algoritma rekursif. Untuk memulai pembahasan, kita akan membahas perhitungan kompleksitas pada algoritma non-rekursif terlebih dahulu. Kita baru akan membahas cara perhitungan kompleksitas algoritma rekursif pada bab berikutnya. Begitupun, dasar perhitungan kompleksitas adalah sama: menggunakan fungsi matematis dan aturan dasar penjumlahan.
 
 Pada setiap modul, seraya berbagai teknik desain algoritma akan dibahas, juga akan diperlihatkan bagaimana menghitung kompleksitas algoritmanya. 
 
-Secara umum, langkah-langkah untuk mengukur kompleksitas algoritma non rekursif (umum):
+Secara umum, langkah-langkah untuk mengukur kompleksitas algoritma non-rekursif adalah sebagai berikut:
 
 \begin{enumerate}
-    \item Mengidentifikasi operasi dasar
+    \item Mengidentifikasi operasi dasar.
     \item Menentukan ukuran input.
     \item Memeriksa apakah pertumbuhan operasi dasar hanya bergantung pada ukuran input. Jika ya, maka tidak ada \textit{worst case} ataupun \textit{best case}. Namun jika terdapat faktor lain, maka perhitungan \textit{worst case} dibedakan dengan \textit{best case}.
     \item Menghitung derajat pertumbuhan langkah operasi dasar terhadap perubahan ukuran input dengan menggunakan fungsi matematika.
 \end{enumerate}
 
-Beberapa rumus matematika yang umum digunakan:
+Beberapa rumus matematika yang dapat digunakan untuk menunjang langkah keempat yaitu:
 
-\begin{enumerate}
-    \item $\sum\limits_{i=l}^u 1 = 1 + 1 + 1 + 1 + \ldots = u - l + 1$
-    \item $\sum\limits_{i=1}^n 1 = n$
-    \item $\sum\limits_{i=1}^n i = 1 + 2 + \cdots + n = \frac{n(n + 1)}{2} \approx \frac{1}{2}n^2$
-    \item $\sum\limits_{i=1}^n i^2 = 1^2 + 2^2 + \cdots + n^2 = \frac{n(n + 1)(2n + 1)}{6} \approx \frac{1}{3}n^3$
-    \item $\sum\limits_{i=1}^n i^k = 1^k + 2^k + \cdots + n^k \approx \frac{1}{k + 1}n^{k+1}$
-    \item $\sum\limits_{i=0}^n a^i = 1 + a + \cdots + a^n = \frac{a^{n + 1} - 1}{a - 1}(a \neq 1)$
-    \item $\sum\limits_{i=0}^n 2^i = 2^{n + 1} - 1$
-    \item $\sum\limits_{i=1}^n i \times 2^i = 1 \times 2^1 + 2 \times 2^2 + \cdots + n \times 2^n \approx \frac{1}{3}n^3$
-    \item $\sum\limits_{i=l}^u ca_i = c \sum\limits_{i=l}^u a_i$
-    \item $\sum\limits_{i=l}^u (a_i \pm b_i) = \sum\limits_{i=l}{u} a_i \pm \sum\limits_{i=l}{u} b_i$
-\end{enumerate}
+\begin{equation}\label{eq:common-1}
+    \sum\limits_{i=l}^u 1 = 1 + 1 + 1 + 1 + \ldots = u - l + 1
+\end{equation}
 
-Contoh sederhana:
+\begin{equation}\label{eq:common-2}
+    \sum\limits_{i=1}^n 1 = n
+\end{equation}
 
-\lstinputlisting[language=Python, caption=Maximum Element]{code/1-max-element.py}
+\begin{equation}\label{eq:common-3}
+    \sum\limits_{i=1}^n i = 1 + 2 + \cdots + n = \frac{n(n + 1)}{2} \approx \frac{1}{2}n^2
+\end{equation}
+
+\begin{equation}\label{eq:common-4}
+    \sum\limits_{i=1}^n i^2 = 1^2 + 2^2 + \cdots + n^2 = \frac{n(n + 1)(2n + 1)}{6} \approx \frac{1}{3}n^3
+\end{equation}
+
+\begin{equation}\label{eq:common-5}
+    \sum\limits_{i=1}^n i^k = 1^k + 2^k + \cdots + n^k \approx \frac{1}{k + 1}n^{k+1}
+\end{equation}
+
+\begin{equation}\label{eq:common-6}
+    \sum\limits_{i=0}^n a^i = 1 + a + \cdots + a^n = \frac{a^{n + 1} - 1}{a - 1}(a \neq 1)
+\end{equation}
+
+\begin{equation}\label{eq:common-7}
+    \sum\limits_{i=0}^n 2^i = 2^{n + 1} - 1
+\end{equation}
+
+\begin{equation}\label{eq:common-8}
+    \sum\limits_{i=1}^n i \times 2^i = 1 \times 2^1 + 2 \times 2^2 + \cdots + n \times 2^n \approx \frac{1}{3}n^3
+\end{equation}
+
+\begin{equation}\label{eq:common-9}
+    \sum\limits_{i=l}^u ca_i = c \sum\limits_{i=l}^u a_i
+\end{equation}
+
+\begin{equation}\label{eq:common-10}
+    \sum\limits_{i=l}^u (a_i \pm b_i) = \sum\limits_{i=l}{u} a_i \pm \sum\limits_{i=l}{u} b_i
+\end{equation}
+
+Biasanya kita akan mengubah deret langkah yang didapatkan melalui hasil perhitungan kompleksitas ke dalam bentuk yang lebih sederhana, dengan menggunakan fungsi-fungsi matematika di atas.
+
+Untuk memperjelas, kita akan langsung mencoba melakukan perhitungan kompleksitas terhadap sebuah algoritma sederhana. Misalkan kita memiliki algoritma untuk menghitung nilai maksimum di dalam sebuah \textit{array} seperti berikut:
+
+\lstinputlisting[language=Python, 
+                 label={algo:maxelem},
+                 caption=Maximum Element
+                ]
+                {code/1-max-element.py}
 
 \FloatBarrier
 
+Langkah-langkah yang dijalankan untuk menghitung kompleksitas yaitu:
+
 \begin{enumerate}
-    \item \textbf{Mengidentifikasi operasi dasar.} Operasi dasar adalah perbandingan antara \textbf{max} dan \textbf{A[i]}, karena itulah operasi yang paling sering dilakukan yang merupakan logika dasar algoritma tersebut untuk memecahkan masalah.
-    \item \textbf{Menentukan ukuran input.} Ukuran input adalah \textbf{n}, yang merupakan besar / panjang dari array atau list \textbf{A}. \textbf{n} menjadi ukuran input karena berpengaruh terhadap banyaknya operasi dasar dilakukan.
-    \item \textbf{Memeriksa apakah pertumbuhan operasi dasar hanya bergantung pada ukuran input.} Untuk algoritma di atas, \textbf{n} merupakan satu-satunya penentu banyaknya operasi dasar dilakukan, sehingga dalam perhitungan kompleksitas tidak diikutsertakan analisis \textit{worst case}, \textit{best case}, maupun \textit{average case}.
-    \item \textbf{Menghitung derajat pertumbuhan langkah operasi dasar terhadap perubahan ukuran input dengan menggunakan fungsi matematika.} Di bawah ini merupakan cara perhitungannya.
+    \item \textbf{Mengidentifikasi operasi dasar.} Operasi dasar adalah perbandingan antara \textbf{maximum} dan \textbf{arr[i]} pada baris ke 7, karena operasi ini merupakan operasi yang paling sering dilakukan yang merupakan logika dasar algoritma tersebut untuk memecahkan masalah.
+    \item \textbf{Menentukan ukuran input.} Ukuran input adalah \textbf{arr\_len}, yang merupakan besar / panjang dari array atau list \textbf{arr}. \textbf{arr\_len} menjadi ukuran input karena berpengaruh terhadap banyaknya operasi dasar dilakukan.
+    \item \textbf{Memeriksa apakah pertumbuhan operasi dasar hanya bergantung pada ukuran input.} Untuk algoritma pada listing~\ref{algo:maxelem}, \textbf{arr\_len} merupakan satu-satunya penentu banyaknya operasi dasar dilakukan, sehingga dalam perhitungan kompleksitas tidak diikutsertakan analisis \textit{worst case}, \textit{best case}, maupun \textit{average case}.
+    \item \textbf{Menghitung derajat pertumbuhan langkah operasi dasar terhadap perubahan ukuran input dengan menggunakan fungsi matematika.} 
 \end{enumerate}
+
+Langkah keempat memerlukan perhitungan yang lebih mendetail. Derajat pertumbuhan yang dimaksud adalah seberapa besar pengaruh sebagian kode terhadap jumlah langkah keseluruhan dari sebuah algoritma. Pada algoritma dalam lsiting~\ref{algo:maxelem}, bagian yang mempengaruhi adalah bagian perulangan, tepatnya pada bagian yang diwarnai dalam listing~\ref{algo:maxelem-highlighted}.
 
 \lstinputlisting[language=Python, 
                  caption=Perulangan pada Maximum Element, 
+                 label={algo:maxelem-highlighted},
                  linebackgroundcolor={\ifnum\value{lstnumber}>5\ifnum\value{lstnumber}<11\color{codehighlight}\fi\fi}
                 ]
                 {code/1-max-element.py}
 
 \FloatBarrier
 
-$$
-T(n) = \sum\limits_{i=0}^{n-1} 1
-$$
+Penjelasan: Perulangan merupakan deret, sehingga perulangan yang terpola dengan baik dapat digantikan ke dalam fungsi matematis berikut:
 
-Penjelasan: Perulangan merupakan deret, sehingga perulangan yang terpola dengan baik dapat digantikan ke dalam rumus matematis di atas. Isi dari sigma berisi 1 karena: \textbf{dalam setiap perulangan terdapat 1 kali operasi dasar dilakukan}.
+\begin{equation}\label{eq:maxelem-loop}
+    T(n) = \sum\limits_{i=0}^{n-1} 1
+\end{equation}
 
-$$
+Isi dari sigma berisi 1 karena: \textbf{dalam setiap perulangan terdapat 1 kali operasi dasar yang dilakukan}. Selanjutnya, kita akan menggunakan rumus matematika~\ref{eq:common-1} pada fungsi~\ref{eq:maxelem-loop}:
+
+\begin{equation}\label{eq:maxelem-loop-2}
 T(n) = n - 1 + 1 = n
-$$
+\end{equation}
 
-Penjelasan: Gunakan rumus pertama yang tertera sebelum contoh algoritma.
+Selanjutnya hasil akhir pada persamaan~\ref{eq:maxelem-loop-2} diubah ke dalam notasi asimtotik sesuai dengan aturan notasi seperti berikut:
 
 $$
 T(n) = O(n)
 $$
 
-Penjelasan: Hasil akhir diubah ke dalam notasi asimtotik sesuai dengan aturan notasi.
-
-Alhasil, algoritma di atas memiliki kompleksitas O(n), atau sering disebut dengan kompleksitas linear. Terdapat beberapa pengelompokan kompleksitas yang umum.
+Alhasil, algoritma di atas memiliki kompleksitas $O(n)$, atau sering disebut dengan kompleksitas linear.
 
 \section{Kriteria Efisiensi umum}
 
-Terdapat beberapa kriteria efisiensi umum:
+Sebelum membahas lebih banyak contoh perhitungan kompleksitas lagi, kita akan terlebih dahulu melihat berbagai kriteria efisiensi algoritma yang ada. Terdapat beberapa kriteria efisiensi umum, yaitu:
 
 \begin{enumerate}
     \item \textbf{$O (1)$: Kompleksitas Konstan.} Merupakan kriteria di mana ukuran input sama sekali tidak berpengaruh pada jumlah langkah sebuah algoritma. Kompleksitas ini merupakan jenis yang paling efisien / cepat.
@@ -116,7 +156,7 @@ Terdapat beberapa kriteria efisiensi umum:
     \begin{figure}
         \centering
         \includegraphics[width=\textwidth]{fig/ConstantGrowth}
-        \caption{Testing}
+        \caption{Grafik Pertumbuhan Konstan}
     \end{figure}
 
     \FloatBarrier
@@ -126,7 +166,7 @@ Terdapat beberapa kriteria efisiensi umum:
     \begin{figure}
         \centering
         \includegraphics[width=\textwidth]{fig/LogarithmicGrowth}
-        \caption{Testing}
+        \caption{Grafik Pertumbuhan Logaritmik}
     \end{figure}
 
     \FloatBarrier
@@ -136,7 +176,7 @@ Terdapat beberapa kriteria efisiensi umum:
     \begin{figure}
         \centering
         \includegraphics[width=\textwidth]{fig/LinearGrowth}
-        \caption{Testing}
+        \caption{Grafik Pertumbuhan Linear}
     \end{figure}
 
     \FloatBarrier
@@ -146,7 +186,7 @@ Terdapat beberapa kriteria efisiensi umum:
     \begin{figure}
         \centering
         \includegraphics[width=\textwidth]{fig/NLogNGrowth}
-        \caption{Testing}
+        \caption{Grafik Pertumbuhan $n \log n$}
     \end{figure}
 
     \FloatBarrier
@@ -156,18 +196,29 @@ Terdapat beberapa kriteria efisiensi umum:
     \begin{figure}
         \centering
         \includegraphics[width=\textwidth]{fig/ExponentialGrowth}
-        \caption{Testing}
+        \caption{Grafik Pertumbuhan Polinomial}
     \end{figure}
 
     \FloatBarrier
 
     \item \textbf{$O (n!)$: Kompleksitas faktorial.} Merupakan jenis kompleksitas yang sangat tinggi. Sedikit perubahan pada ukuran input akan berpengaruh sangat besar terhadap jumlah langkah. Kompleksitas ini sangat dihindari, namun untuk sebuah permasalahan komputasi yang sangat kompleks algoritma dengan kompleksitas yang tinggi juga sering digunakan.
+
+    \begin{figure}
+        \centering
+        \includegraphics[width=\textwidth]{fig/FactorialGrowth}
+        \caption{Grafik Pertumbuhan Faktorial}
+    \end{figure}
+
+    \FloatBarrier
 \end{enumerate}
+
+Masing-masing kriteria efisiensi tersebut memiliki tingkat pertumbuhan yang berbeda-beda. Gambar~\ref{fig:allcomplexitycomparison} memperlihatkan perbandingan tingkat pertumbuhan dari masing-masing kriteria efisiensi. Perhatikan bagaimana $O(1)$ tak lagi terlihat di dalam gambar~\ref{fig:allcomplexitycomparison} karena nilainya yang sangat kecil (paling efisien).
 
 \begin{figure}
     \centering
     \includegraphics[width=\textwidth]{fig/AllComplexityComparison}
-    \caption{Testing}
+    \caption{Perbandingan Tingkat Pertumbuhan Seluruh Kriteria Efisiensi}
+    \label{fig:allcomplexitycomparison}
 \end{figure}
 
     \FloatBarrier
