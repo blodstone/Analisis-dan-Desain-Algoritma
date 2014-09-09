@@ -21,7 +21,7 @@ Teknik \textit{Divide and Conquer} digambarkan dalam Figur \ref{fig:DivideandCon
 \newpage{}
 \begin{figure}[htbp]
 \begin{center}
-	\includegraphics[scale=0.7]{Ilustrasi.jpg}%
+	\includegraphics[scale=0.7]{fig/sunario-3/Ilustrasi.jpg}%
 	\caption{Illustrasi dari Divide and Conquer}%
 	\label{fig:DivideandConquerIllustration}%
 \end{center}
@@ -62,7 +62,7 @@ Setelah membagikan list menjadi dua bagian terus menerus sampai bagian terkeciln
 
 \begin{figure}[htbp]
 \begin{center}
-	\includegraphics[scale=0.7]{Sum.png}%
+	\includegraphics[scale=0.7]{fig/sunario-3/Sum.png}%
 	\caption{Illustrasi Penjumlahan Divide and Conquer}%
 	\label{fig:DivideAndConquerSum}%
 \end{center}
@@ -91,7 +91,7 @@ karena ukuran dari mid adalah panjang list $(n)$ dibagi dua. Dengan begitu, komp
 
 \begin{figure}[htbp]
 \begin{center}
-	\includegraphics[scale=0.8]{fn.jpg}%
+	\includegraphics[scale=0.8]{fig/sunario-3/fn.jpg}%
 	\caption{Illustrasi pembagian list}%
 	\label{fig:PembagianList}%
 \end{center}
@@ -125,7 +125,7 @@ Sebagai Contoh, pencarian nilai 15 dari sebuah list dapat dilihat pada Figur \re
 
 \begin{figure}[htbp]
 \begin{center}
-	\includegraphics[scale=0.8]{BinarySearch.jpg}%
+	\includegraphics[scale=0.8]{fig/sunario-3/BinarySearch.jpg}%
 	\caption{Illustrasi Binary Search}%
 	\label{fig:Binary Search Ilustration}%
 \end{center}
@@ -154,14 +154,14 @@ def BinarySearch(MyList, val, left, right):
 \end{lstlisting}
 
 \subsection{Analisi Binary Search}
-Untuk analisis metode binary search dalam menentukan kompleksitasnya, perhatikan untuk sebuah array, misalkan dengan panjang $(n) = 8$, maka :\newline
+Untuk analisis metode binary search dalam menentukan kompleksitasnya, perhatikan untuk sebuah list, misalkan dengan panjang $(n) = 8$, maka :\newline
 Ketika n=8, Binary Search akan mereduksi ukuran listnya menjadi 4\newline
 Ketika n=4, Binary Search akan mereduksi ukuran listnya menjadi 2\newline
 Ketika n=2, Binary Search akan mereduksi ukuran listnya menjadi 1\newline
 
 Dapat dilihat bahwa binary search dipanggil sebanyak tiga kali untuk $n = 8$. Sehingga didapat $8 = 2^{3}$ atau secara general dapat dikatakan $n = 2^{k}$.  Nilai dari k dapat dinotasikan menjadi $2^{k} = n$ sehingga $k = log_2\ n$ sehingga didapatkan untuk kempleksitas dari binary search adalah  O (log n).
 
-Misalnya jika kita memiliki array sebanyak $n$ elemen, maka kasus tersebut melakukan pembandingan list sebanyak $log\ n$. Bandingkan dengan linear search yang  melakukan pembandingan sebanyak $n$. Tentunya algoritma binary search menjadi lebih cepat. Namun jika data yang ada merupakan data yang tidak terurut maka akan jauh lebih cepat jika menggunakan linear search sehingga penggunaan binary search akan ada cost tambahan yaitu dalam mengurutkan List.
+Misalnya jika kita memiliki list sebanyak $n$ elemen, maka kasus tersebut melakukan pembandingan list sebanyak $log\ n$. Bandingkan dengan linear search yang  melakukan pembandingan sebanyak $n$. Tentunya algoritma binary search menjadi lebih cepat. Namun jika data yang ada merupakan data yang tidak terurut maka akan jauh lebih cepat jika menggunakan linear search sehingga penggunaan binary search akan ada cost tambahan yaitu dalam mengurutkan List.
 
 \section{\textit{Merge Sort}}
 Algoritma \textit{Merge Sort} merupakan algoritma pengurutan yang mengikuti pendekatan \textit{Divide and Conquer}. Algoritma tersebut menggunakan 3 langkah dari \textit{Divide and Conquer} sebagai berikut:
@@ -175,7 +175,7 @@ Figur \ref{fig:mergeSortIllustration} menggambarkan cara kerja Merge Sort terhad
 
 \begin{figure}[htbp]
 \begin{center}
-	\includegraphics[scale=0.8]{mergeSort1.jpg}%
+	\includegraphics[scale=0.8]{fig/sunario-3/mergeSort1.jpg}%
 	\caption{Illustrasi dari cara kerja merge sort}%
 	\label{fig:mergeSortIllustration}%
 \end{center}
@@ -271,8 +271,8 @@ MargeSort mempunyai kelemahan utama yaitu jumlah lokasi penyimpanan ekstra yang 
 
 \textit{Quick sort} seperti \textit{merge sort} juga menggunakan pendekatan \textit{Divide and Conquer}. Tiga langkah yang dimiliki \textit{quick sort} ialah:
 \begin{enumerate}
-	\item \textit{Divide} --- Mempartisi (menyusun) \textit{List} $MyList[p..r]$ menjadi dua \textit{subarray} yang berukuran lebih kecil yaitu $MyList[l..q-1]$ dan $MyList[q+1..r]$ sehingga setiap elemen dari $MyList[l..q-1]$ lebih kecil atau sama dengan $A[q]$ yang mana akan lebih kecil atau sama dari setiap elemen $A[q+1..r]$. Indeks $q$ dihitung melalui fungsi partisi.
-	\item \textit{Conquer} --- Urut dua \textit{subarray} $A[p..q-1]$ dan $A[q+1..r]$ secara rekursif.
+	\item \textit{Divide} --- Mempartisi (menyusun) \textit{List} $MyList[p..r]$ menjadi dua \textit{list} yang berukuran lebih kecil yaitu $MyList[l..q-1]$ dan $MyList[q+1..r]$ sehingga setiap elemen dari $MyList[l..q-1]$ lebih kecil atau sama dengan $A[q]$ yang mana akan lebih kecil atau sama dari setiap elemen $A[q+1..r]$. Indeks $q$ dihitung melalui fungsi partisi.
+	\item \textit{Conquer} --- Urut dua \textit{list} $A[p..q-1]$ dan $A[q+1..r]$ secara rekursif.
 	\item \textit{Combine} --- Tahap ini tidak perlu dilakukan karena sudah tergabung secara otomatis.
 \end{enumerate}
 
@@ -283,7 +283,7 @@ Adapun ilustrasi dari cara kerja dari \textit{quick sort} dapat dilihat pada Fig
 
 \begin{figure}[htbp]
 \begin{center}
-	\includegraphics[scale=0.8]{QuickSort.jpg}%
+	\includegraphics[scale=0.8]{fig/sunario-3/QuickSort.jpg}%
 	\caption{Ilustrasi Quick Sort}%
 	\label{fig:Quick Sort Ilustration}%
 \end{center}
@@ -296,7 +296,7 @@ Adapun ilustrasi dari cara kerja dari \textit{quick sort} dengan partisi \textit
 
 \begin{figure}[htbp]
 \begin{center}
-	\includegraphics[scale=0.5]{QuickSort2.jpg}%
+	\includegraphics[scale=0.5]{fig/sunario-3/QuickSort2.jpg}%
 	\caption{Ilustrasi Quick Sort In-Place}%
 	\label{fig:Quick Sort Ilustration 2}%
 \end{center}
@@ -333,7 +333,7 @@ def partition(myList,start,end):
 \end{lstlisting}
 
 \subsection{Analisi Quick Sort}
-Kompleksitas dari \textit{quick sort} tergantung pada  seimbang atau tidak seimbang pembagian partisi pada list yang akan diurutkan. Sebuah partisi yang  baik membagi list menjadi dua list dengan ukuran sama, sedangkan partisi yang buruk membagi list menjadi dua array dengan ukuran yang sangat berbeda. Partisi terburuk menempatkan hanya satu elemen dalam satu list dan semua elemen lainnya dalam list lain. 
+Kompleksitas dari \textit{quick sort} tergantung pada  seimbang atau tidak seimbang pembagian partisi pada list yang akan diurutkan. Sebuah partisi yang  baik membagi list menjadi dua list dengan ukuran sama, sedangkan partisi yang buruk membagi list menjadi dua list dengan ukuran yang sangat berbeda. Partisi terburuk menempatkan hanya satu elemen dalam satu list dan semua elemen lainnya dalam list lain. 
 
 Untuk menganalisi kompleksitas dari \textit{quick sort}, terlebih dahulu, perlu diperhitungkan kompleksitas dari algoritma partisi yang digunakan karena algoritma partisi yang digunakan bukan pernyataan sederhana.
 
@@ -406,7 +406,7 @@ $$	  \mathnormal{f(n) = 2^{log_{2}n}f(1)+log_{2}n.i.n } $$
 
 $$	  \mathnormal{f(n) = i.n\ log\ n = O(n\ log\ n)} $$
 
-untuk kasus terburuk, jika partisinya dibagi tidak sama rata atau hanya satu elemen dalam satu list dan semua elemen lainnya dalam list lain seperti Figur \ref{fig:WorseCaseQuickSort}, maka kompleksitasnya adalah:
+untuk Worse Case, jika partisinya dibagi tidak sama rata atau hanya satu elemen dalam satu list dan semua elemen lainnya dalam list lain seperti Figur \ref{fig:WorseCaseQuickSort}, maka kompleksitasnya adalah:
 
 $$	  \mathnormal{f(n) = f(n-1)+i+n} $$
 $$	  \mathnormal{f(n) = f(n-2)+i(n-1)+(i.n)} $$
@@ -428,7 +428,7 @@ $$ \mathnormal{f(n) = i.n^{2} = O(n^{2})} $$
 
 \begin{figure}[htbp]
 \begin{center}
-	\includegraphics[scale=0.5]{QuickSort3.jpg}%
+	\includegraphics[scale=0.5]{fig/sunario-3/QuickSort3.jpg}%
 	\caption{Quick Sort Worse Case}%
 	\label{fig:WorseCaseQuickSort}%
 \end{center}
