@@ -276,7 +276,7 @@ MargeSort mempunyai kelemahan utama yaitu jumlah lokasi penyimpanan ekstra yang 
 	\item \textit{Combine} --- Tahap ini tidak perlu dilakukan karena sudah tergabung secara otomatis.
 \end{enumerate}
 
-Teknik \textit{Quick sort} berbeda teknik \textit{merge sort} dimana \textit{merge sort} nenbagi elemen-elemen dalam list berdasarkan posisi, \textit{quick sort} membagi elemen-elemen dalam List tersebut berdasrkan nilai. Secara spesifik, \textit{quick sort} mengatur kembali setiap elemen yang ada dalam list berdasarkan \emph{partisinya}. Sebuah variasi dari algoritma \textit{quick sort} adalah algoritma \textit{randomized-quick sort} dimana di algoritma tersebut memilih \textit{partisi} secara acak (\textit{random}). Hal tersebut dilakukan dengan harapan pemotongan rangkaian (\textit{partition}) lebih terdistribusi secara merata.
+Teknik \textit{Quick sort} berbeda teknik \textit{merge sort} dimana \textit{merge sort} membagi elemen-elemen dalam list berdasarkan posisi, \textit{quick sort} membagi elemen-elemen dalam List tersebut berdasrkan nilai. Secara spesifik, \textit{quick sort} mengatur kembali setiap elemen yang ada dalam list berdasarkan \emph{partisinya}. Sebuah variasi dari algoritma \textit{quick sort} adalah algoritma \textit{randomized-quick sort} dimana di algoritma tersebut memilih \textit{partisi} secara acak (\textit{random}). Hal tersebut dilakukan dengan harapan pemotongan rangkaian (\textit{partition}) lebih terdistribusi secara merata.
 
 \newpage{}
 Adapun ilustrasi dari cara kerja dari \textit{quick sort} dapat dilihat pada Figur \ref{fig:Quick Sort Ilustration} berikut:
@@ -310,8 +310,8 @@ Dalam Python Algoritma \textit{quick sort} dapat diterapkan sebagai berikut:
 def quickSort(myList, start, end):
  if start < end:
    pivot = partition(myList, start, end)
-   quicksort(myList, start, pivot-1)
-   quicksort(myList, pivot+1, end)
+   quickSort(myList, start, pivot-1)
+   quickSort(myList, pivot+1, end)
    return myList
 \end{lstlisting}
 
@@ -387,16 +387,16 @@ $$	  \mathnormal{f(n) = 2f(\frac{n}{2})+i.n } $$
 
 dengan syarat $n > 1$, maka:
 $$	  \mathnormal{f(n) = 2f(\frac{n}{2})+i.n } $$
-$$	  \mathnormal{f(n) = 2(2f(\frac{n}{4}))+i.\frac{n}{2} } + i+n $$
+$$	  \mathnormal{f(n) = 2(2f(\frac{n}{4})+i.\frac{n}{2} )} + i.n $$
 $$	  \mathnormal{f(n) = 4f(\frac{n}{4})+2i.n } $$
-$$	  \mathnormal{f(n) = 2(4f(\frac{n}{8}))+i.\frac{n}{4} }+2i.n $$
+$$	  \mathnormal{f(n) = 4(2f(\frac{n}{8})+i.\frac{n}{4} )}+2i.n $$
 $$	  \mathnormal{f(n) = 8f(\frac{n}{8})+3i.n } $$
 $$	  \mathnormal{f(n) = 16f(\frac{n}{16})+4i.n } $$
 $$	  \mathnormal{f(n) = 2^{k}f(\frac{n}{2^{k}})+k.i.n } $$
 
 untuk $ \mathnormal{f(n) = (\frac{n}{2^{k}})} $ :
 
-$$ \mathnormal{\frac{n}{2^{k}}} $$
+$$ \mathnormal{\frac{n}{2^{k}}=1} $$
 $$ \mathnormal{2^{k}=n} $$
 $$ \mathnormal{k=log_{2}n} $$
 
@@ -406,9 +406,9 @@ $$	  \mathnormal{f(n) = 2^{log_{2}n}f(1)+log_{2}n.i.n } $$
 
 $$	  \mathnormal{f(n) = i.n\ log\ n = O(n\ log\ n)} $$
 
-untuk Worse Case, jika partisinya dibagi tidak sama rata atau hanya satu elemen dalam satu list dan semua elemen lainnya dalam list lain seperti Figur \ref{fig:WorseCaseQuickSort}, maka kompleksitasnya adalah:
+Untuk Worse Case dari \textit{quick sort} , jika partisinya dibagi tidak sama rata atau hanya satu elemen dalam satu list dan semua elemen lainnya dalam list lain seperti Figur \ref{fig:WorseCaseQuickSort}, maka kompleksitasnya adalah:
 
-$$	  \mathnormal{f(n) = f(n-1)+i+n} $$
+$$	  \mathnormal{f(n) = f(n-1)+i.n} $$
 $$	  \mathnormal{f(n) = f(n-2)+i(n-1)+(i.n)} $$
 $$	  \mathnormal{f(n) = f(n-2)+2(i.n)} $$
 $$	  \mathnormal{f(n) = f(n-3)+i(n-2))+2(i.n)} $$
