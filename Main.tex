@@ -1,4 +1,5 @@
 \documentclass[a4paper]{tufte-book}
+\usepackage{lmodern}% http://ctan.org/pkg/lm
 \newcounter{ccounter}
 \newcounter{clatihan}
 \newcounter{clisting}
@@ -15,33 +16,8 @@
 \usepackage{makeidx}
 \usepackage{mathtools}
 \usepackage{bookmark}
-\usepackage{color}
+\usepackage{xcolor}
 
-%\usepackage{letterspace}
-%\renewcommand\allcapsspacing[1]{{\addfontfeature{LetterSpace=15}#1}}
-%\renewcommand\smallcapsspacing[1]{{\addfontfeature{LetterSpace=10}#1}}
-\lstset{
-	language=[Visual]C++,
-	keywordstyle=\bfseries\ttfamily\color[rgb]{0,0,1},
-	identifierstyle=\ttfamily,
-	commentstyle=\color[rgb]{0.133,0.545,0.133},
-	stringstyle=\ttfamily\color[rgb]{0.627,0.126,0.941},
-	showstringspaces=false,
-	basicstyle=\small,
-	numberstyle=\footnotesize,
-	numbers=left,
-	stepnumber=1,
-	numbersep=10pt,
-	tabsize=2,
-	breaklines=true,
-	prebreak = \raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
-	breakatwhitespace=false,
-	aboveskip={1.5\baselineskip},
-  columns=fixed,
-  extendedchars=true,
-	frame=single,
-% backgroundcolor=\color{lbcolor},
-}
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.5,0.5,0.5}
 \definecolor{codepurple}{rgb}{0.58,0,0.82}
@@ -126,6 +102,9 @@
 }{
 	\end{myindentpar}
 }
+
+\renewcommand{\lstlistingname}{Algoritma}% Listing -> Algoritma
+\renewcommand{\lstlistlistingname}{Daftar \lstlistingname s}% List of Listings -> Daftar Algoritma
 
 \makeatletter
 
