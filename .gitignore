@@ -6,5 +6,9 @@
 *.dvi
 *.ps
 *.tmp
+*.swp
+*.synctex
 *.idx
-*.tps
+*.ind
+*.ilg
+*.orig
