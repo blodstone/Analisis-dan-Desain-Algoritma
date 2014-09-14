@@ -1,9 +1,44 @@
 \chapter{Pengantar dan Model Matematika Big O}\label{ch:modul1}
 
 \section{Pendahuluan}
-Algoritma merupakan langkah-langkah yang ditempuh untuk menyelesaikan masalah. Ada sebuah, atau sekumpulan, input yang diproses sehingga menghasilkan sebuah (atau sekumpulan) output ataupun kondisi yang didefinisikan sebagai solusi untuk masalah di awal. Langkah-langkah yang ditempuh, bertujuan untuk mentransfer logika manusia dalam menyelesaikan masalah komputasi, ke dalam program komputer.
 
-Masalah komputasi tidak hanya dapat diselesaikan dengan sebuah cara. Bisa jadi, ada banyak jenis cara atau algoritma yang dapat menyelesaikan sebuah pokok permasalahan yang sama. Sebagai contoh, masalah pengurutan dapat diselesaikan dengan algoritma Bubble Sort, Merge Sort, dan berbagai algoritma yang lain.
+\newthought{Algoritma} merupakan sebuah rangkaian proses komputasional yang mengkonversi satu atau beberapa masukan (\textit{input}) menjadi satu set keluaran (\textit{output}) jika memungkinkan. Untuk menyelesaikan permasalahan secara baik menggunakan algoritma, kita memerlukan tahapan analisis dan desain algoritma yang tepat dan benar. Tahapan desain akan menentukan bagaimana merancang algoritma kita sedangkan tahapan analisis akan menentukan seberapa banyak ruang (\textit(space)) dan seberapa lama waktu (\textit(time)) yang dibutuhkan algoritma tersebut. Secara umum langkah-langkah dalam penyelesaian masalah bisa dilihat di Gambar \ref{fig:TahapanAnalisisDanDesain}
+
+\begin{figure}%
+\includegraphics[scale=0.8]{fig/TahapanAnalisisDanDesain.eps}%
+\caption{Tahapan Analisis dan Desain Algoritma}%
+\label{fig:TahapanAnalisisDanDesain}%
+\end{figure}
+
+\subsection{Memahami permasalahan}
+Memahami permasalahan merupakan langkah pertama dan merupakan langkah terpenting karena tanpa pemahaman yang baik langkah-langkah berikutnya tidak mungkin bisa terlaksana dengan baik. Pemahaman dilakukan dengan membaca deskripsi dari permasalahan secara baik. Apabila permasalahan tersebut merupakan permasalahan umum seperti misalnya masalah pengurutan, maka kita bisa menggunakan algoritma yang sudah ada untuk menyelesaikan. Jika tidak, maka kita harus mendesain dari awal algoritma tersebut.
+
+Hal lain yang perlu diperhatikan baik-baik adalah masukan (\textit{input}) untuk permasalahan tersebut. Besarnya ukuran masukan menentukan algoritma yang akan kita gunakan. 
+
+\subsection{Memilih antara penyelesaian permasalahan dengan pendekatan pasti (\textit{Exact}) atau approksimasi (\textit{approximate})}
+Yang dimaksud dengan pendekatan pasti adalah algoritma kita dijamin pasti bisa menemukan solusi dari permasalahan tersebut. Sedangkan pendekatan approksimasi, algoritma kita hanyalah memberikan hasil yang paling mendekati solusi sebenarnya. Kenapa perlu pendekatan approksimasi? Karena terkadang pendekatan pasti tidak bisa menemukan solusi dari permasalahan yang ada (bisa disebabkan karena ruang permasalahan sangat besar sekali sehingga memerlukan waktu yang sangat lama untuk menemukan solusinya).
+ 
+\subsection{Menentukan struktur data}
+Beberapa algoritma memerlukan struktur data tertentu seperti contohnya \textit{graph}. Struktur data yang tepat bisa memudahkan dan meningkatkan efisiensi waktu dan ruang dari implementasi sebuah algoritmo tertentu. 
+
+\subsection{Menentukan teknik desain algoritma}
+Bagaimana jika permasalahan yang akan kita selesaikan tidak memiliki algoritma umum yang cocok untuk kita gunakan langsung? Maka kita harus mendesain algoritma tersebut dari awal. 
+
+Untuk mendesain sebuah algoritma kita memerlukan teknik desain algoritma. Teknik desain algoritma merupakan sebuah pendekatan atau paradigma penyelesaian permasalahan yang bisa digunakan untuk berbagai jenis permasalahan yang ada. Salah satu contoh teknik desain algoritma adalah \textit{Divide and Conguer} dan \textit{Dynamic Programming}.
+
+\subsection{Mendesain algoritma}
+Jika kita sudah memahami permasalahan, menentukan struktur data dan teknik desain maka kita bisa melakukan desain algoritma. Desain algoritma bisa menggunakan bahasa perantara seperti \textit{pseudocode} atau \textit{flowchart}. Kita juga bisa langsung menggunakan bahasa pemrograman untuk mendesain algoritma. 
+
+\subsection{Menentukan kebenaran dari algoritma}
+Setelah sebuah algoritma selesai didesain, kita harus membuktikan kebenarannya atau dengan kata lain kita harus membuktikan bahwa algoritma kita memberikan solusi yang benar untuk semua masukan permasalahan dalam waktu yang terbatas. Ada beberapa cara untuk membuktikan kebenaran algoritma, salah satunya adalah menggunakan metode induksi matematika.
+
+\subsection{Menganalisis algoritma}
+Setelah mengetahui kebenaran dari sebuah algoritma maka langkah selanjutnya adalah mengetahui tingkat efisiensi ruang dan waktu dari algoritma tersebut. Efisiensi waktu menentukan seberapa cepat algoritma tersebut berjalan, sedangkan efisiensi ruang menentukan seberapa banyak memori yang diperlukan oleh algoritma tersebut. 
+
+\section{Pengenalan Kompleksitas Algoritma}
+Waktu yang diperlukan bagi \textit{Insertion Sort} untuk menyelesaikan proses pengurutannya tergantung pada jumlah masukan. Dengan kata lain, semakin besar jumlah masukan, semakin lama waktu yang diperlukan. Untuk dua masukan dengan jumlah yang sama, \textit{Insertion Sort} bisa memakan waktu yang berbeda tergantung dari seberapa terurutnya mereka. Dari sini, kita bisa mengambil kesimpulan bahwa, waktu yang diperlukan berkembang sesuai dengan ukuran dari masukan.
+
+Besar masukan sebuah algoritma sangat tergantung terhadap permasalahan yang sedang dihadapi. Sebagai contohnya, jika berbicara mengenai permasalahan pengurutan maka besar masukan berupa berapa banyak bilangan dalam sebuah \textit{array} (\textit{array size}). Untuk permasalahan lain seperti misalnya permasalahan pencarian rute terpendek dimana masukannya adalah berupa \textit{graph} (akan dijelaskan di mata kuliah struktur data), maka yang menjadi besar masukannya adalah jumlah \textit{vertice} dan \textit{edge} dari \textit{graph} tersebut. 
 
 \section{Kompleksitas Algoritma}
 Algoritma yang berbeda tentu saja memiliki langkah-langkah yang berbeda. Sehingga, ada algoritma yang lebih cepat dibandingkan algoritma yang lain. Dan ada pula algoritma yang lebih hemat dalam penggunaan memori. Algoritma yang baik adalah algoritma yang dapat menyelesaikan masalah  sekaligus efisien dalam pemakaian waktu dan ruang. Istilah yang digunakan untuk mengukur hal tersebut adalah \textbf{kompleksitas algoritma}. Maka, terdapat 2 jenis kompleksitas algoritma, yakni:

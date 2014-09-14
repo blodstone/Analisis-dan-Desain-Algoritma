@@ -17,8 +17,8 @@ Class=LaTeXView
 Document=ch_kompleksitas.tex
 
 [Frame0_View0,0]
-TopLine=169
-Cursor=13698
+TopLine=0
+Cursor=30
 
 [Frame1]
 Flags=0
@@ -35,8 +35,8 @@ Class=LaTeXView
 Document=ch_pengantarAnalisisDanDesainAlgoritma.tex
 
 [Frame1_View0,0]
-TopLine=66
-Cursor=417
+TopLine=3
+Cursor=8283
 
 [Frame2]
 Flags=0
@@ -53,8 +53,8 @@ Class=LaTeXView
 Document=Main.tex
 
 [Frame2_View0,0]
-TopLine=57
-Cursor=1862
+TopLine=114
+Cursor=570
 
 [Frame3]
 Flags=0
