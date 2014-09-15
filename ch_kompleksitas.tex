@@ -19,7 +19,7 @@ Hal lain yang perlu diperhatikan baik-baik adalah masukan (\textit{input}) untuk
 Yang dimaksud dengan pendekatan pasti adalah algoritma kita dijamin pasti bisa menemukan solusi dari permasalahan tersebut. Sedangkan pendekatan approksimasi, algoritma kita hanyalah memberikan hasil yang paling mendekati solusi sebenarnya. Kenapa perlu pendekatan approksimasi? Karena terkadang pendekatan pasti tidak bisa menemukan solusi dari permasalahan yang ada (bisa disebabkan karena ruang permasalahan sangat besar sekali sehingga memerlukan waktu yang sangat lama untuk menemukan solusinya).
  
 \subsection{Menentukan struktur data}
-Beberapa algoritma memerlukan struktur data tertentu seperti contohnya \textit{graph}. Struktur data yang tepat bisa memudahkan dan meningkatkan efisiensi waktu dan ruang dari implementasi sebuah algoritmo tertentu. 
+Beberapa algoritma memerlukan struktur data tertentu seperti contohnya \textit{graph}. Struktur data yang tepat bisa memudahkan dan meningkatkan efisiensi waktu dan ruang dari implementasi sebuah algoritma tertentu. 
 
 \subsection{Menentukan teknik desain algoritma}
 Bagaimana jika permasalahan yang akan kita selesaikan tidak memiliki algoritma umum yang cocok untuk kita gunakan langsung? Maka kita harus mendesain algoritma tersebut dari awal. 
@@ -44,7 +44,7 @@ Instruksi yang diperbolehkan untuk dijalankan pada umumnya adalah instruksi penj
 Untuk setiap analisis, ada tiga jenis kasus yang mungkin terjadi, yaitu: kasus terbaik, kasus terburuk dan kasus rata-rata. Dalam pengurutan, kasus terbaik adalah ketika kita hendak mengurutkan rangkaian bilangan yang sudah terurut. Sedangkan kasus terburuk adalah ketika kita hendak mengurutkan rangkaian bilang yang terurut terbalik. Untuk kasus-kasus rangkaian bilang acak lainnya, kita gunakan kasus rata-rata.
 
 \section{Pengenalan Kompleksitas Algoritma}
-Hasil dari analisis biasanya berupa kompleksitas algoritma. Kita ambil contoh \textit{Insertion Sort}dimana waktu yang diperlukan bagi \textit{Insertion Sort} untuk menyelesaikan proses pengurutannya tergantung pada jumlah masukan. Dengan kata lain, semakin besar jumlah masukan, semakin lama waktu yang diperlukan. Untuk dua masukan dengan jumlah yang sama, \textit{Insertion Sort} bisa memakan waktu yang berbeda tergantung dari seberapa terurutnya mereka. Dari sini, kita bisa mengambil kesimpulan bahwa, waktu yang diperlukan berkembang sesuai dengan ukuran dari masukan.
+Hasil dari analisis biasanya berupa kompleksitas algoritma. Kita ambil contoh \textit{Insertion Sort}, dimana waktu yang diperlukan bagi \textit{Insertion Sort} untuk menyelesaikan proses pengurutannya tergantung pada jumlah masukan. Dengan kata lain, semakin besar jumlah masukan, semakin lama waktu yang diperlukan. Untuk dua masukan dengan jumlah yang sama, \textit{Insertion Sort} bisa memakan waktu yang berbeda tergantung dari seberapa terurutnya mereka. Dari sini, kita bisa mengambil kesimpulan bahwa, waktu yang diperlukan berkembang sesuai dengan ukuran dari masukan.
 
 Besar masukan sebuah algoritma sangat tergantung terhadap permasalahan yang sedang dihadapi. Sebagai contohnya, jika berbicara mengenai permasalahan pengurutan maka besar masukan berupa berapa banyak bilangan dalam sebuah \textit{array} atau \textit{array size}. Untuk permasalahan lain seperti misalnya permasalahan pencarian rute terpendek dimana masukannya adalah berupa \textit{graph}, maka yang menjadi besar masukannya adalah jumlah \textit{vertice} dan \textit{edge} dari \textit{graph} tersebut. 
 
