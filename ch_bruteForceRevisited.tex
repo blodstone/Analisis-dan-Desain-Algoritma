@@ -39,6 +39,12 @@ Pada Algoritma~\ref{algo:prime}, kita dapat melihat langkah-langkah brute force 
     \item Pengujian solusi dilakukan dengan menggunakan percabangan sederhana pada baris 4. Jika terdapat salah satu bilangan dari $2$ sampai $n$ yang habis dibagi $n$, maka $n$ bukan prima.
 \end{enumerate}
 
+\marginnote[-4cm]{
+    \begin{latihan}
+        Hitung kompleksitas dari Algoritma~\ref{algo:prime}.
+    \end{latihan}
+}
+
 Pada kasus bilangan prima ini kita dapat melihat bagaimana langkah menghasilkan semua kemungkinan solusi tidak secara langsung menghasilkan jawaban (karena solusi dari permasalahan hanya dua: benar atau salah; \textit{true} atau \textit{false}). Yang kita hasilkan dalam hal ini adalah nilai-nilai yang nantinya akan diuji oleh tahap selanjutnya. Kita akan melihat berbagai cara lain untuk menghasilkan semua kemungkinan dan pengujian jawaban seperti ini lagi nantinya.
 
 Karena sifat dari brute force yang mencoba menemukan seluruh kemungkinan solusi satu per satu ini, biasanya algoritma brute force selalu berhasil mendapatkan jawaban, jika memang terdapat jawaban pada permasalahan yang akan diselesaikan. Sayangnya, juga karena sifat mencoba semua kemungkinan ini juga maka jumlah langkah yang diperlukan untuk menyelesaikan sebuah masalah dengan brute force selalu berbanding lurus dengan ukuran permasalahan yang akan diselesaikan. Semakin besar masalah, semakin lambat brute force menyelesaikan masalah tersebut. 
@@ -51,9 +57,7 @@ Berdasarkan sifat lambat-tapi-pasti-selesai ini brute force biasanya digunakan p
     \item Ketika kemudahan atau kesederhanaan implementasi lebih penting daripada kecepatan penyeleasian
 \end{enumerate}
 
-\section{Contoh Algoritma Brute Force}
-
-\subsection{Mengalikan dua buah Matriks}
+\section{Contoh Kasus: Perkalian Matriks}
 
 Algoritma: hitung setiap elemen hasil perkalian satu per satu, dengan cara mengalikan dua vektor yang panjangnya n. Misalkan $C = A \times B$ dan elemen-elemen matrik dinyatakan sebagai $c_{ij}$, $a_{ij}$, dan $b_{ij}$.
 
@@ -95,7 +99,7 @@ Dalam notasi asimtotik menjadi:
     T(n) = O(n^3)
 \end{equation}
 
-\subsection{Selection Sort}
+\section{Contoh Kasus: Selection Sort}
 
 Algoritma ini mengurutkan deret dengan mencari elemen terkecil pada seluruh elemen dan menukarnya dengan posisi pertama (indeks 0). Kemudian dilakukan lagi hal yang sama untuk mencari elemen terkecil kedua untuk ditempatkan pada posisi kedua (indeks 1), dan seterusnya.
 
@@ -137,3 +141,5 @@ Dalam notasi asimtotik menjadi:
 \begin{equation}\label{eq:selection-kompleksitas-final}
     T(n) = O(n^2)
 \end{equation}
+
+\section{Contoh Kasus: Permutasi String}
