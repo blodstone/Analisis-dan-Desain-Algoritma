@@ -59,7 +59,7 @@ Berdasarkan sifat lambat-tapi-pasti-selesai ini brute force biasanya digunakan p
 
 \section{Contoh Kasus: Perkalian Matriks}
 
-Algoritma: hitung setiap elemen hasil perkalian satu per satu, dengan cara mengalikan dua vektor yang panjangnya n. Misalkan $C = A \times B$ dan elemen-elemen matrik dinyatakan sebagai $c_{ij}$, $a_{ij}$, dan $b_{ij}$.
+Algoritma untuk melakukan perkalian matriks cukup sederhana jika dilakukan secara naif. Kita dapat langsung menghitung setiap elemen hasil perkalian satu per satu, dengan cara mengalikan dua vektor yang panjangnya n. Misalkan $C = A \times B$ dan elemen-elemen matriks dinyatakan sebagai $c_{ij}$, $a_{ij}$, dan $b_{ij}$, maka rumus perkalian matriks adalah seperti yang tampak pada persamaan~\ref{eq:matriks-perkalian}.
 
 \begin{equation}\label{eq:matriks-perkalian}
     \begin{aligned}
@@ -68,18 +68,16 @@ Algoritma: hitung setiap elemen hasil perkalian satu per satu, dengan cara menga
     \end{aligned}
 \end{equation}
 
-Pseudocode:
+Langkah tersebut kemudian dapat kita ubah menjadi algoritma, seperti pada Algoritma~\ref{algo:matriks-perkalian}.
 
 \lstinputlisting[language=Python, 
-                 label={algo:matrix-perkalian},
+                 label={algo:matriks-perkalian},
                  linebackgroundcolor={\ifnum\value{lstnumber}=11\color{codehighlight}\fi},
                  caption=Algoritma Perkalian Matriks
                 ]
                 {code/6-perkalian-matriks.py}
 
-Menghitung kompleksitas:
-
-Operasi dasar untuk algoritma di atas adalah perkalian dan penjumlahan yang ada di baris 11 (yang diberi warna pada Algoritma~\ref{algo:matrix-perkalian}).
+Operasi dasar untuk algoritma di atas adalah perkalian dan penjumlahan yang ada di baris 11 (yang diberi warna pada Algoritma~\ref{algo:matriks-perkalian}).
 
 Rumus matematis untuk menghitung kompleksitasnya adalah:
 
@@ -103,9 +101,7 @@ Dalam notasi asimtotik menjadi:
 
 Algoritma ini mengurutkan deret dengan mencari elemen terkecil pada seluruh elemen dan menukarnya dengan posisi pertama (indeks 0). Kemudian dilakukan lagi hal yang sama untuk mencari elemen terkecil kedua untuk ditempatkan pada posisi kedua (indeks 1), dan seterusnya.
 
-Pendekatan ini merupakan salah satu wujud brute-force yang sangat jelas.
-
-Pseudocode:
+Pendekatan ini merupakan salah satu wujud brute-force yang sangat jelas. Algoritma~\ref{algo:selection-sort} menunjukkan contoh implementasi Selection Sort.
 
 \lstinputlisting[language=Python, 
                  label={algo:selection-sort},
@@ -114,11 +110,7 @@ Pseudocode:
                 ]
                 {code/7-selection-sort.py}
 
-Menghitung kompleksitas
-
-Operasi dasar untuk algoritma tersebut adalah perbandingan yang terdapat pada baris 7 pada Algoritma~\ref{algo:selection-sort}.
-
-Pada algoritma ini, kasus terburuk maupun terbaiknya memiliki kompleksitas yang sama, karena operasi dasar akan terus berjalan sama pada segala kondisi.
+Perhitungan kompleksitas Algoritma~\ref{algo:selection-sort} dapat dimulai dengan menghitung operasi dasarnya. Operasi dasar untuk algoritma tersebut adalah perbandingan yang terdapat pada baris 7 pada Algoritma~\ref{algo:selection-sort}. Pada algoritma ini, kasus terburuk maupun terbaiknya memiliki kompleksitas yang sama, karena operasi dasar akan terus berjalan sama pada segala kondisi.
 
 Rumus matematis untuk menghitung kompleksitasnya adalah:
 
@@ -136,10 +128,70 @@ Rumus matematis untuk menghitung kompleksitasnya adalah:
     \end{aligned}
 \end{equation}
 
-Dalam notasi asimtotik menjadi:
+Yang jika dituliskan dalam notasi asimtotik menjadi:
 
 \begin{equation}\label{eq:selection-kompleksitas-final}
     T(n) = O(n^2)
 \end{equation}
 
+Sehingga dapat dikatakan Selection Sort memiliki kompleksitas $O(n^2)$ atau kuadratik.
+
 \section{Contoh Kasus: Permutasi String}
+
+Salah satu contoh klasik lagi dari brute force yaitu perhitungan permutasi dari sebuah string. Misalkan kita ingin mencari seluruh permutasi dari sekumpulan karakter dengan panjang tertentu, sehingga sebuah string ``abc'' akan menghasilkan kumpulan string ``abc'', ``acb'', ``bac'', ``bca'', ``cab'', dan ``cba''. Pencarian seperti ini kerap kita lakukan untuk mencari kombinasi karakter yang tepat, misalnya untuk mencari kata kunci yang terlupakan.
+
+Dengan menggunakan teknik brute force, kita dapat langsung mencari permutasi secara rekursif, seperti yang tampak pada Algoritma~\ref{algo:permutasi}.
+
+\lstinputlisting[language=Python, 
+                 label={algo:permutasi},
+                 caption=Algoritma Mencari Permutasi String,
+                ]
+                {code/8-permutasi.py}
+
+Algoritma~\ref{algo:permutasi} melakukan pemotongan string per karakter, secara berputar. Setiap potongan string tersebut kemudian dioperasikan menggunakan fungsi yang sama lagi, hingga panjang string yang diproses menjadi satu. Setiap kali pemanggilan fungsi tahap n + 1 akan diberikan prefiks sebagai string hasil yang akan disimpan dalam storage. Dengan melakukan pemutaran terhadap semua karakter yang ada pada fungsi tahap 1, maka bisa didapatkan seluruh permutasi dari karakter yang ada dalam string.
+
+Algoritma~\ref{algo:permutasi} menggunakan cara rekursif untuk mendapatkan hasil akhir dari permutasi string. Model matematis dari algoritma~\ref{algo:permutasi} dapat dilihat pada persamaan~\ref{eq:permutasi-simple}.
+
+\begin{equation}
+    \label{eq:permutasi-simple}
+    \begin{split}
+	f(n) & = f(n - 1) + f(n - 2) + f(n - 3) + \cdots + f(n - k)
+    \end{split}
+\end{equation}
+
+Fungsi akan berhenti pada saat $n - k = 1$, sehingga:
+
+\begin{equation}
+    \label{eq:permutasi-proof-1}
+    \begin{split}
+	n - k & = 1 \\
+	    k & = n - 1
+    \end{split}
+\end{equation}
+
+Dan persamaan~\ref{eq:permutasi-simple} dapat diturunkan lebih lanjut seperti yang ditunjukkan pada persamaan~\ref{eq:permutasi-proof-2}.
+
+\begin{equation}
+    \label{eq:permutasi-proof-2}
+    \begin{split}
+	f(n) & = f(n - 1) + f(n - 2) + f(n - 3) + \cdots + f(n - k) \\
+	     & = \big(f(n - 2) + f(n - 3) + \cdots + f(n - k)\big) + f(n - 2) + f(n - 3) + \cdots + f(n - k) \\
+	     & = 2 \big(f(n - 2) + f(n - 3) + \cdots + f(n - k)\big) \\
+	     & = 2 \big( \big( f(n - 3) + \cdots + f(n - k) \big) + f(n - 3) + \cdots + f(n - k)\big) \\
+	     & = 2 \big( 2 \big( f(n - 3) + \cdots + f(n - k) \big)\big) \\
+	     & = 2^k \big(f(n - k)\big)
+    \end{split}
+\end{equation}
+
+Dengan menggunakan persamaan~\ref{eq:permutasi-proof-1} maka didapatkan:
+
+\begin{equation}
+    \label{eq:permutasi-proof-3}
+    \begin{split}
+	f(n) & = 2^{n - 1} \big(f(1)\big) \\
+	     & = 2^{n - 1}
+    \end{split}
+\end{equation}
+
+Dan karena notasi big O yang menyederhanakan, maka didapatkan kompleksitas algoritma~\ref{algo:permutasi} sebesar $\pmb{O(2^n)}$.
+
