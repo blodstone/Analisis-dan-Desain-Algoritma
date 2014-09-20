@@ -6,32 +6,60 @@
 
 Kata “force” yang digunakan dalam definisi strategi menyiratkan bahwa ia berasal dari komputer dan bukan dari intelektual seseorang. “Lakukan saja!” (\textit{just do it}) merupakan cara lain untuk menjelaskan resep pendekatan brute force. Sering kali strategi brute force menjadi yang paling mudah untuk diterapkan karena langsung dan dengan cara yang jelas (\textit{obvious way}).
 
-\section{Contoh Algoritma Brute Force}
+Secara sederhana, brute force merupakan teknik penyelesaian masalah yang dilakukan dengan menghasilkan \textbf{semua kemungkinan solusi} yang ada dari sebuah permasalahan, dan kemudian mencoba satu per satu kemungkinan solusi tersebut sampai jawaban ditemukan. Jadi, hanya terdapat dua langkah utama dari algoritma brute force:
 
-\subsection{Menghitung Pangkat}
+\begin{enumerate}
+    \item Hasilkan \textbf{semua} kemungkinan solusi yang ada.
+    \item Uji semua kemungkinan solusi untuk melihat apakah terdapat solusi yang benar.
+\end{enumerate}
 
-Menghitung $a^n$ di mana $a > 0$ dan $n$ bilangan bulat positif. Algoritma yang digunakan adalah dengan mengalikan $a$ sebanyak $n$ kali.
+Meskipun sekilas terlihat sederhana, masing-masing langkah pada teknik brute force ini memiliki detil yang berbeda-beda. Artinya algoritma atau metode yang digunakan untuk menghasilkan semua kemungkinan solusi maupun cara pengujian kebenaran solusi akan berbeda-beda, tergantung dari permasalahan yang akan kita hadapi. Tidak jarang kita akan melihat banyak kasus di mana kedua langkah ini akhirnya memerlukan berbagai langkah (atau bahkan algoritma) tambahan.
 
-\begin{equation}\label{eq:pangkat}
-    a^n = \left\{ 
-      \begin{array}{l l}
-          \underbrace{a \times a \times \cdots \times a}_{n \text{kali}} & \quad \text{jika $n > 0$} \\
-        1                                                                  & \quad \text{jika $n = 0$}
-      \end{array} 
-    \right.
-\end{equation}
+Misalkan jika kita ingin mengetahui apakah sebuah bilangan merupakan bilangan prima atau bukan, kita dapat langsung membagikan semua bilangan dari $2$ sampai $n$ untuk melihat apakah terdapat bilangan yang dapat habis membagi $n$. Salah satu cara untuk mencapai hal ini dapat dilihat pada Algoritma~\ref{algo:prime}.
 
-\subsection{Menghitung Faktorial}
+\marginnote[-4cm]{
+    \begin{teori}
+        Definisi dari bilangan prima yaitu bilangan alami $> 1$ yang tidak memiliki pembagi selain $1$ dan dirinya sendiri.
+    \end{teori}
+}
 
-Algoritma: kalikan n buah bilangan, yaitu $1, 2, 3, \cdots$ secara berurutan.
+\lstinputlisting[language=Python, 
+                 label={algo:prime},
+                 float,
+                 caption=Algoritma Cek Bilangan Prima dengan Brute Force
+                ]
+                {code/5-prime.py}
 
-\begin{equation}\label{eq:faktorial}
-    n! = 1 \times 2 \times 3 \times \cdots \times n
-\end{equation}
+\FloatBarrier
 
-\subsection{Mengalikan dua buah Matriks}
+Pada Algoritma~\ref{algo:prime}, kita dapat melihat langkah-langkah brute force sebagai berikut:
 
-Algoritma: hitung setiap elemen hasil perkalian satu per satu, dengan cara mengalikan dua vektor yang panjangnya n. Misalkan $C = A \times B$ dan elemen-elemen matrik dinyatakan sebagai $c_{ij}$, $a_{ij}$, dan $b_{ij}$.
+\begin{enumerate}
+    \item Penggunaan perulangan for (pada baris 3) untuk menghasilkan semua kemungkinan bilangan dari $2$ sampai $n$.
+    \item Pengujian solusi dilakukan dengan menggunakan percabangan sederhana pada baris 4. Jika terdapat salah satu bilangan dari $2$ sampai $n$ yang habis dibagi $n$, maka $n$ bukan prima.
+\end{enumerate}
+
+\marginnote[-4cm]{
+    \begin{latihan}
+        Hitung kompleksitas dari Algoritma~\ref{algo:prime}.
+    \end{latihan}
+}
+
+Pada kasus bilangan prima ini kita dapat melihat bagaimana langkah menghasilkan semua kemungkinan solusi tidak secara langsung menghasilkan jawaban (karena solusi dari permasalahan hanya dua: benar atau salah; \textit{true} atau \textit{false}). Yang kita hasilkan dalam hal ini adalah nilai-nilai yang nantinya akan diuji oleh tahap selanjutnya. Kita akan melihat berbagai cara lain untuk menghasilkan semua kemungkinan dan pengujian jawaban seperti ini lagi nantinya.
+
+Karena sifat dari brute force yang mencoba menemukan seluruh kemungkinan solusi satu per satu ini, biasanya algoritma brute force selalu berhasil mendapatkan jawaban, jika memang terdapat jawaban pada permasalahan yang akan diselesaikan. Sayangnya, juga karena sifat mencoba semua kemungkinan ini juga maka jumlah langkah yang diperlukan untuk menyelesaikan sebuah masalah dengan brute force selalu berbanding lurus dengan ukuran permasalahan yang akan diselesaikan. Semakin besar masalah, semakin lambat brute force menyelesaikan masalah tersebut. 
+
+Berdasarkan sifat lambat-tapi-pasti-selesai ini brute force biasanya digunakan pada dua situasi:
+
+\begin{enumerate}
+    \item Ketika ukuran permasalahan kecil
+    \item Ketika terdapat metode khusus (misalnya: heuristik) untuk menghasilkan ukuran kemungkinan solusi yang kecil
+    \item Ketika kemudahan atau kesederhanaan implementasi lebih penting daripada kecepatan penyeleasian
+\end{enumerate}
+
+\section{Contoh Kasus: Perkalian Matriks}
+
+Algoritma untuk melakukan perkalian matriks cukup sederhana jika dilakukan secara naif. Kita dapat langsung menghitung setiap elemen hasil perkalian satu per satu, dengan cara mengalikan dua vektor yang panjangnya n. Misalkan $C = A \times B$ dan elemen-elemen matriks dinyatakan sebagai $c_{ij}$, $a_{ij}$, dan $b_{ij}$, maka rumus perkalian matriks adalah seperti yang tampak pada persamaan~\ref{eq:matriks-perkalian}.
 
 \begin{equation}\label{eq:matriks-perkalian}
     \begin{aligned}
@@ -40,18 +68,16 @@ Algoritma: hitung setiap elemen hasil perkalian satu per satu, dengan cara menga
     \end{aligned}
 \end{equation}
 
-Pseudocode:
+Langkah tersebut kemudian dapat kita ubah menjadi algoritma, seperti pada Algoritma~\ref{algo:matriks-perkalian}.
 
 \lstinputlisting[language=Python, 
-                 label={algo:matrix-perkalian},
+                 label={algo:matriks-perkalian},
                  linebackgroundcolor={\ifnum\value{lstnumber}=11\color{codehighlight}\fi},
                  caption=Algoritma Perkalian Matriks
                 ]
-                {code/5-perkalian-matriks.py}
+                {code/6-perkalian-matriks.py}
 
-Menghitung kompleksitas:
-
-Operasi dasar untuk algoritma di atas adalah perkalian dan penjumlahan yang ada di baris 11 (yang diberi warna pada Algoritma~\ref{algo:matrix-perkalian}).
+Operasi dasar untuk algoritma di atas adalah perkalian dan penjumlahan yang ada di baris 11 (yang diberi warna pada Algoritma~\ref{algo:matriks-perkalian}).
 
 Rumus matematis untuk menghitung kompleksitasnya adalah:
 
@@ -71,78 +97,20 @@ Dalam notasi asimtotik menjadi:
     T(n) = O(n^3)
 \end{equation}
 
-\subsection{Bubble Sort}
-
-Dalam hal pengurutan data dalam sebuah deret (array atau list), algoritma Bubble merupakan produk dari teknik brute-force. 
-
-Definisi masalah pengurutan adalah menyusun setiap elemen semakin meningkat (atau sebaliknya) dengan elemen terdekat di sebelahnya. Maka, berdasarkan definisi tersebut, algoritma Bubble Sort bekerja dengan membandingkan elemen-elemen yang bersebelahan pada deret dan menukarnya jika tidak sesuai. Dengan melakukan hal itu berulang kali, maka elemen terbesar akan dibawa ke posisi terakhir pada deret. (jika urut naik) Penelusuran berikutnya akan membawa elemen terbesar kedua dan seterusnya hingga setelah melewati n- 1, seluruh elemen sudah terurut dengan baik.
-
-Pseudocode:
-
-\lstinputlisting[language=Python, 
-                 label={algo:bubble-2},
-                 linebackgroundcolor={\ifnum\value{lstnumber}=6\color{codehighlight}\fi},
-                 caption=Algoritma Bubble Sort,
-                ]
-                {code/2-bubble-sort.py}
-
-Menghitung kompleksitas:
-
-Operasi dasar untuk Bubble Sort adalah perbandingan, yang terdapat pada baris 6 pada Algoritma~\ref{algo:bubble-2}.
-
-Rumus matematis untuk menghitung kompleksitasnya kasus terburuknya (worst case) adalah:
-
-\begin{equation}\label{eq:bubble-kompleksitas}
-    \begin{aligned}
-        T(n) & = \sum\limits_{i=0}^{n-2} \sum\limits_{j=0}^{n-2-i} 1 \\
-             & = \sum\limits_{i=0}^{n-2} (n - 1 - i) \\
-             & = (n - 1) \sum\limits_{i=0}^{n-2} 1 - \sum\limits_{i=0}^{n-2} i \\
-             & = (n - 1)(n - 1) - \sum\limits_{i=0}^{n-2} i \\
-             & = (n - 1)(n - 1) - \frac{(n - 2)(n - 1)}{2} \\
-             & = \frac{2(n - 1)(n - 1) - (n - 2)(n - 1)}{2} \\
-             & = \frac{n(n - 1)}{2}
-    \end{aligned}
-\end{equation}
-
-Dalam notasi asimtotik menjadi:
-
-\begin{equation}\label{eq:bubble-kompleksitas-final}
-    T(n) = O(n^2)
-\end{equation}
-
-Algoritma ini akan berada pada kasus terbaik di saat deret sudah terurut, sehingga operasi dasar hanya dilakukan 1 kali pada loop i. Pada kondisi ini, rumus matematis untuk kompleksitas best casenya adalah:
-
-\begin{equation}\label{eq:bubble-kompleksitas-2}
-    \begin{aligned}
-        T(n) & = \sum\limits_{i=0}^{n-2} 1 \\
-             & = n - 1
-    \end{aligned}
-\end{equation}
-
-\begin{equation}\label{eq:bubble-kompleksitas-final-2}
-    T(n) = O(n)
-\end{equation}
-
-\subsection{Selection Sort}
+\section{Contoh Kasus: Selection Sort}
 
 Algoritma ini mengurutkan deret dengan mencari elemen terkecil pada seluruh elemen dan menukarnya dengan posisi pertama (indeks 0). Kemudian dilakukan lagi hal yang sama untuk mencari elemen terkecil kedua untuk ditempatkan pada posisi kedua (indeks 1), dan seterusnya.
 
-Pendekatan ini merupakan salah satu wujud brute-force yang sangat jelas.
-
-Pseudocode:
+Pendekatan ini merupakan salah satu wujud brute-force yang sangat jelas. Algoritma~\ref{algo:selection-sort} menunjukkan contoh implementasi Selection Sort.
 
 \lstinputlisting[language=Python, 
                  label={algo:selection-sort},
                  linebackgroundcolor={\ifnum\value{lstnumber}=7\color{codehighlight}\fi},
                  caption=Algoritma Selection Sort,
                 ]
-                {code/6-selection-sort.py}
+                {code/7-selection-sort.py}
 
-Menghitung kompleksitas
-
-Operasi dasar untuk algoritma tersebut adalah perbandingan yang terdapat pada baris 7 pada Algoritma~\ref{algo:selection-sort}.
-
-Pada algoritma ini, kasus terburuk maupun terbaiknya memiliki kompleksitas yang sama, karena operasi dasar akan terus berjalan sama pada segala kondisi.
+Perhitungan kompleksitas Algoritma~\ref{algo:selection-sort} dapat dimulai dengan menghitung operasi dasarnya. Operasi dasar untuk algoritma tersebut adalah perbandingan yang terdapat pada baris 7 pada Algoritma~\ref{algo:selection-sort}. Pada algoritma ini, kasus terburuk maupun terbaiknya memiliki kompleksitas yang sama, karena operasi dasar akan terus berjalan sama pada segala kondisi.
 
 Rumus matematis untuk menghitung kompleksitasnya adalah:
 
@@ -160,8 +128,70 @@ Rumus matematis untuk menghitung kompleksitasnya adalah:
     \end{aligned}
 \end{equation}
 
-Dalam notasi asimtotik menjadi:
+Yang jika dituliskan dalam notasi asimtotik menjadi:
 
 \begin{equation}\label{eq:selection-kompleksitas-final}
     T(n) = O(n^2)
 \end{equation}
+
+Sehingga dapat dikatakan Selection Sort memiliki kompleksitas $O(n^2)$ atau kuadratik.
+
+\section{Contoh Kasus: Permutasi String}
+
+Salah satu contoh klasik lagi dari brute force yaitu perhitungan permutasi dari sebuah string. Misalkan kita ingin mencari seluruh permutasi dari sekumpulan karakter dengan panjang tertentu, sehingga sebuah string ``abc'' akan menghasilkan kumpulan string ``abc'', ``acb'', ``bac'', ``bca'', ``cab'', dan ``cba''. Pencarian seperti ini kerap kita lakukan untuk mencari kombinasi karakter yang tepat, misalnya untuk mencari kata kunci yang terlupakan.
+
+Dengan menggunakan teknik brute force, kita dapat langsung mencari permutasi secara rekursif, seperti yang tampak pada Algoritma~\ref{algo:permutasi}.
+
+\lstinputlisting[language=Python, 
+                 label={algo:permutasi},
+                 caption=Algoritma Mencari Permutasi String,
+                ]
+                {code/8-permutasi.py}
+
+Algoritma~\ref{algo:permutasi} melakukan pemotongan string per karakter, secara berputar. Setiap potongan string tersebut kemudian dioperasikan menggunakan fungsi yang sama lagi, hingga panjang string yang diproses menjadi satu. Setiap kali pemanggilan fungsi tahap n + 1 akan diberikan prefiks sebagai string hasil yang akan disimpan dalam storage. Dengan melakukan pemutaran terhadap semua karakter yang ada pada fungsi tahap 1, maka bisa didapatkan seluruh permutasi dari karakter yang ada dalam string.
+
+Algoritma~\ref{algo:permutasi} menggunakan cara rekursif untuk mendapatkan hasil akhir dari permutasi string. Model matematis dari algoritma~\ref{algo:permutasi} dapat dilihat pada persamaan~\ref{eq:permutasi-simple}.
+
+\begin{equation}
+    \label{eq:permutasi-simple}
+    \begin{split}
+	f(n) & = f(n - 1) + f(n - 2) + f(n - 3) + \cdots + f(n - k)
+    \end{split}
+\end{equation}
+
+Fungsi akan berhenti pada saat $n - k = 1$, sehingga:
+
+\begin{equation}
+    \label{eq:permutasi-proof-1}
+    \begin{split}
+	n - k & = 1 \\
+	    k & = n - 1
+    \end{split}
+\end{equation}
+
+Dan persamaan~\ref{eq:permutasi-simple} dapat diturunkan lebih lanjut seperti yang ditunjukkan pada persamaan~\ref{eq:permutasi-proof-2}.
+
+\begin{equation}
+    \label{eq:permutasi-proof-2}
+    \begin{split}
+	f(n) & = f(n - 1) + f(n - 2) + f(n - 3) + \cdots + f(n - k) \\
+	     & = \big(f(n - 2) + f(n - 3) + \cdots + f(n - k)\big) + f(n - 2) + f(n - 3) + \cdots + f(n - k) \\
+	     & = 2 \big(f(n - 2) + f(n - 3) + \cdots + f(n - k)\big) \\
+	     & = 2 \big( \big( f(n - 3) + \cdots + f(n - k) \big) + f(n - 3) + \cdots + f(n - k)\big) \\
+	     & = 2 \big( 2 \big( f(n - 3) + \cdots + f(n - k) \big)\big) \\
+	     & = 2^k \big(f(n - k)\big)
+    \end{split}
+\end{equation}
+
+Dengan menggunakan persamaan~\ref{eq:permutasi-proof-1} maka didapatkan:
+
+\begin{equation}
+    \label{eq:permutasi-proof-3}
+    \begin{split}
+	f(n) & = 2^{n - 1} \big(f(1)\big) \\
+	     & = 2^{n - 1}
+    \end{split}
+\end{equation}
+
+Dan karena notasi big O yang menyederhanakan, maka didapatkan kompleksitas algoritma~\ref{algo:permutasi} sebesar $\pmb{O(2^n)}$.
+
