@@ -53,27 +53,6 @@ Berdasarkan sifat lambat-tapi-pasti-selesai ini brute force biasanya digunakan p
 
 \section{Contoh Algoritma Brute Force}
 
-\subsection{Menghitung Pangkat}
-
-Menghitung $a^n$ di mana $a > 0$ dan $n$ bilangan bulat positif. Algoritma yang digunakan adalah dengan mengalikan $a$ sebanyak $n$ kali.
-
-\begin{equation}\label{eq:pangkat}
-    a^n = \left\{ 
-      \begin{array}{l l}
-          \underbrace{a \times a \times \cdots \times a}_{n \text{kali}} & \quad \text{jika $n > 0$} \\
-        1                                                                  & \quad \text{jika $n = 0$}
-      \end{array} 
-    \right.
-\end{equation}
-
-\subsection{Menghitung Faktorial}
-
-Algoritma: kalikan n buah bilangan, yaitu $1, 2, 3, \cdots$ secara berurutan.
-
-\begin{equation}\label{eq:faktorial}
-    n! = 1 \times 2 \times 3 \times \cdots \times n
-\end{equation}
-
 \subsection{Mengalikan dua buah Matriks}
 
 Algoritma: hitung setiap elemen hasil perkalian satu per satu, dengan cara mengalikan dua vektor yang panjangnya n. Misalkan $C = A \times B$ dan elemen-elemen matrik dinyatakan sebagai $c_{ij}$, $a_{ij}$, dan $b_{ij}$.
@@ -114,58 +93,6 @@ Dalam notasi asimtotik menjadi:
 
 \begin{equation}\label{eq:matriks-perkalian-kompleksitas-final}
     T(n) = O(n^3)
-\end{equation}
-
-\subsection{Bubble Sort}
-
-Dalam hal pengurutan data dalam sebuah deret (array atau list), algoritma Bubble merupakan produk dari teknik brute-force. 
-
-Definisi masalah pengurutan adalah menyusun setiap elemen semakin meningkat (atau sebaliknya) dengan elemen terdekat di sebelahnya. Maka, berdasarkan definisi tersebut, algoritma Bubble Sort bekerja dengan membandingkan elemen-elemen yang bersebelahan pada deret dan menukarnya jika tidak sesuai. Dengan melakukan hal itu berulang kali, maka elemen terbesar akan dibawa ke posisi terakhir pada deret. (jika urut naik) Penelusuran berikutnya akan membawa elemen terbesar kedua dan seterusnya hingga setelah melewati n- 1, seluruh elemen sudah terurut dengan baik.
-
-Pseudocode:
-
-\lstinputlisting[language=Python, 
-                 label={algo:bubble-2},
-                 linebackgroundcolor={\ifnum\value{lstnumber}=6\color{codehighlight}\fi},
-                 caption=Algoritma Bubble Sort,
-                ]
-                {code/2-bubble-sort.py}
-
-Menghitung kompleksitas:
-
-Operasi dasar untuk Bubble Sort adalah perbandingan, yang terdapat pada baris 6 pada Algoritma~\ref{algo:bubble-2}.
-
-Rumus matematis untuk menghitung kompleksitasnya kasus terburuknya (worst case) adalah:
-
-\begin{equation}\label{eq:bubble-kompleksitas}
-    \begin{aligned}
-        T(n) & = \sum\limits_{i=0}^{n-2} \sum\limits_{j=0}^{n-2-i} 1 \\
-             & = \sum\limits_{i=0}^{n-2} (n - 1 - i) \\
-             & = (n - 1) \sum\limits_{i=0}^{n-2} 1 - \sum\limits_{i=0}^{n-2} i \\
-             & = (n - 1)(n - 1) - \sum\limits_{i=0}^{n-2} i \\
-             & = (n - 1)(n - 1) - \frac{(n - 2)(n - 1)}{2} \\
-             & = \frac{2(n - 1)(n - 1) - (n - 2)(n - 1)}{2} \\
-             & = \frac{n(n - 1)}{2}
-    \end{aligned}
-\end{equation}
-
-Dalam notasi asimtotik menjadi:
-
-\begin{equation}\label{eq:bubble-kompleksitas-final}
-    T(n) = O(n^2)
-\end{equation}
-
-Algoritma ini akan berada pada kasus terbaik di saat deret sudah terurut, sehingga operasi dasar hanya dilakukan 1 kali pada loop i. Pada kondisi ini, rumus matematis untuk kompleksitas best casenya adalah:
-
-\begin{equation}\label{eq:bubble-kompleksitas-2}
-    \begin{aligned}
-        T(n) & = \sum\limits_{i=0}^{n-2} 1 \\
-             & = n - 1
-    \end{aligned}
-\end{equation}
-
-\begin{equation}\label{eq:bubble-kompleksitas-final-2}
-    T(n) = O(n)
 \end{equation}
 
 \subsection{Selection Sort}
