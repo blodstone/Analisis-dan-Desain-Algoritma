@@ -15,8 +15,8 @@ Memahami permasalahan merupakan langkah pertama dan merupakan langkah terpenting
 
 Hal lain yang perlu diperhatikan baik-baik adalah masukan (\textit{input}) untuk permasalahan tersebut. Besarnya ukuran masukan menentukan algoritma yang akan kita gunakan. 
 
-\subsection{Memilih antara penyelesaian permasalahan dengan pendekatan pasti (\textit{Exact}) atau approksimasi (\textit{Approximate})}
-Yang dimaksud dengan pendekatan pasti adalah algoritma kita dijamin pasti bisa menemukan solusi dari permasalahan tersebut. Sedangkan pendekatan approksimasi, algoritma kita hanyalah memberikan hasil yang paling mendekati solusi sebenarnya. Kenapa perlu pendekatan approksimasi? Karena terkadang pendekatan pasti tidak bisa menemukan solusi dari permasalahan yang ada (bisa disebabkan karena ruang permasalahan sangat besar sekali sehingga memerlukan waktu yang sangat lama untuk menemukan solusinya).
+\subsection{Memilih antara penyelesaian permasalahan dengan pendekatan eksak (\textit{Exact}) atau approksimasi (\textit{Approximate})}
+Yang dimaksud dengan pendekatan eksak adalah algoritma kita dijamin pasti bisa menemukan solusi dari permasalahan tersebut. Sedangkan pendekatan approksimasi, algoritma kita hanyalah memberikan hasil yang paling mendekati solusi sebenarnya. Kenapa perlu pendekatan approksimasi? Karena terkadang pendekatan eksak tidak bisa menemukan solusi dari permasalahan yang ada (bisa disebabkan karena ruang permasalahan sangat besar sekali sehingga memerlukan waktu yang sangat lama untuk menemukan solusinya).
  
 \subsection{Menentukan struktur data}
 Beberapa algoritma memerlukan struktur data tertentu seperti contohnya \textit{graph}. Struktur data yang tepat bisa memudahkan dan meningkatkan efisiensi waktu dan ruang dari implementasi sebuah algoritma tertentu. 
@@ -393,8 +393,7 @@ Yang kemudian dengan menggunakan persamaan~\ref{eq:common-3} dapat kita sederhan
 \begin{equation}\label{eq:eksekusi-bubble-3}
     \begin{aligned}
         T(n) & =  c_{1}n + c_{2}\sum\limits_{i=2}^n i + c_{3}\sum\limits_{i=1}^{n-1} i \\
-             & = c_{1}n + c_2 \frac{(n-1)(n-2)}{2} + c_3 \frac{(n - 0)(n - 1)}{2} \\
-             & = c_{1}n + c_2 \frac{(n-2)(n-1)}{2} + c_3 \frac{(n)(n - 1)}{2}
+             & = c_{1}n + c_2 \frac{n(n+2)}{2} + c_3 \frac{n^2}{2} 
     \end{aligned}
 \end{equation}
 
@@ -403,7 +402,7 @@ Persamaan \ref{eq:eksekusi-bubble-3} merupakan apa yang biasa disebut sebagai \t
 Untuk kasus terburuk (\textit{worst case}) akan terjadi jika \textit{array} angka yang akan diurut disusun secara terbalik semua (misalnya mengurut bilangan $\left\{5,4,3,2,1\right\}$ menjadi $\left\{1,2,3,4,5\right\}$). Untuk kasus tersebut, berarti kita harus mencocokkan setiap angka di \textit{inner loop}, atau dengan kata lain nilai dari $t_{i}$ adalah sama dengan nilai dari $i$. 
 
 \begin{equation}\label{eq:eksekusi-bubble-4}
-    T(n) = c_{1}n + c_2\frac{(n-1)(n-2)}{2} + (c_3+c_4+c_5+c_6)\frac{(n-1)n}{2}
+    T(n) = c_{1}n + c_2\frac{n(n+2)}{2} + (c_3+c_4+c_5+c_6)\frac{n^2}{2}
 \end{equation}
 
 Persamaan~\ref{eq:eksekusi-bubble-4} bisa disederhanakan menjadi $an^2+bn+c$ atau yang disebut juga dengan fungsi kuadratic akan $n$. 
