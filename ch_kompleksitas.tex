@@ -2,10 +2,10 @@
 
 \section{Pendahuluan}
 
-\newthought{Algoritma} merupakan sebuah rangkaian proses komputasional yang mengkonversi satu atau beberapa masukan (\textit{input}) menjadi satu set keluaran (\textit{output}) jika memungkinkan. Untuk menyelesaikan permasalahan secara baik menggunakan algoritma, kita memerlukan tahapan analisis dan desain algoritma yang tepat dan benar. Tahapan desain akan menentukan bagaimana merancang algoritma kita sedangkan tahapan analisis akan menentukan seberapa banyak ruang (\textit{space}) dan seberapa lama waktu (\textit{time}) yang dibutuhkan algoritma tersebut. Secara umum langkah-langkah dalam penyelesaian masalah bisa dilihat di Gambar 1.
+\newthought{Algoritma} merupakan sebuah rangkaian proses komputasional yang mengkonversi satu atau beberapa masukan (\textit{input}) menjadi satu set keluaran (\textit{output}) jika memungkinkan. Untuk menyelesaikan permasalahan secara baik menggunakan algoritma, kita memerlukan tahapan analisis dan desain algoritma yang tepat dan benar. Tahapan desain akan menentukan bagaimana merancang algoritma kita sedangkan tahapan analisis akan menentukan seberapa banyak ruang (\textit{space}) dan seberapa lama waktu (\textit{time}) yang dibutuhkan algoritma tersebut. Secara umum langkah-langkah dalam penyelesaian masalah bisa dilihat di Gambar~\ref{fig:TahapanAnalisisDanDesain}.
 
 \begin{figure}
-    \includegraphics[scale=0.8]{fig/TahapanAnalisisDanDesain.eps}
+    \includegraphics[scale=0.8]{fig/TahapanAnalisisDanDesain}
     \caption{Tahapan Analisis dan Desain Algoritma}
     \label{fig:TahapanAnalisisDanDesain}
 \end{figure}
@@ -18,6 +18,7 @@ Hal lain yang perlu diperhatikan baik-baik adalah masukan (\textit{input}) untuk
 \subsection{Memilih antara penyelesaian permasalahan dengan pendekatan eksak (\textit{Exact}) atau approksimasi (\textit{Approximate})}
 Yang dimaksud dengan pendekatan eksak adalah algoritma kita dijamin pasti bisa menemukan solusi dari permasalahan tersebut. Sedangkan pendekatan approksimasi, algoritma kita hanyalah memberikan hasil yang paling mendekati solusi sebenarnya. Kenapa perlu pendekatan approksimasi? Karena terkadang pendekatan eksak tidak bisa menemukan solusi dari permasalahan yang ada (bisa disebabkan karena ruang permasalahan sangat besar sekali sehingga memerlukan waktu yang sangat lama untuk menemukan solusinya).
  
+
 \subsection{Menentukan struktur data}
 Beberapa algoritma memerlukan struktur data tertentu seperti contohnya \textit{graph}. Struktur data yang tepat bisa memudahkan dan meningkatkan efisiensi waktu dan ruang dari implementasi sebuah algoritma tertentu. 
 
@@ -61,6 +62,7 @@ Tentu diperlukan sebuah metode untuk mengukur seberapa cepat sebuah algoritma at
 Cepat atau lambatnya sebuah algoritma tidak dihitung menggunakan satuan waktu yang umum digunakan dalam kehidupan, seperti detik, menit, ataupun jam. Alasannya karena kecepatan proses sebuah algoritma yang sudah diimplementasikan ke dalam program komputer bergantung pada banyak faktor, seperti prosessor, sistem operasi, \textit{compiler} yang digunakan, dan faktor lain. Menghitung kompleksitas waktu sebuah algoritma adalah \textbf{menghitung jumlah langkah yang ditempuh, serta perubahan jumlah langkah saat ukuran input berubah}. Jadi, tidak akan ada hubungannya dengan performa komputer atau kompiler yang digunakan sebagai media implementasi algoritma tersebut.
 
 Pada banyak algoritma, jumlah langkah yang ditempuh sangat bergantung kepada ukuran dari masukan algoritma tersebut. Besar masukan sebuah algoritma sendiri sangat tergantung terhadap permasalahan yang sedang dihadapi. Sebagai contohnya, jika berbicara mengenai permasalahan pengurutan maka besar masukan berupa berapa banyak bilangan dalam sebuah \textit{array} (\textit{array size}). Untuk permasalahan lain seperti misalnya permasalahan pencarian rute terpendek dimana masukannya adalah berupa \textit{graph} (akan dijelaskan di mata kuliah struktur data), maka yang menjadi besar masukannya adalah jumlah \textit{vertice} dan \textit{edge} dari \textit{graph} tersebut. 
+
 
 Banyaknya varian masukan serta cara perhitungan ukuran masukan yang berbeda-beda ini pada akhirnya menyebabkan perhitungan kompleksitas waktu algoritma memerlukan sebuah notasi khusus: \textbf{notasi asimtotik}.
 
@@ -204,6 +206,7 @@ Sebelum membahas lebih banyak contoh perhitungan kompleksitas lagi, kita akan te
         \centering
         \includegraphics[width=\textwidth]{fig/ConstantGrowth}
         \caption{Grafik Pertumbuhan Konstan}
+        \label{fig:ConstantGrowth}
     \end{figure}
 
     \FloatBarrier
@@ -214,6 +217,7 @@ Sebelum membahas lebih banyak contoh perhitungan kompleksitas lagi, kita akan te
         \centering
         \includegraphics[width=\textwidth]{fig/LogarithmicGrowth}
         \caption{Grafik Pertumbuhan Logaritmik}
+        \label{fig:LogarithmicGrowth}
     \end{figure}
 
     \FloatBarrier
@@ -224,6 +228,7 @@ Sebelum membahas lebih banyak contoh perhitungan kompleksitas lagi, kita akan te
         \centering
         \includegraphics[width=\textwidth]{fig/LinearGrowth}
         \caption{Grafik Pertumbuhan Linear}
+        \label{fig:LinearGrowth}
     \end{figure}
 
     \FloatBarrier
@@ -234,6 +239,7 @@ Sebelum membahas lebih banyak contoh perhitungan kompleksitas lagi, kita akan te
         \centering
         \includegraphics[width=\textwidth]{fig/NLogNGrowth}
         \caption{Grafik Pertumbuhan $n \log n$}
+        \label{fig:NLogNGrowth}
     \end{figure}
 
     \FloatBarrier
@@ -244,6 +250,7 @@ Sebelum membahas lebih banyak contoh perhitungan kompleksitas lagi, kita akan te
         \centering
         \includegraphics[width=\textwidth]{fig/ExponentialGrowth}
         \caption{Grafik Pertumbuhan Polinomial}
+        \label{fig:ExponentialGrowth}
     \end{figure}
 
     \FloatBarrier
@@ -254,6 +261,7 @@ Sebelum membahas lebih banyak contoh perhitungan kompleksitas lagi, kita akan te
         \centering
         \includegraphics[width=\textwidth]{fig/FactorialGrowth}
         \caption{Grafik Pertumbuhan Faktorial}
+        \label{fig:FactorialGrowth}
     \end{figure}
 
     \FloatBarrier
