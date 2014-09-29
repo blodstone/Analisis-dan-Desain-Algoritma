@@ -4,7 +4,7 @@
 
 \newthought{Brute Force} adalah sebuah sebuah pendekatan yang bersifat \textit{straight forward} untuk memecahkan suatu masalah, biasanya didasarkan pada pernyataan masalah (\textit{problem statement}) dan definisi konsep yang dilibatkan. 
 
-Kata “force” yang digunakan dalam definisi strategi menyiratkan bahwa ia berasal dari komputer dan bukan dari intelektual seseorang. “Lakukan saja!” (\textit{just do it}) merupakan cara lain untuk menjelaskan resep pendekatan brute force. Sering kali strategi brute force menjadi yang paling mudah untuk diterapkan karena langsung dan dengan cara yang jelas (\textit{obvious way}).
+Kata ``Force'' yang digunakan dalam definisi strategi menyiratkan bahwa ia berasal dari komputer dan bukan dari intelektual seseorang. ÔŒakukan saja!Ô (\textit{just do it}) merupakan cara lain untuk menjelaskan resep pendekatan brute force. Sering kali strategi brute force menjadi yang paling mudah untuk diterapkan karena langsung dan dengan cara yang jelas (\textit{obvious way}).
 
 Secara sederhana, brute force merupakan teknik penyelesaian masalah yang dilakukan dengan menghasilkan \textbf{semua kemungkinan solusi} yang ada dari sebuah permasalahan, dan kemudian mencoba satu per satu kemungkinan solusi tersebut sampai jawaban ditemukan. Jadi, hanya terdapat dua langkah utama dari algoritma brute force:
 
@@ -155,7 +155,10 @@ Algoritma~\ref{algo:permutasi} menggunakan cara rekursif untuk mendapatkan hasil
 \begin{equation}
     \label{eq:permutasi-simple}
     \begin{split}
-	f(n) & = f(n - 1) + f(n - 2) + f(n - 3) + \cdots + f(n - k)
+	f(n) & = n \times f(n - 1) \\
+         & = n \times ((n - 1) \times f(n - 2)) \\
+         & = n \times (n - 1) \times ((n - 2) \times f(n - 3)) \\
+         & = n \times (n - 1) \times (n - 2) \times (n - 3) \times \cdots \times (n - k + 1) \times f(n - k)
     \end{split}
 \end{equation}
 
@@ -174,24 +177,10 @@ Dan persamaan~\ref{eq:permutasi-simple} dapat diturunkan lebih lanjut seperti ya
 \begin{equation}
     \label{eq:permutasi-proof-2}
     \begin{split}
-	f(n) & = f(n - 1) + f(n - 2) + f(n - 3) + \cdots + f(n - k) \\
-	     & = \big(f(n - 2) + f(n - 3) + \cdots + f(n - k)\big) + f(n - 2) + f(n - 3) + \cdots + f(n - k) \\
-	     & = 2 \big(f(n - 2) + f(n - 3) + \cdots + f(n - k)\big) \\
-	     & = 2 \big( \big( f(n - 3) + \cdots + f(n - k) \big) + f(n - 3) + \cdots + f(n - k)\big) \\
-	     & = 2 \big( 2 \big( f(n - 3) + \cdots + f(n - k) \big)\big) \\
-	     & = 2^k \big(f(n - k)\big)
+        f(n) & = n \times (n - 1) \times (n - 2) \times \cdots \times 1 \\
+             & = n!
     \end{split}
 \end{equation}
 
-Dengan menggunakan persamaan~\ref{eq:permutasi-proof-1} maka didapatkan:
-
-\begin{equation}
-    \label{eq:permutasi-proof-3}
-    \begin{split}
-	f(n) & = 2^{n - 1} \big(f(1)\big) \\
-	     & = 2^{n - 1}
-    \end{split}
-\end{equation}
-
-Dan karena notasi big O yang menyederhanakan, maka didapatkan kompleksitas algoritma~\ref{algo:permutasi} sebesar $\pmb{O(2^n)}$.
+Maka didapatkan kompleksitas algoritma~\ref{algo:permutasi} sebesar $\pmb{O(n!)}$.
 
