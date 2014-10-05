@@ -103,11 +103,12 @@ Kode prefiks dapat direpresentasikan dengan pohon biner yang diberi nilai 0 (cab
 Penggunaan algoritma greedy pada algoritma Huffman ada pada saat pemilihan dua pohon dengan frekuensi terkecil dalam membuat pohon Huffman. Algoritma greedy digunakan untuk meminimumkan total cost yang dibutuhkan dalam pembuatan pohon Huffman. Cost yang digunakan untuk menggabungkan dua buah pohon pada akar setara dengan jumlah frekuensi dua buah pohon yang digabungkan, oleh karena itu total cost pembentukan pohon Huffman adalah jumlah total seluruh penggabungan. Penggabungan dua buah pohon dilakukan setiap langkah dan algoritma Huffman selalu memilih dua buah pohon yang mempunyai frekuensi terkecil untuk meminimumkan total cost. Oleh karena itu algoritma Huffman adalah salah satu contoh algoritma yang menggunaan dari algoritma Greedy.
 
 Langkah-langkah pembentukan pohon Huffman adalah sebagai berikut:
-1. hitung frekuensi kemunculan karakter didalam data. Setiap karakter dinyatakan sebagai pohon bersimpul tunggal. Setiap simpul di-assign dengan frekuensi kemunculan karakter.
-2. Terapkan algorithma Greedy yaitu dengan menggabungkan dua buah pohon yang mempunyai frekuensi terkecil pada sebuah akar. Setelah digabungkan akar tersebut akan mempunyai frekuensi yang merupakan jumlah dari frekuensi dua buah pohon-pohon penyusunnya.
-3. Ulangi langkah 2 sampai hanya tersisa satu buah pohon Huffman. Agar pemilihan dua pohon yang akan digabungkan berlangsung cepat, maka semua harus terurut naik berdasarkan frekuensinya.
-
-Sebagai contoh kode Huffman diterapkan pada bahasa prancis "j'aime aller sur le bord de l'eau les jeudis ou les jours impairs" akan didapatkan frikuensi kemunculan seperti tabel 1.1  berikut ini :
+\begin{enumerate}
+\item Hitung frekuensi kemunculan karakter didalam data. Setiap karakter dinyatakan sebagai pohon bersimpul tunggal. Setiap simpul di-assign dengan frekuensi kemunculan karakter.
+\item Terapkan algorithma Greedy yaitu dengan menggabungkan dua buah pohon yang mempunyai frekuensi terkecil pada sebuah akar. Setelah digabungkan akar tersebut akan mempunyai frekuensi yang merupakan jumlah dari frekuensi dua buah pohon-pohon penyusunnya.
+\item Ulangi langkah 2 sampai hanya tersisa satu buah pohon Huffman. Agar pemilihan dua pohon yang akan digabungkan berlangsung cepat, maka semua harus terurut naik berdasarkan frekuensinya.
+\end{enumerate}
+Sebagai contoh kode Huffman diterapkan pada bahasa prancis "j'aime aller sur le bord de l'eau les jeudis ou les jours impairs" akan didapatkan frikuensi kemunculan seperti Tabel 1.1.
 
 \begin{table}[h]
 \begin{center}
