@@ -1,3 +1,4 @@
+*.tps
 *.aux
 *.bbl
 *.blg
@@ -12,4 +13,3 @@
 *.ind
 *.ilg
 *.orig
-*.tps

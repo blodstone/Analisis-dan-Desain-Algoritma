@@ -15,8 +15,8 @@ Memahami permasalahan merupakan langkah pertama dan merupakan langkah terpenting
 
 Hal lain yang perlu diperhatikan baik-baik adalah masukan (\textit{input}) untuk permasalahan tersebut. Besarnya ukuran masukan menentukan algoritma yang akan kita gunakan. 
 
-\subsection{Memilih antara penyelesaian permasalahan dengan pendekatan pasti (\textit{Exact}) atau approksimasi (\textit{Approximate})}
-Yang dimaksud dengan pendekatan pasti adalah algoritma kita dijamin pasti bisa menemukan solusi dari permasalahan tersebut. Sedangkan pendekatan approksimasi, algoritma kita hanyalah memberikan hasil yang paling mendekati solusi sebenarnya. Kenapa perlu pendekatan approksimasi? Karena terkadang pendekatan pasti tidak bisa menemukan solusi dari permasalahan yang ada (bisa disebabkan karena ruang permasalahan sangat besar sekali sehingga memerlukan waktu yang sangat lama untuk menemukan solusinya).
+\subsection{Memilih antara penyelesaian permasalahan dengan pendekatan eksak (\textit{Exact}) atau approksimasi (\textit{Approximate})}
+Yang dimaksud dengan pendekatan eksak adalah algoritma kita dijamin pasti bisa menemukan solusi dari permasalahan tersebut. Sedangkan pendekatan approksimasi, algoritma kita hanyalah memberikan hasil yang paling mendekati solusi sebenarnya. Kenapa perlu pendekatan approksimasi? Karena terkadang pendekatan eksak tidak bisa menemukan solusi dari permasalahan yang ada (bisa disebabkan karena ruang permasalahan sangat besar sekali sehingga memerlukan waktu yang sangat lama untuk menemukan solusinya).
  
 
 \subsection{Menentukan struktur data}
@@ -37,12 +37,6 @@ Setelah sebuah algoritma selesai didesain, kita harus membuktikan kebenarannya a
 Setelah mengetahui kebenaran dari sebuah algoritma maka langkah selanjutnya adalah mengetahui tingkat efisiensi ruang dan waktu dari algoritma tersebut. Efisiensi waktu menentukan seberapa cepat algoritma tersebut berjalan, sedangkan efisiensi ruang menentukan seberapa banyak memori yang diperlukan oleh algoritma tersebut. 
 
 Untuk mengetahui seberapa effisien sebuah algoritma bisa dilakukan setelah menganalisis kompleksitas dari algoritma tersebut. Melakukan analisis algoritma berarti memprediksi berapa sumber daya (misalnya berapa lama waktu eksekusi atau berapa besar memori yang dibutuhkan) yang dibutuhkan oleh sebuah program ketika mengeksekusi algoritma tersebut. Pada umumnya, fokus analisis ditujukan pada waktu eksekusi dari algoritma tersebut walaupun tidak tertutup kemungkinan untuk menganalisi faktor lain.
-
-Untuk mempermudah proses analisis, kita akan mengasumsikan bahwa algoritma kita akan berjalan di sebuah komputer dengan prossesor tunggal dan \textit{random-access machine} (RAM). Model RAM yang kita adopsi adalah model yang menjalankan algoritma secara baris per baris instruksi tanpa ada proses parallel. 
-
-Instruksi yang diperbolehkan untuk dijalankan pada umumnya adalah instruksi penjumlahan `+', pengurangan `-', perkalian `*', pembagian `/', modulus `\%', pembulatan atas `$\left\lceil\  \right\rceil$', dan pembulatan bawah `$\left\lfloor\ \right\rfloor$', penyimpanan/pengeluaran/duplikat data ke variabel (mis: $a = 5$ dan $a = b$), dan kontrol (IF, FOR, WHILE, RETURN dan sebagainya). Semua dari instruksi tersebut menggunakan waktu secara konstan (artinya memiliki nilai yang sama apapun kondisinya, kecuali disebutkan secara eksplisit).
-
-Untuk setiap analisis, ada tiga jenis kasus yang mungkin terjadi, yaitu: kasus terbaik, kasus terburuk dan kasus rata-rata. Dalam pengurutan, kasus terbaik adalah ketika kita hendak mengurutkan rangkaian bilangan yang sudah terurut. Sedangkan kasus terburuk adalah ketika kita hendak mengurutkan rangkaian bilang yang terurut terbalik. Untuk kasus-kasus rangkaian bilang acak lainnya, kita gunakan kasus rata-rata.
 
 \section{Pengenalan Kompleksitas Algoritma}
 Hasil dari analisis biasanya berupa kompleksitas algoritma. Kita ambil contoh \textit{Insertion Sort}, dimana waktu yang diperlukan bagi \textit{Insertion Sort} untuk menyelesaikan proses pengurutannya tergantung pada jumlah masukan. Dengan kata lain, semakin besar jumlah masukan, semakin lama waktu yang diperlukan. Untuk dua masukan dengan jumlah yang sama, \textit{Insertion Sort} bisa memakan waktu yang berbeda tergantung dari seberapa terurutnya mereka. Dari sini, kita bisa mengambil kesimpulan bahwa, waktu yang diperlukan berkembang sesuai dengan ukuran dari masukan.
@@ -141,6 +135,10 @@ Beberapa rumus matematika yang dapat digunakan untuk menunjang langkah keempat y
 
 \begin{equation}\label{eq:common-10}
     \sum\limits_{i=l}^u (a_i \pm b_i) = \sum\limits_{i=l}{u} a_i \pm \sum\limits_{i=l}{u} b_i
+\end{equation}
+
+\begin{equation}\label{eq:common-11}
+    \sum\limits_{i=m}^n 1 = n + 1 - m
 \end{equation}
 
 Biasanya kita akan mengubah deret langkah yang didapatkan melalui hasil perhitungan kompleksitas ke dalam bentuk yang lebih sederhana, dengan menggunakan fungsi-fungsi matematika di atas.
@@ -365,7 +363,7 @@ Setelah aturan ditetapkan dengan benar, kita akan langsung mencoba melakukan ana
 Sebelum menganalisis Algoritma \ref{algo:bubble} ada dua hal penting yang harus dipahami terlebih dahulu: besar masukan (\textit{input size}) dan waktu eksekusi (\textit{running time}). 
 
 \begin{figure}[htbp]%
-	\includegraphics[scale=0.6]{fig/BubbleAnalysis}%
+	\includegraphics[scale=0.6]{fig/bubbleAnalysis.eps}%
 	\caption{Analisis \textit{Bubble Sort}}%
 	\label{fig:analisis-bubble-sort}%
 \end{figure}
@@ -375,24 +373,24 @@ Sebelum menganalisis Algoritma \ref{algo:bubble} ada dua hal penting yang harus 
 Penjelasan lebih detil dari Gambar \ref{fig:analisis-bubble-sort} adalah sebagai berikut.
 
 \begin{enumerate}
-	\item Baris 1: Memiliki biaya sebesar $c_1$ dimana biaya tersebut akan diulang sebesar $n$ kali. Pengulangan sebesar $n$ kali dikarenakan adanya sebuah loop	ing ``\textbf{for} $i=1$ \textbf{to} $A.length-1$''. Looping \textbf{for} akan dieksekusi oleh komputer sebanyak $(A.length-1)+1$ kali.
-	\item Baris 2: Baris ini diulang sebanyak $\sum\limits_{i=2}^n i$ kali. 
-	\item Baris 3: Baris ini diulang sebanyak $\sum\limits_{i=1}^{n-1} i$ kali.
-	\item Baris 4 - 6: Baris ini diulang sebanyak $\sum\limits_{i=1}^{n-1} t_{i}$ kali.
+	\item Baris 1: Memiliki biaya sebesar $c_1$ dimana biaya tersebut akan diulang sebesar $n$ kali. Pengulangan sebesar $n$ kali dikarenakan looping \textbf{for} akan dieksekusi oleh komputer panjang arr\_len-1 + 1 kali.
+	\item Baris 2: Baris ini diulang sebanyak $\sum\limits_{j=2}^n j$ kali. 
+	\item Baris 3: Baris ini diulang sebanyak $\sum\limits_{j=1}^{n-1} j$ kali.
+	\item Baris 4 - 6: Baris ini diulang sebanyak $\sum\limits_{j=1}^{n-1} t_{j}$ kali.
 \end{enumerate} 
 
 Total waktu eksekusi dari Algoritma \ref{algo:bubble} dilambangkan dengan $T(n)$ dimana:
 
 \begin{equation}\label{eq:eksekusi-bubble-1}
-    T(n) = c_{1}n + c_{2}\sum\limits_{i=2}^n i + c_{3}\sum\limits_{i=1}^{n-1} i + (c_{4}+c_{5}+c_{6})\sum\limits_{i=1}^{n-1} t_{i} 
+    T(n) = c_{1}n + c_{2}\sum\limits_{j=2}^n j + c_{3}\sum\limits_{j=1}^{n-1} j + (c_{4}+c_{5}+c_{6})\sum\limits_{j=1}^{n-1} t_{j} 
 \end{equation} 
 
-Seandainya semua bilangan sudah terurut maka baris ke 4, 5 dan 6 dari Algoritma \ref{algo:bubble} tidak perlu dijalankan lagi karena perintah di baris ke 5 akan selalu menghasilkan $False$. Dengan kata lain nilai dari $t_{i}$ bernilai 0 karena tidak pernah dijalankan. Maka Persamaan \ref{eq:eksekusi-bubble-1} akan menjadi sebagai berikut.
+Seandainya semua bilangan sudah terurut maka baris ke 4, 5 dan 6 dari Algoritma \ref{algo:bubble} tidak perlu dijalankan lagi karena perintah di baris ke 5 akan selalu menghasilkan $False$. Dengan kata lain nilai dari $t_{j}$ bernilai 0 karena tidak pernah dijalankan. Maka Persamaan \ref{eq:eksekusi-bubble-1} akan menjadi sebagai berikut.
 
 \begin{equation}\label{eq:eksekusi-bubble-2}
     \begin{aligned}
-        T(n) & = c_{1}n + c_{2}\sum\limits_{i=2}^n i + c_{3}\sum\limits_{i=1}^{n-1} i + (c_{4}+c_{5}+c_{6}) 0 \\
-             & =  c_{1}n + c_{2}\sum\limits_{i=2}^n i + c_{3}\sum\limits_{i=1}^{n-1} i
+        T(n) & = c_{1}n + c_{2}\sum\limits_{j=2}^n j + c_{3}\sum\limits_{j=1}^{n-1} j + (c_{4}+c_{5}+c_{6}) 0 \\
+             & =  c_{1}n + c_{2}\sum\limits_{j=2}^n j + c_{3}\sum\limits_{j=1}^{n-1} j
     \end{aligned}
 \end{equation}
 
@@ -400,18 +398,17 @@ Yang kemudian dengan menggunakan persamaan~\ref{eq:common-3} dapat kita sederhan
 
 \begin{equation}\label{eq:eksekusi-bubble-3}
     \begin{aligned}
-        T(n) & =  c_{1}n + c_{2}\sum\limits_{i=2}^n i + c_{3}\sum\limits_{i=1}^{n-1} i \\
-             & = c_{1}n + c_2 \frac{(n-1)(n-2)}{2} + c_3 \frac{(n - 0)(n - 1)}{2} \\
-             & = c_{1}n + c_2 \frac{(n-2)(n-1)}{2} + c_3 \frac{(n)(n - 1)}{2}
+        T(n) & =  c_{1}n + c_{2}\sum\limits_{j=2}^n j + c_{3}\sum\limits_{j=1}^{n-1} j \\
+             & = c_{1}n + c_2 \frac{n(n+2)}{2} + c_3 \frac{n^2}{2} 
     \end{aligned}
 \end{equation}
 
 Persamaan \ref{eq:eksekusi-bubble-3} merupakan apa yang biasa disebut sebagai \textit{best case} atau kasus terbaik. Jika persamaan tersebut disederhanakan maka bisa ditulis sebagai $an^2+bn^2+c$. 
 
-Untuk kasus terburuk (\textit{worst case}) akan terjadi jika \textit{array} angka yang akan diurut disusun secara terbalik semua (misalnya mengurut bilangan $\left\{5,4,3,2,1\right\}$ menjadi $\left\{1,2,3,4,5\right\}$). Untuk kasus tersebut, berarti kita harus mencocokkan setiap angka di \textit{inner loop}, atau dengan kata lain nilai dari $t_{i}$ adalah sama dengan nilai dari $i$. 
+Untuk kasus terburuk (\textit{worst case}) akan terjadi jika \textit{array} angka yang akan diurut disusun secara terbalik semua (misalnya mengurut bilangan $\left\{5,4,3,2,1\right\}$ menjadi $\left\{1,2,3,4,5\right\}$). Untuk kasus tersebut, berarti kita harus mencocokkan setiap angka di \textit{inner loop}, atau dengan kata lain nilai dari $t_{j}$ adalah sama dengan nilai dari $j$. 
 
 \begin{equation}\label{eq:eksekusi-bubble-4}
-    T(n) = c_{1}n + c_2\frac{(n-1)(n-2)}{2} + (c_3+c_4+c_5+c_6)\frac{(n-1)n}{2}
+    T(n) = c_{1}n + c_2\frac{n(n+2)}{2} + (c_3+c_4+c_5+c_6)\frac{n^2}{2}
 \end{equation}
 
 Persamaan~\ref{eq:eksekusi-bubble-4} bisa disederhanakan menjadi $an^2+bn+c$ atau yang disebut juga dengan fungsi kuadratic akan $n$. 
@@ -445,13 +442,13 @@ Penjelasan lebih detil dari Gambar \ref{fig:analisis-insertion-sort} adalah seba
 \begin{enumerate}
 	\item Baris 1: Memiliki biaya sebesar $c_1$ dimana biaya tersebut akan diulang sebesar $n$ kali. Pengulangan sebesar $n$ kali dikarenakan adanya sebuah looping ``for i in range(1, arr\_len)''. Looping \textbf{for} akan dieksekusi oleh komputer sebanyak arr\_len kali. Untuk mempermudah perhitungan maka kita lambangkan arr\_len sebagai $n$. Sebagai contohnya, jika arr\_len bernilai 5, maka baris 1 akan diulang sebanyak 6 kali (1,2,3,4 dan 5 bernilai $True$ dan 1 kali terakhir bernilai $False$) atau dengan kata lain $n$ bernilai 6.
 	\item Baris 2 -- 3: Memiliki biaya masing-masing $c_{2}$ dan $c_{3}$. Kedua baris ini masing-masing diulang sebanyak $n-1$ kali. Kenapa $n-1$ kali? Karena semua baris di dalam \textit{looping} \textbf{for} hanya diulang untuk setiap \textbf{for} yang bernilai $True$.
-	\item Baris 4: Baris ini diulang sebanyak $\sum\limits_{j=2}^n t_{j}$ kali. Di baris ini ada dua buah \textit{looping}: \textit{outer loop} -- \textbf{for} dan \textit{inner loop} -- \textbf{while}. Untuk \textit{inner loop} dilambangkan dengan $t_{j}$. $t_{j}$ melambangkan jumlah \textit{looping inner loop}. Ketika \textit{inner loop} dan \textit{outer loop} digabungkan maka menjadi $\sum\limits_{j=2}^n t_{j}$.  
+	\item Baris 4: Baris ini diulang sebanyak $\sum\limits_{j=1}^n-1 t_{j}$ kali. Di baris ini ada dua buah \textit{looping}: \textit{outer loop} -- \textbf{for} dan \textit{inner loop} -- \textbf{while}. Untuk \textit{inner loop} dilambangkan dengan $t_{j}$. $t_{j}$ melambangkan jumlah \textit{looping inner loop}. Ketika \textit{inner loop} dan \textit{outer loop} digabungkan maka menjadi $\sum\limits_{j=1}^n-1 t_{j}$.  
 \end{enumerate}                                       
                                      
 Total waktu eksekusi dari Algoritma \ref{algo:insertion} dilambangkan dengan $T(n)$ dimana:
 
 \begin{equation}\label{eq:eksekusi-insertion-1}
-    T(n) = c_{1}n + c_{2}(n-1) + c_{4}(n-1) + c_{5}\sum\limits_{j=2}^n t_{j} + c_{6}\sum\limits_{j=2}^n (t_{j}-1) + c_{7}\sum\limits_{j=2}^n (t_{j}-1) + c_{8}(n-1) 
+    T(n) = c_{1}n + c_{2}(n-1) + c_{4}(n-1) + c_{5}\sum\limits_{j=1}^n-1 t_{j} + c_{6}\sum\limits_{j=1}^n-1 (t_{j}-1) + c_{7}\sum\limits_{j=1}^n-1 (t_{j}-1) + c_{8}(n-1) 
 \end{equation} 
 
 Dari Persamaan \ref{eq:eksekusi-insertion-1}, kita bisa menghitung total waktu eksekusi ($T(n)$) yang bergantung kepada variabel $n$ atau banyaknya bilangan masukan. Semakin banyak bilangan masukan maka $T(n)$ akan semakin tinggi dan sebaliknya. Akan tetapi, $T(n)$ tidak hanya bergantung pada banyaknya bilangan masukan, tetapi bergantung juga kepada susunan bilangan tersebut. Bagaimana jika \textit{array} bilangan tersebut sudah terurut? Bukankah waktu yang dibutuhkan akan lebih sedikit dibandingkan jika semua bilangan tersebut terbalik urutannya?

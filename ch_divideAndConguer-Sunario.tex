@@ -1,11 +1,3 @@
-\documentclass[12pt]{book}%ditambakan
-\usepackage{graphicx}%ditambahkan
-\usepackage{placeins}%ditambahkan
-\usepackage{algpseudocode}%ditambahkan
-\usepackage{listings}%ditambahkan
-\usepackage{amsmath}%ditambahkan
-
-\begin{document}%ditambahkan
 \chapter{Teknik \textit{Divide and Conquer}}\label{ch:modul4}
 
 \section{Pengenalan \textit{Divide and Conquer}}
@@ -49,7 +41,7 @@ Dengan menerapkan Teknik \textit{Divide and Conquer}, maka masalah penjumlahan s
 \label{lst:DivideAndConquerSum}
 \begin{lstlisting}[frame=single]
 def SumOfList(MyList):
-  if len(MyList) >= 1:
+  if len(MyList) <= 1:
     return MyList[0] 
 	mid = len(MyList) // 2
   left = SumOfList(MyList[:mid])
@@ -144,22 +136,22 @@ def BinarySearch(MyList, val, left, right):
 	
   mid = (left + right) // 2
   if MyList[mid] > val:
-    return BinarySearch(MyList, val, left, right - 1)
-  elif data[mid] < val:
-    return binary_search(MyList, val, left + 1, right)
+    return BinarySearch(MyList, val, left, mid-1)
+  elif MyList[mid] < val:
+    return binary_search(MyList, val, mid+1, right)
   else:
     print("%d found in index %d"%(val, mid))
   
   return mid
 \end{lstlisting}
 
-\subsection{Analisi Binary Search}
+\subsection{Analisis Binary Search}
 Untuk analisis metode binary search dalam menentukan kompleksitasnya, perhatikan untuk sebuah list, misalkan dengan panjang $(n) = 8$, maka :\newline
 Ketika n=8, Binary Search akan mereduksi ukuran listnya menjadi 4\newline
 Ketika n=4, Binary Search akan mereduksi ukuran listnya menjadi 2\newline
 Ketika n=2, Binary Search akan mereduksi ukuran listnya menjadi 1\newline
 
-Dapat dilihat bahwa binary search dipanggil sebanyak tiga kali untuk $n = 8$. Sehingga didapat $8 = 2^{3}$ atau secara general dapat dikatakan $n = 2^{k}$.  Nilai dari k dapat dinotasikan menjadi $2^{k} = n$ sehingga $k = log_2\ n$ sehingga didapatkan untuk kempleksitas dari binary search adalah  O (log n).
+Dapat dilihat bahwa binary search dipanggil sebanyak tiga kali untuk $n = 8$. Sehingga didapat $8 = 2^{3}$ atau secara general dapat dikatakan $n = 2^{k}$.  Nilai dari k dapat dinotasikan menjadi $2^{k} = n$ sehingga $k = log_2\ n$ sehingga didapatkan untuk kompleksitas dari binary search adalah  O (log n).
 
 Misalnya jika kita memiliki list sebanyak $n$ elemen, maka kasus tersebut melakukan pembandingan list sebanyak $log\ n$. Bandingkan dengan linear search yang  melakukan pembandingan sebanyak $n$. Tentunya algoritma binary search menjadi lebih cepat. Namun jika data yang ada merupakan data yang tidak terurut maka akan jauh lebih cepat jika menggunakan linear search sehingga penggunaan binary search akan ada cost tambahan yaitu dalam mengurutkan List.
 
@@ -189,14 +181,12 @@ Algoritma MERGE-SORT($MyList$) ditujukan untuk membagi (\textit{divide}) sebuah 
 \lstset{language=Python}
 \label{lst:MargeSort}
 \begin{lstlisting}[frame=single]
-def merge_sort(MyList):
-  if len(MyList) <= 1:
-    return MyList
-  mid = len(MyList) // 2
-  left = merge_sort(MyList[:mid])
-  right = merge_sort(MyList[mid:])
-	
-  return merge(left, right)
+def merge_sort(A, p, r):
+    if p< r:
+        q = (p+r)//2
+        merge_sort(A, p, q)
+        merge_sort(A, q+1, r)
+        merge(A,p,q,r)
 \end{lstlisting}
 
 Algoritma MERGE($left,right$) ditujukan untuk menggabungkan (\textit{combine}) kumpulan \textit{List} yang sudah diurut (memiliki panjang 1) menjadi sebuah \textit{List} baru yang sudah terurut.
@@ -204,44 +194,48 @@ Algoritma MERGE($left,right$) ditujukan untuk menggabungkan (\textit{combine}) k
 \lstset{language=Python}
 \label{lst:Marge}
 \begin{lstlisting}[frame=single]
-def merge(left, right):
-  result = []
-	
-  while len(left) > 0 or len(right) > 0:
-    if len(left) > 0 and len(right) > 0:
-      if left[0] <= right[0]:
-         result.append(left.pop(0))
-      else:
-         result.append(right.pop(0))
-    elif len(left) > 0:
-       result.append(left.pop(0))
-    elif len(right) > 0:
-       result.append(right.pop(0))
+def merge(A,p,q,r):
+    n1 = q-p+1
+    n2 = r-q
+    L =[]
+    R =[]
+    for i in range(0,n1):
+        L.append(A[p+i])
+    for j in range(0,n2):
+        R.append(A[q+j+1])
+    L.append(float("inf"))
+    R.append(float("inf"))
+    i = 0
+    j =0
+    for k in range(p, r+1):
+        if L[i] <= R[j]:
+            A[k] = L[i]
+            i = i + 1
+        else:
+            A[k] = R[j]
+            j = j + 1
 
-    return result
 \end{lstlisting}
 
 Perlu diketahui di algoritma \textit{merge sort} tidak diperlukan fungsi khusus untuk \textit{Conquer} dikarenakan \textit{List} yang memiliki panjang 1 secara otomatis sudah terurut.
 
 \newpage{}
-\subsection{Analisi Marge Sort}
-Seberapa efisienkah \textit{merge sort}? Berikut analisi dari kompleksitas \textit{merge sort}.
+\subsection{Analisis Merge Sort}
+Seberapa efisienkah \textit{merge sort}? Berikut analisis dari kompleksitas \textit{merge sort}.
 
 \lstset{language=Python}
 \label{lst:MargeSort}
 \begin{lstlisting}[frame=single]
-def merge_sort(MyList):
-  if len(MyList) <= 1:	#cost = a
-    return MyList		#cost = b
-  mid = len(MyList) // 2	#cost = c
-  left = merge_sort(MyList[:mid]) #cost = f(n/2) + h
-  right = merge_sort(MyList[mid:]) #cost = f(n/2) + i
-	
-  return merge(left, right)	#cost = g.n+j
+def merge_sort(A, p, r):
+    if p< r:                    #cost = a
+        q = (p+r)//2            #cost = b
+        merge_sort(A, p, q)     #cost = f(n/2) + h
+        merge_sort(A, q+1, r)   #cost = f(n/2) + i
+        merge(A,p,q,r)          #cost = g.n + j
 \end{lstlisting}
 
 yang secara matematis dapat dituliskan seperti berikut:
-$$	  \mathnormal{f(n) = a+b+c+f(\frac{n}{2})+h+f(\frac{n}{2})+i+g.n+j } $$
+$$	  \mathnormal{f(n) = a+b+f(\frac{n}{2})+h+f(\frac{n}{2})+i+g.n+j } $$
 $$	  \mathnormal{f(n) = 2f(\frac{n}{2})+a.n + b} $$
 
 dengan syarat $n > 1$, maka:
@@ -264,8 +258,6 @@ sehingga :
 $$	  \mathnormal{f(n) = 2^{log_{2}n}f(1)+log_{2}n.a.n } $$
 
 $$	  \mathnormal{f(n) = a.n\ log\ n = O(n\ log\ n)} $$
-
-MargeSort mempunyai kelemahan utama yaitu jumlah lokasi penyimpanan ekstra yang dibutuhkan oleh algoritma.
  
 \section{\textit{Quick Sort}}
 
@@ -307,32 +299,28 @@ Dalam Python Algoritma \textit{quick sort} dapat diterapkan sebagai berikut:
 \lstset{language=Python}
 \label{lst:QuickSort}
 \begin{lstlisting}[frame=single]
-def quickSort(myList, start, end):
- if start < end:
-   pivot = partition(myList, start, end)
-   quickSort(myList, start, pivot-1)
-   quickSort(myList, pivot+1, end)
-   return myList
+def quickSort(A, p, r):
+ if p < r:
+   q = partition(A, p, r)
+   quickSort(A, p, q-1)
+   quickSort(A, q+1, r)
 \end{lstlisting}
 
 \lstset{language=Python}
 \label{lst:Partition}
 \begin{lstlisting}[frame=single]
-def partition(myList,start,end):
-  pIdx = random.randrange(start,end)
-  pivot = myList[pIdx]
-  myList[pIdx],myList[end] = myList[end],myList[pIdx]
-  mid = start
-  for i in range(start,end-1):
-   if(myList[i] < pivot):    
-	 myList[i],myList[mid] = myList[mid],myList[i]
-	 mid = mid+ 1
-	
-  myList[mid],myList[end] = myList[end],myList[mid]
-  return mid
+def partition(A,p,r):
+    x = A[r]
+    i = p-1
+    for j in range(p,r):
+        if(A[j] <= x):
+            i = i + 1
+            A[i],A[j] = A[j],A[i]
+    A[i+1],A[r] = A[r],A[i+1]
+    return i+1
 \end{lstlisting}
 
-\subsection{Analisi Quick Sort}
+\subsection{Analisis Quick Sort}
 Kompleksitas dari \textit{quick sort} tergantung pada  seimbang atau tidak seimbang pembagian partisi pada list yang akan diurutkan. Sebuah partisi yang  baik membagi list menjadi dua list dengan ukuran sama, sedangkan partisi yang buruk membagi list menjadi dua list dengan ukuran yang sangat berbeda. Partisi terburuk menempatkan hanya satu elemen dalam satu list dan semua elemen lainnya dalam list lain. 
 
 Untuk menganalisi kompleksitas dari \textit{quick sort}, terlebih dahulu, perlu diperhitungkan kompleksitas dari algoritma partisi yang digunakan karena algoritma partisi yang digunakan bukan pernyataan sederhana.
@@ -340,59 +328,46 @@ Untuk menganalisi kompleksitas dari \textit{quick sort}, terlebih dahulu, perlu 
 \lstset{language=Python}
 \label{lst:Partition}
 \begin{lstlisting}[frame=single]
-def partition(myList,start,end):
- pIdx = random.randrange(start,end) 
- #cost = a
- pivot = myList[pIdx]
- #cost = b
- 
- myList[pIdx],myList[end] = myList[end],myList[pIdx]
- #cost = c 
- mid = start
- #cost = d
-
- for i in range(start,end-1):
-  if(myList[i] < pivot):
-	 myList[i],myList[mid] = myList[mid],myList[i]
-	 mid = mid+ 1
- #cost = i.n+e
-
- myList[mid],myList[end] = myList[end],myList[mid]
- #cost = f
- return mid
- #cost = g
+def partition(A,p,r):
+    x = A[r]                       #cost a
+    i = p-1                        #cost b
+    for j in range(p,r):
+        if(A[j] <= x):
+            i = i + 1
+            A[i],A[j] = A[j],A[i]  #cost j.n+c
+    A[i+1],A[r] = A[r],A[i+1]      #cost d
+    return i+1                     #cost e
 \end{lstlisting}
 
-Didalam algoritma partisi yang digunakan, terdapat sebuah loop for yang diikuti oleh statement sederhana lainnya. Statement sederhana tersebut dapat diberikan $f(n)= a+b+c+d+f+g$, kecuali yang berada di dalam statement for, dimana nilai $f(n) = i.n+e /O(n)$. Sehingga didapatkan kompleksitas untuk algoritma partisi diatas adalah :
+Didalam algoritma partisi yang digunakan, terdapat sebuah loop for yang diikuti oleh statement sederhana lainnya. Statement sederhana tersebut dapat diberikan $f(n)= a+b+d+e$, kecuali yang berada di dalam statement for, dimana nilai $f(n) = j.n+c/O(n)$. Sehingga didapatkan kompleksitas untuk algoritma partisi diatas adalah :
 
-$$ \mathnormal{f(n) = a+b+c+d+i.n+e+f+g} $$
-$$ \mathnormal{f(n) = i.n} $$
+$$ \mathnormal{f(n) = a+b+j.n+c+d+e} $$
+$$ \mathnormal{f(n) = j.n} $$
 
 Setelah mendapatkan nilai kompleksitas dari algoritma partisiya, maka dapat dihitung kompleksitas untuk algoritma \textit{quick sort} .
 
 \lstset{language=Python}
 \label{lst:QuickSort}
 \begin{lstlisting}[frame=single]
-def quickSort(myList, start, end):
- if start < end: #cost = a
-   pivot = partition(myList, start, end) #cost= i.n
-   quicksort(myList, start, pivot-1) #cost = f(n/2) + b
-   quicksort(myList, pivot+1, end) #cost = f(n/2) + c
-   return myList #cost = d
+def quickSort(A, p, r):
+ if p < r:                #cost a
+   q = partition(A, p, r) #cost j.n
+   quickSort(A, p, q-1)   #cost f(n/2) + b
+   quickSort(A, q+1, r)   #cost f(n/2) + c
 \end{lstlisting}
 
 yang secara matematis dapat dituliskan seperti berikut:
-$$	  \mathnormal{f(n) = a+i.n+f(\frac{n}{2})+b+f(\frac{n}{2})+c+d } $$
-$$	  \mathnormal{f(n) = 2f(\frac{n}{2})+i.n } $$
+$$	  \mathnormal{f(n) = a+j.n+f(\frac{n}{2})+b+f(\frac{n}{2})+c } $$
+$$	  \mathnormal{f(n) = 2f(\frac{n}{2})+j.n } $$
 
 dengan syarat $n > 1$, maka:
-$$	  \mathnormal{f(n) = 2f(\frac{n}{2})+i.n } $$
-$$	  \mathnormal{f(n) = 2(2f(\frac{n}{4})+i.\frac{n}{2} )} + i.n $$
-$$	  \mathnormal{f(n) = 4f(\frac{n}{4})+2i.n } $$
-$$	  \mathnormal{f(n) = 4(2f(\frac{n}{8})+i.\frac{n}{4} )}+2i.n $$
-$$	  \mathnormal{f(n) = 8f(\frac{n}{8})+3i.n } $$
-$$	  \mathnormal{f(n) = 16f(\frac{n}{16})+4i.n } $$
-$$	  \mathnormal{f(n) = 2^{k}f(\frac{n}{2^{k}})+k.i.n } $$
+$$	  \mathnormal{f(n) = 2f(\frac{n}{2})+j.n } $$
+$$	  \mathnormal{f(n) = 2(2f(\frac{n}{4})+j.\frac{n}{2} )} + j.n $$
+$$	  \mathnormal{f(n) = 4f(\frac{n}{4})+2j.n } $$
+$$	  \mathnormal{f(n) = 4(2f(\frac{n}{8})+j.\frac{n}{4} )}+2j.n $$
+$$	  \mathnormal{f(n) = 8f(\frac{n}{8})+3j.n } $$
+$$	  \mathnormal{f(n) = 16f(\frac{n}{16})+4j.n } $$
+$$	  \mathnormal{f(n) = 2^{k}f(\frac{n}{2^{k}})+k.j.n } $$
 
 untuk $ \mathnormal{f(n) = (\frac{n}{2^{k}})} $ :
 
@@ -402,19 +377,19 @@ $$ \mathnormal{k=log_{2}n} $$
 
 sehingga :
 
-$$	  \mathnormal{f(n) = 2^{log_{2}n}f(1)+log_{2}n.i.n } $$
+$$	  \mathnormal{f(n) = 2^{log_{2}n}f(1)+log_{2}n.j.n } $$
 
-$$	  \mathnormal{f(n) = i.n\ log\ n = O(n\ log\ n)} $$
+$$	  \mathnormal{f(n) = j.n\ log\ n = O(n\ log\ n)} $$
 
 Untuk Worse Case dari \textit{quick sort} , jika partisinya dibagi tidak sama rata atau hanya satu elemen dalam satu list dan semua elemen lainnya dalam list lain seperti Figur \ref{fig:WorseCaseQuickSort}, maka kompleksitasnya adalah:
 
-$$	  \mathnormal{f(n) = f(n-1)+i.n} $$
-$$	  \mathnormal{f(n) = f(n-2)+i(n-1)+(i.n)} $$
-$$	  \mathnormal{f(n) = f(n-2)+2(i.n)} $$
-$$	  \mathnormal{f(n) = f(n-3)+i(n-2))+2(i.n)} $$
-$$	  \mathnormal{f(n) = f(n-3)+3(i.n)} $$
-$$	  \mathnormal{f(n) = f(n-4)+4(i.n)} $$
-$$	  \mathnormal{f(n) = f(n-k)+k(i.n)} $$
+$$	  \mathnormal{f(n) = f(n-1)+j.n} $$
+$$	  \mathnormal{f(n) = f(n-2)+j(n-1)+(j.n)} $$
+$$	  \mathnormal{f(n) = f(n-2)+2(j.n)} $$
+$$	  \mathnormal{f(n) = f(n-3)+j(n-2))+2(j.n)} $$
+$$	  \mathnormal{f(n) = f(n-3)+3(j.n)} $$
+$$	  \mathnormal{f(n) = f(n-4)+4(j.n)} $$
+$$	  \mathnormal{f(n) = f(n-k)+k(j.n)} $$
 
 untuk $ \mathnormal{f(n) = k.n  }$:
 $$ \mathnormal{ k.n = 1  }$$
@@ -422,8 +397,8 @@ $$ \mathnormal{ k = n }$$
 
 sehingga :
 
-$$ \mathnormal{f(n) = f(1) + n.i.n} $$
-$$ \mathnormal{f(n) = i.n^{2} = O(n^{2})} $$
+$$ \mathnormal{f(n) = f(1) + n.j.n} $$
+$$ \mathnormal{f(n) = j.n^{2} = O(n^{2})} $$
 		
 
 \begin{figure}[htbp]
@@ -436,4 +411,3 @@ $$ \mathnormal{f(n) = i.n^{2} = O(n^{2})} $$
 
 
 Jika partisi seimbang, maka kompleksitas dari  \textit{quick sort} berjalan secepat merge sort $O(n\ log\ n)$. Di sisi lain, jika partisi tidak seimbang, \textit{quick sort} berjalan lambat seperti insertion sort $O(n^{2})$.
-\end{document}%ditambahkan
