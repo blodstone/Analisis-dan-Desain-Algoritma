@@ -26,14 +26,5 @@ def break_line(text, L):
         m[i] = min(sums)
         s[i] = sums[min(sums)]
 
-    line = 1
-    while n > 1:
-        print("line " + str(line) + ": " + str(s[n]) + "->" + str(n))
-        n = s[n] - 1
-        line += 1
-
     return s
-
-string = "Tristique augue auctor amet turpis integer nunc dapibus pellentesque turpis scelerisque penatibus, lacus nascetur cum quis, turpis nascetur mauris turpis, augue platea nunc, tincidunt placerat quis nec? Adipiscing turpis? Platea, aenean dignissim cum scelerisque placerat pulvinar! Hac placerat urna tincidunt. Dapibus mid! Lacus augue purus ridiculus integer aliquam, mauris pid hac pellentesque. Phasellus tortor, facilisis tristique nisi sed porta cum eros. Habitasse elementum? Pulvinar! Sit tincidunt in cursus enim dignissim purus rhoncus? Habitasse, lundium porttitor elit nec nisi ac nascetur porta cum adipiscing pulvinar, vel vel adipiscing porttitor dis nisi, aliquam turpis, natoque nec magnis, porttitor urna turpis magnis! Aenean! Urna augue, cras nisi, cras magna turpis eu duis proin porttitor dis magna duis, aliquam, sit elementum a nunc? Nec."
-s = break_line(string, 80)
 
