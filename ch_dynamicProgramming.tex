@@ -35,16 +35,17 @@ Sebuah \textit{array} $p_i$ dimana $i=1,2,..,n$ dan $p_i$ adalah harga untuk pan
 Sebuah nilai $r_n$ yang merupakan nilai optimal dari pemotongan rotan $n$ dan kemudian dijual. Ada juga kemungkinan rotan tak perlu dipotong tetapi sudah memiliki harga yang tinggi daripada harus dipotong lagi.\\
 \end{contoh}
 
-\begin{figure}[H]%
+\begin{figure}
 \centering
 \includegraphics[scale=0.6]{fig/rodCutting.eps}%
 \caption{Perbandingan panjang $p_i$ dan harga $i$}%
 \label{fig:rodCutting}%
 \end{figure}
 
+
 Sebagai contohnya, ketika $n=4$, sesuai dengan tabel di Gambar \ref{fig:rodCutting} maka jika rotan tidak dipotong ($n=4$) harganya $p_4 = 9$ sedangkan jika dipotong menjadi 2 bagian yang sama panjang ($n=2$) maka harganya menjadi $r_4=p_2+p_2=5+5=10$ yang merupakan nilai optimal (lihat Gambar \ref{fig:rodCutting2}).   
 
-\begin{figure}[H]%
+\begin{figure}
 \centering
 \includegraphics[scale=0.7]{fig/rodCutting2.eps}%
 \caption{Berbagai jenis potongan yang mungkin. Potongan yang paling optimal adalah yang bagian (c).}%
@@ -67,7 +68,7 @@ Banyaknya kemungkinan cara yang ada untuk memotong rotan $n$ adalah $2^{n-1}$ ca
 
 Solusi penyelesaian pemotongan rotan dengan menggunakan algoritma naive rekursif adalah sebagai berikut.
 
-\begin{algorithm}[H]
+\begin{algorithm}
 	\caption{CUT-ROD-NAIVE($p,n$)}
 	\label{algo:cutRodNaive}
 	\begin{algorithmic}[1]
@@ -83,7 +84,7 @@ Solusi penyelesaian pemotongan rotan dengan menggunakan algoritma naive rekursif
 
 Sedangkan solusi penyelesaian dengan menggunakan metode \textit{Dynamic Programming} ada dua macam penyelesaian yaitu \textit{Bottom Up} dan \textit{Top Down}.
 
-\begin{algorithm}[H]
+\begin{algorithm}
 	\caption{MEMOIZED-CUT-ROD($p,n$)}
 	\label{algo:memoizedCutRod}
 	\begin{algorithmic}[1]
@@ -95,7 +96,7 @@ Sedangkan solusi penyelesaian dengan menggunakan metode \textit{Dynamic Programm
 	\end{algorithmic}
 \end{algorithm}
 
-\begin{algorithm}[H]
+\begin{algorithm}
 	\caption{MEMOIZED-CUT-ROD-AUX($p,n,r$)}
 	\label{algo:memoizedCutRodAux}
 	\begin{algorithmic}[1]
@@ -115,7 +116,7 @@ Sedangkan solusi penyelesaian dengan menggunakan metode \textit{Dynamic Programm
 	\end{algorithmic}
 \end{algorithm}
 
-\begin{algorithm}[H]
+\begin{algorithm}
 	\caption{BOTTOM-UP-CUT-ROD($p,n$)}
 	\label{algo:bottomUpCutRod}
 	\begin{algorithmic}[1]
@@ -134,7 +135,7 @@ Sedangkan solusi penyelesaian dengan menggunakan metode \textit{Dynamic Programm
 
 Kita bisa menyempurnakan algoritma \ref{algo:bottomUpCutRod} supaya bisa menampilkan solusi dari setiap panjang optimal dari permasalahan pemotongan rotan dengan algoritma berikut.
 
-\begin{algorithm}[H]
+\begin{algorithm}
 	\caption{EXTENDED-BOTTOM-UP-CUT-ROD($p,n$)}
 	\label{algo:extBottomUpCutRod}
 	\begin{algorithmic}[1]
@@ -154,7 +155,7 @@ Kita bisa menyempurnakan algoritma \ref{algo:bottomUpCutRod} supaya bisa menampi
 	\end{algorithmic}
 \end{algorithm}
 
-\begin{algorithm}[H]
+\begin{algorithm}
 	\caption{PRINT-CUT-ROD-SOLUTION($p,n$)}
 	\label{algo:printCutRodSolution}
 	\begin{algorithmic}[1]
@@ -166,7 +167,7 @@ Kita bisa menyempurnakan algoritma \ref{algo:bottomUpCutRod} supaya bisa menampi
 	\end{algorithmic}
 \end{algorithm}
 
-\begin{figure}[H]%
+\begin{figure}
 \centering
 \includegraphics[scale=0.5]{fig/CutRodSolution.eps}%
 \caption{Solusi dari permasalahan pemotongan rotan.}%
@@ -196,14 +197,14 @@ Berdasarkan illustrasi diatas, maka bisa permasalahan perkalian matriks bisa dit
 
 Secara matematis solusi dari permasalahan perkalian matriks bisa ditulis sebagai:
 
-\begin{figure}[H]%
+\begin{figure}
 	\includegraphics[scale=0.4]{fig/math-matrix.eps}%
 	\label{fig:math-matrix}%
 \end{figure}
 
 Algoritma yang digunakan untuk mencari solusi optimal dari perkalian matriks adalah sebagai berikut.
 
-\begin{algorithm}[H]
+\begin{algorithm}
 	\caption{MATRIX-CHAIN-ORDER($p$)}
 	\label{algo:matrixChainOrder}
 	\begin{algorithmic}[1]
@@ -231,14 +232,15 @@ Algoritma yang digunakan untuk mencari solusi optimal dari perkalian matriks ada
 
 Dari Algoritma \ref{algo:matrixChainOrder} akan dihasilkan dua buah matriks yaitu tabel $m$ dan tabel$s$. Sebagai contoh, jika rangkaian matriks yang digunakan adalah sebagai berikut.
 
-\begin{figure}[H]%
+\begin{figure}
 	\includegraphics[scale=0.5]{fig/matrix.eps}%
 	\label{fig:matrix}%
 \end{figure}
 
 maka tabel $m$ dan tabel $s$ yang diperoleh adalah:
-\begin{figure}[H]%
+\begin{figure}
 	\includegraphics[scale=0.7]{fig/matrix2.eps}%
 	\caption{Tabel $m$ dan $s$ yang diperoleh dengan jumlah matriks sebanyak 6 buah}
 	\label{fig:matrix2}%
 \end{figure}
+
