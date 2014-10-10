@@ -97,7 +97,121 @@ Sampai titik ini kita telah melihat bagian paling mendasar dari \textit{dynamic 
 
 \section{Optimasi}
 
-Lorem ipsum dolor sit amet
+Kegunaan utama dari DP adalah untuk menyelesaikan masalah \textbf{optimasi}. Permasalahan optimasi artinya permasalahan yang mencari nilai \textbf{terbaik}, baik maksimal maupun minimal, dari sebuah solusi. Salah satu contoh paling praktis dalam penerapan DP model ini adalah algoritma untuk membuat teks rata tengah. Bagaimana cara kerja algoritma ini? Mari kita lihat masalah yang ingin diselesaikan terlebih dahulu.
+
+Pada aplikasi pengolah kata seperti Microsoft Word, biasanya terdapat fitur untuk menentukan kemerataan teks yang ada pada paragraf, seperti yang nampak pada Gambar~\ref{fig:text-align}.
+
+\begin{figure}
+    \includegraphics[width=\textwidth,keepaspectratio]{fig/TextAlign}
+	\caption{Pemerataan Teks pada Microsoft Word}
+	\label{fig:text-align}
+\end{figure}
+
+Bagaimana kita menentukan kemerataan teks? Secara umum, kemerataan sebuah teks ditentukan oleh beberapa hal berikut:
+
+\begin{enumerate}
+    \item Ukuran dari halaman, yang tentunya akan mempengaruhi berapa lebar maksimal dari sebuah teks.
+    \item Ukuran setiap kata yang ada dalam teks, untuk menghitung berapa banyak kata yang dapat dimasukkan ke dalam satu baris teks.
+    \item Ukuran spasi dalam teks, seperti ukuran kata, untuk menghitung jumlah kata yang dapat dimasukkan ke dalam teks.
+    \item Ukuran karakter-karakter khusus seperti "!", "?", ",",".", dan lainnya. Meskipun biasanya berukuran kecil, karakter khusus tetap berperan dalam mengisi ruang tulisan.
+\end{enumerate}
+
+Dengan melakukan kalkulasi sederhana dari teks, tentunya kita bisa saja melakukan pemerataan teks dengan mudah. Misalnya, untuk menghitung total teks yang dapat masuk ke dalam sebuah baris tulisan, kita dapat menggunakan Persamaan~\ref{eq:total-teks-per-baris}.
+
+\begin{equation}\label{eq:total-teks-per-baris}
+    \text{ukuran halaman} \gets \text{total ukuran kata} + \text{total ukuran spasi} + \text{total ukuran simbol}
+\end{equation}
+
+Sehingga untuk membuat sebuah teks menjadi rata penuh (\textit{justified}) kita dapat memasukkan setiap kata, spasi, dan simbol satu demi satu sampai kita memenuhi sebuah baris. Jika kata selanjutnya tidak lagi memiliki ukuran yang cukup, maka kita dapat menambahkan spasi di tengah-tengah kata sebelumnya sampai baris penuh, dan lalu berpindah baris.
+
+Secara sederhana, algoritma naif untuk melakukan rata penuh teks adalah seperti berikut:
+
+\begin{enumerate}
+    \item Ambil satu elemen dalam teks, baik berupa kata, simbol, maupun spasi. Masukkan elemen ini ke dalam baris.
+    \item Hitung ukuran baris sekarang.
+    \item Ambil satu elemen lagi dalam teks, dan hitung ukurannya.
+    \item Tambahkan ukuran baris sekarang dengan ukuran elemen berikutnya. Hasil pengukuran ini selanjutnya akan disebut "Ukuran Baris Selanjutnya" atau UBS.
+    \item Cek nilai UBS:
+        \begin{enumerate}
+            \item Jika UBS masih lebih kecil dari lebar halaman, kembali ke langkah 1
+            \item Jika UBS sudah lebih dari lebar halaman:
+                \begin{enumerate}
+                    \item Tambahkan spasi di antara setiap kata dalam baris sampai ukuran baris sama dengan lebar halaman.
+                \end{enumerate}
+        \end{enumerate}
+\end{enumerate}
+
+Dalam bentuk lebih formalnya, Algoritma~\ref{algo:text-justification-raw} menjukkan contoh implementasi sederhana pemerataan teks (berbeda dengan algoritma lain sebelumnya, algoritma ini tidak dapat dijalankan dan digunakan hanya sebagai ilustrasi).
+
+\lstinputlisting[language=Python, 
+                 label={algo:text-justification-raw},
+                 caption=Algoritma Naif Pemerataan Teks
+                ]
+                {code/12-text-justification-raw.py}
+
+Hasil Algoritma~\ref{algo:text-justification-raw} kurang optimal, karena ketika terdapat kata-kata yang panjang dalam sebuah kalimat, kita terpaksa harus memotong baris terlalu cepat, dan akhirnya menambahkan banyak spasi. Contoh eksekusi dari algoritma di atas dapat dilihat pada gambar berikut:
+
+\begin{figure}
+    \includegraphics{fig/TextAlignJustify-Greedy-Bad}
+	\caption{Hasil Algoritma Pemerataan Teks Sederhana}
+	\label{fig:text-align-raw}
+\end{figure}
+
+Perhatikan bagaimana teks "Dynamic Programming", "dikembangkan untuk", dan "memecah permasalahan" memiliki spasi yang sangat lebar. Menggunakan DP, kita dapat menghasilkan pemerataan teks yang lebih optimal.
+
+Berdasarkan algoritma sebelumnya yang kita kembangkan, dapat dilihat bagaimana optimasi dari rata penuh sebuah teks terdapat pada \textbf{kapan kita melakukan pergantian baris}. Jika kita mengganti baris terlalu cepat (jumlah kata masih sedikit), maka secara otomatis kita harus menambahkan banyak spasi, yang menyebabkan teks tidak enak dilihat. Untuk mendapatkan jumlah kata yang optimal dalam sebuah baris, kita akan melakukan perhitungan tingkat "keburukan" sebuah kata dalam teks, jika kata tersebut dijadikan pengganti baris. Kita kemudian dapat mencari tingkat keburukan setiap kata yang ada dalam teks, dan mengambil kata yang memiliki tingkat keburukan terendah sebagai tanda berganti baris.
+
+Pengukuran tingkat keburukan teks sendiri tentunya ditentukan oleh jumlah ruang kosong yang ada dari teks sampai ke ujung halaman. Misalnya, pada Gambar~\ref{fig:text-align-badness} kita dapat melihat contoh ruang kosong dari teks sampai ke ujung halaman.
+
+\begin{figure}
+    \includegraphics{fig/TextAlign-Badness}
+	\caption{Tingkat Keburukan Teks}
+	\label{fig:text-align-badness}
+\end{figure}
+
+Pada gambar di atas, blok berwarna merah berarti tingkat keburukannya tinggi, dan blok berwarna hijau berarti tingkat kebukurannya rendah. Untuk mendapatkan nilai keburukan yang paling kecil dalam sebuah teks, tentunya kita harus menghitung seluruh kombinasi nilai keburukan dari elemen-elemen yang ada dalam teks. Perhitungan kombinasi nilai keburukan ini tentunya merupakan masalah yang tepat untuk algoritma DP, karena setiap perhitungan nilai keburukan pada dasarnya adalah sebuah sub-masalah!
+
+Jadi sekarang kita telah menemukan sub-masalahnya: mencari nilai keburukan dari sebuah elemen. Bagaimanakah kita dapat menggunakan teknik DP untuk menyelesaikan masalah ini? Ketika menghitung kombinasi dari nilai keburukan dari setiap elemen, secara tidak langsung kita akan membangun sebuah Directed Acyclic Graph, seperti yang tampak pada Gambar~\ref{fig:dag-in-text}.
+
+\begin{figure}
+    \includegraphics[width=\textwidth,keepaspectratio]{fig/TextAlign-DAG}
+	\caption{DAG dalam Teks}
+	\label{fig:dag-in-text}
+\end{figure}
+
+dengan setiap $k$ merepresentasikan tingkat keburukan dari elemen tersebut. Menggunakan informasi tersebut, kita dapat mencari nilai minimal dari total seluruh nilai keburukan yang ada pada sebuah teks untuk mendapatkan titik penggantian baris yang paling tepat. Untuk merangkum, berikut adalah langkah-langkah untuk algoritma yang sedang kita kembangkan:
+
+\begin{enumerate}
+    \item Ambil setiap elemen dari dalam teks.
+    \item Untuk setiap elemen yang ada, lakukan:
+        \begin{enumerate}
+            \item Hitung nilai keburukan dari elemen terhadap elemen-elemen lain dalam teks.
+            \item Hitung total nilai keburukan yang ada pada elemen yang sedang dicari.
+        \end{enumerate}
+    \item Tentukan nilai keburukan minimum dari nilai keburukan seluruh elemen yang telah dihitung pada langkah 2.
+    \item Ambil elemen yang memiliki nilai keburukan minimum.
+    \item Ganti baris pada elemen dengan nilai keburukan minimum.
+\end{enumerate}
+
+Perhitungan nilai keburukan sendiri dapat dilakukan dengan menggunakan Rumus~\ref{eq:keburukan}.
+
+\begin{equation}\label{eq:keburukan}
+    keburukan(i, j) = 
+        \begin{cases}
+            \text{ukuran baris} > \text{lebar halaman} & \infty \\
+            (\text{lebar halaman} - \text{ukuran baris})^3
+        \end{cases}
+\end{equation}
+
+Dengan $i$ dan $j$ sebagai awal dan akhir dari kata yang ingin dihitung tingkat keburukannya. Algoritma~\ref{alg:text-justification} menunjukkan contoh penggabungan dari kedua algoritma di atas.
+
+\lstinputlisting[language=Python, 
+                 label={alg:text-justification},
+                 caption=Algoritma Pemerataan Teks
+                ]
+                {code/13-text-justification-dp.py}
+
+Perlu dicatat bahwa Algoritma~\ref{alg:text-justification} belum mengikut sertakan spasi dalam perhitungan, dan juga belum membangun kembali baris-baris yang telah dipecah menjadi sebuah teks (paragraf).
 
 \section{Contoh DP: Pemotongan Rotan}
 Sebagai salah satu contoh permasalahan yang bisa diselesaikan dengan menggunakan \textit{dynamic programming}, kita akan menyelesaikan permasalahan pemotongan rotan. 
