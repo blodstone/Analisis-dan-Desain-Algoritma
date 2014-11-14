@@ -49,6 +49,45 @@ Untuk melihat detil yang dijabarkan, mari kita lihat masing-masing representasi 
 
 \subsection{Graph dengan Adjacency List}
 
+Seperti yang telah dijelaskan sebelumnya, pada representasi graph dengan adjacency list, kita terlebih dahulu menyimpan seluruh vertex ke dalam sebuah list. Semua vertex ini kemudian menyimpan sebuah list lagi, yang berisi vertex lain yang berdekatan dengannya. Gambar~\ref{fig:graph-adj-list} mengilustrasikan graph yang direpresentasikan dengan adjacent list.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=.3\textwidth,keepaspectratio]{fig/Graph-AdjacencyList.png}%
+	\caption{Graph dengan Adjacency List}%
+	\label{fig:graph-adj-list}%
+\end{figure}
+
+\FloatBarrier
+
+Untuk membuat graph dengan adjacency list, kita dapat mulai dengan mentukan objek vertex terlebih dahulu. Dengan asumsi kita merepresentasikan objek vertex sebagai sebuah string sederhana (yang tidak mengandung nilai), kita dapat menyimpan sebuah graph seperti gambar~\ref{fig:graph-adj-list} dengan menggunakan struktur data dictionary sederhana seperti pada algoritma~\ref{algo:graph-dict}.
+
+\lstinputlisting[language=Python, 
+                 label={algo:graph-dict},
+                 caption=Sebuah Graph dengan Dictionary
+                ]
+                {code/14-graph-dict.py}
+
+Algoritma~\ref{algo:graph-dict} memperlihatkan bagaimana kita dapat memanfaatkan dictionary dengan aturan tertentu untuk merepresentasikan graph. Adapun aturan yang kita gunakan yaitu:
+
+\begin{itemize}
+    \item Kunci dictionary merepresentasikan vertex dari graph.
+    \item Setiap kunci (vertex) berisi list.
+    \item List yang dimiliki oleh setiap vertex berisi daftar vertex lain yang berdekatan dengannya.
+\end{itemize}
+
+Pembentukan graph seperti ini merupakan salah satu implementasi yang paling sederhana, dan sangat mudah diimplementasikan. Jika ingin menghubungkan $v1$ ke $v2$ dan membuat edge $v1 ~ v2$, kita cukup menambahkan $v2$ ke dalam list yang ada pada $v1$. Penyimpanan nilai vertex juga dapat dilakukan dengan menggunakan dictionary jika kita ingin menambahkan nilai di dalam edge. Algoritma~\ref{algo:graph-dict-dict} menunjukkan contoh implementasi jika ingin menyimpan graph berlabel.
+
+\lstinputlisting[language=Python, 
+                 label={algo:graph-dict-dict},
+                 caption=Graph dengan Adjacency List yang Berlabel
+                ]
+                {code/15-graph-dict-dict.py}
+
+Pada represenatsi graph dengan adjacency list, kita hanya menyimpan vertex yang berdekatan secara langsung dengan vertex utama saja. Perhatikan bagaimana pada algoritma~\ref{algo:graph-dict-dict} vertex $D$ dan $E$ hanya mengandung list kosong, karena kedua vertex ini tidak memiliki vertex lain didekatnya. Dengan tidak menyimpan data yang tidak diperlukan seperti ini tentunya adjacency list menggunakan memori secara optimal (tidak menyimpan data yang tidakdiperlukan).
+
+Kekurangan utama dari representasi graph dengan adjacency list seperti ini sendiri yaitu untuk pengecekan apakah dua buah vertex saling berdekatan. Karena kita tidak dapat langsung melakukan pengecekan baris-kolom seperti pada adjacency matrix, operasi ini otomatis akan harus dilakukan dengan megecek satu per satu kunci di dalam vertex, yang akhirnya akan memberikan operasi $O(n)$, yang dapat dikatakan lambat dibandingkan dengan operasi $O(1)$ pada adjacency matrix.
+
 \subsection{Graph dengan Adjacency Matrix}
 
 \subsection{Graph dengan Incidence Matrix}
