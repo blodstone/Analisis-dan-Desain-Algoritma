@@ -34,13 +34,18 @@ Untuk memperjelas pengertian tentang representasi graph yang berbeda, kita akan 
 
 \section{Representasi Graph}
 
-Secara umum terdapat tiga metode untuk merepresentasikan graph dalam ilmu komputer, yaitu:
+Sebagai sebuah struktur data tingkat tinggi, kita umumnya akan membangun graph dengan menggabungkan beberapa struktur data sederhana seperti array, struktur, atau objek. Beberapa struktur data sederhana ini kemudian diintegrasikan dengan aturan tertentu agar dapat direpresentasikan sebagai graph. Secara umum terdapat tiga metode untuk merepresentasikan graph dari struktur-struktur sederhana seperti ini, yaitu:
 
-\begin{enumerate}
-    \item Adjacency List
-    \item Adjacency Matrix
-    \item Incidence Matrix
-\end{enumerate}
+\begin{description}
+    \item[Adjacency List] \hfill \\
+        Pada adjacency list, vertex direpresentasikan sebagai sebuah objek khusus (mulai dari yang sederhana seperti string sampai objek buatan sendiri). Vertex kemudian disimpan di dalam sebuah list atau array, dan setiap vertex menyimpan list atau array dari vertex yang berdampingan.
+    \item[Adjacency Matrix] \hfill \\
+        Pada adjacency matrix, kita menyimpan data graph di dalam sebuah matriks, dengan bagian baris sebagai vertex asal dan bagian kolom sebagai vertex tujuan. Isi dari matriks sendiri adalah jumlah edge yang menghubungkan kedua vertex (baris dan kolom). Data dari semua vertex dan edge sendiri harus di luar matriks.
+    \item[Incidence Matrix] \hfill \\
+        Pada incidence matrix, graph direpresentasikan dalam matriks dua dimensi, dengan baris matriks sebagai vertex dan kolom matriks sebagai edge. Nilai dari matriks mengindikasikan keterhubungan (\textit{incidence}) antara vertex dengan edge.
+\end{description}
+
+Untuk melihat detil yang dijabarkan, mari kita lihat masing-masing representasi ini dengan lebih mendalam.
 
 \subsection{Graph dengan Adjacency List}
 
