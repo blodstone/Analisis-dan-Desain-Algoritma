@@ -68,3 +68,74 @@ Terdapat beberapa operasi umum yang dapat dilakukan terhadap graph, yaitu:
 Kompleksitas dari masing-masing operasi sendiri berbeda-beda, tergantung dari cara representasi graph yang kita gunakan
 
 \section{Contoh Implementasi Graph}
+
+Implementasi graph dapat dimulai dari pembuatan sebuah kelas untuk graph seperti yang dapat dilihat pada algoritma~\ref{algo:migraph-class}.
+
+\lstinputlisting[language=Python, 
+                 firstline=1,
+                 lastline=1,
+                 label={algo:migraph-class},
+                 caption=Definisi Kelas MiGraph
+                ]
+                {code/migraph.py}
+
+Struktur graph sendiri disimpan ke dalam sebuah variabel privat, yang adalah sebuah \textit{dictionary}. Pembuatan struktur internal graph ini dibuat pada saat objek dibuat. Pengguna juga dapat memberikan graph sesuai dengan struktur internal, seperti yang tampak pada algoritma~\ref{algo:migraph-constructor}.
+
+\lstinputlisting[language=Python, 
+                 firstline=16,
+                 lastline=17,
+                 label={algo:migraph-constructor},
+                 caption=Definisi Constructor MiGraph
+                ]
+                {code/migraph.py}
+
+Pengambilan seluruh vertex dan edge yang ada dapat dilakukan dengan cukup gamblang: hanya mengubah kunci dictionary menjadi list untuk vertex, dan menelusuri isi value dari dictionary untuk edges. Algoritma~\ref{algo:migraph-vertices-edges} menunjukkan cara kerja dari bagian pengambilan seluruh vertex dan edge.
+
+\lstinputlisting[language=Python, 
+                 firstline=19,
+                 lastline=30,
+                 label={algo:migraph-vertices-edges},
+                 caption=Pengambilan Seluruh Vertex dan Edge
+                ]
+                {code/migraph.py}
+
+Karena cara penyimpanan adjacent list yang menyimpan semua vertex tetangga di dalam key dictionary, kita dapat mengecek apakah sebuah vertex bertetangga dengan vertex lain dengan sangat mudah. Algoritma~\ref{algo:migraph-is-adjacent} memperlihatkan implementasi fungsi untuk pengecekan apakah vertex bertetangga dengan vertex lainnya.
+
+\lstinputlisting[language=Python, 
+                 firstline=32,
+                 lastline=33,
+                 label={algo:migraph-is-adjacent},
+                 caption=Cek Apakah $v1$ dan $v2$ Bertetangga
+                ]
+                {code/migraph.py}
+
+Penambahan vertex dan edge juga dapat dilakukan dengan sangat sederhana: tambahkan nilai baru di dalam dictionary atau list sesuai dengan kebutuhan. Algoritma~\ref{algo:migraph-add-vertex-edge} memperlihatkan cara implementasi fungsi penambahan vertex dan edge.
+
+\lstinputlisting[language=Python, 
+                 firstline=35,
+                 lastline=56,
+                 label={algo:migraph-add-vertex-edge},
+                 caption=Penambahan Vertex dan Edge
+                ]
+                {code/migraph.py}
+
+Pengambilan vertex yang ada di sekitar vertex sendiri dilakukan dengan cara yang sama dengan pengambilan vertex: hanya mengubah key menjadi list. Algoritma~\ref{algo:migraph-get-neighbour} menunjukkan langkah yang digunakan.
+
+\lstinputlisting[language=Python, 
+                 firstline=58,
+                 lastline=68,
+                 label={algo:migraph-get-neighbour},
+                 caption=Pengambilan Vertex Sekitar
+                ]
+                {code/migraph.py}
+
+Penghapusan vertex maupun edge dilakukan dengan cara yang sama dengan penambahan dan pengambilan nilai vertex, yaitu sesuai dengan semantik python. Algoritma~\ref{algo:migraph-remove-vertex-edge} menunjukkan langkah yang digunakan.
+
+\lstinputlisting[language=Python, 
+                 firstline=70,
+                 lastline=78,
+                 label={algo:migraph-remove-vertex-edge},
+                 caption=Penghapusan Vertex dan Edge
+                ]
+                {code/migraph.py}
+
