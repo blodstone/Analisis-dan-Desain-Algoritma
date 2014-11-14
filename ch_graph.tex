@@ -90,7 +90,33 @@ Kekurangan utama dari representasi graph dengan adjacency list seperti ini sendi
 
 \subsection{Graph dengan Adjacency Matrix}
 
+Jika pada representasi graph dengan adjacency list kita menyimpan data di dalam dictionary dan list, pada adjacency matrix kita akan menyimpan data ke dalam sebuah matriks. Seperti matriks pada umumnya, graph dapat diimplementasikan dalam array dua dimensi. Untuk lebih mempermudah pengertian, gambar~\ref{fig:graph-adj-matrix} memperlihatkan contoh graph beserta dengan adjacency matrix-nya.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth,keepaspectratio]{fig/Graph-AdjacencyMatrix.png}%
+	\caption{Graph dengan Adjacency Matrix}%
+	\label{fig:graph-adj-matrix}%
+\end{figure}
+
+Seperti yang telah dijelaskan sebelumnya, setiap baris pada matriks yang ada di gambar~\ref{fig:graph-adj-matrix} merepresentasikan vertex dari grafik. Hal ini berarti baris pertama merepresentasikan vertex $1$, baris kedua mewakilkan vertex $2$, dst. Kolom dari matriks sendiri merepresentasikan semua vertex lain yang ada (kolom 1 untuk vertex $1$, kolom 2 untuk vertex $2$, dst). Nilai dari matriks(baris, kolom) sendiri akan berisi 1 jika vertex baris-kolom memiliki hubungan, dan bernilai 0 jika tidak.
+
+Karena setiap vertex harus disimpan dua kali (dalam baris dan kolom matriks), maka matriks yang dihasilkan oleh adjacency matrix akan selalu berukuran $n \times n$. Hal ini berarti penggunaan memori dari adjacency matrix secara otomatis akan lebih besar dibandingkan adjacency list. Sifat penyimpanan vertex di baris dan kolom ini juga menyebabkan penambahan dan penghapusan vertex menjadi lebih lambat karena setiap kali terjadi penambahan dan penghapusan kita harus mengubah ukuran matriks (yang umumnya adalah operasi $O(n^2)$). Untungnya, penambahan dan pengurangan edge tidak terpengaruh, karena penambahan dan pengurangan edge hanya akan memerlukan operasi perubahan nilai matriks.
+
+Berkebalikan dengan representasi adjacency list, adjacency matrix justru mudah dalam melakukan operasi pengecekan apakah $v1$ dan $v2$ saling berdekatan. Karena matriks yang umumnya direpresentasikan dalam bentuk array dua dimensi, pengecekan cukup dilakukan dengan mengakses indeks array dari matriks dan melihat apakah nilai berisi 1 dan 0. Hal ini berarti kompleksitas yang dibutuhkan untuk operasi ini hanya $O(1)$, karena operasi akses nilai matriks yang bersifat konstan.
+
 \subsection{Graph dengan Incidence Matrix}
+
+Representasi graph dengan incidence matrix tidak jauh berbeda dengan adjacent matrix. Kita tetap merepresentasikan graph dengan matriks, dengan sedikit perbedaan: kolom matriks sekarang merepresentasikan \textit{edge}, bukan lagi \textit{vertex}. Gambar~\ref{fig:graph-incidence-matrix} memperlihatkan hubungan baris-kolom ini.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=\textwidth,keepaspectratio]{fig/Graph-IncidenceMatrix.png}%
+	\caption{Graph dengan Incidence Matrix}%
+	\label{fig:graph-incidence-matrix}%
+\end{figure}
+
+Meskipun mirip dengan adjacency matrix, graph dengan incidence matrix memiliki sebuah kekurangan besar dibandingkan dengan adjacency matrix: operasi penambahan dan pengurangan edge akan memiliki kompleksitas $O(V \times E)$, karena penambahan dan pengurangan edge akan mengharuskan kita mengubah matriks. Operasi-operasi lain seperti penambahan dan pengurangan vertex memiliki kompleksitas yang mirip dengan adjacency matrix, yaitu $O(V \times E)$. Perubahan hanya terjadi pada faktor pengali, yang awalnya adalah vertex pada adjacency matrix, diganti menjadi edge pada incidence matrix.
 
 \section{Operasi Umum Graph}
 
