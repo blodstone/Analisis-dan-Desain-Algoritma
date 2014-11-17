@@ -13,41 +13,45 @@ Teknik \textit{Divide and Conquer} digambarkan dalam Figur \ref{fig:DivideandCon
 \newpage{}
 \begin{figure}[htbp]
 \begin{center}
-	\includegraphics[scale=0.7]{fig/sunario-3/Ilustrasi.jpg}%
+	\includegraphics[scale=0.6]{fig/sunario-3/Ilustrasi.jpg}%
 	\caption{Illustrasi dari Divide and Conquer}%
 	\label{fig:DivideandConquerIllustration}%
 \end{center}
 \end{figure}
 
-Sebagai Contoh, untuk menghitung total jumlah dari element-element dalam List, kita dapat menggunakan perulangan sederhana:
+Sebagai contoh, untuk menghitung total jumlah dari element-element dalam List, kita dapat menggunakan perulangan sederhana seperti yang tertera di Listing \ref{fig:lstHitungTotalIteratif}
 
 
 
 \lstset{language=Python}
-\label{lst:SimpleSum}
 \begin{lstlisting}[frame=single]
 A = [4,1,3,5,6,7,2]
 total = 0
   for i in range(0,len(A)):
     total = total + A[i]
 print(total)
+\caption{Hitung total iteratif}
+\label{fig:lstHitungTotalIteratif}
 \end{lstlisting}
 
-Algoritma perulangan yang digunakan pada kode di atas dapat memberikan hasil yang benar, tetapi terdapat beberapa masalah pada kode tersebut, yaitu perhitungan dilakukan secara linear, yang menghasilkan kompleksitas $O(n)$. Hal ini tentunya cukup ideal untuk ukuran list kecil, tetapi jika ukuran list menjadi besar (beberapa Milyar elemen) maka perhitungan akan menjadi sangat lambat.
+Algoritma perulangan yang digunakan pada kode di Listing \ref{fig:lstHitungTotalIteratif} dapat memberikan hasil yang benar, tetapi terdapat beberapa masalah pada kode tersebut, yaitu perhitungan dilakukan secara linear dimana menghasilkan kompleksitas $O(n)$. Hal ini tentunya cukup ideal untuk ukuran list kecil, tetapi jika ukuran list menjadi besar (beberapa Milyar elemen) maka perhitungan akan menjadi sangat lambat.
 
-Dengan menerapkan Teknik \textit{Divide and Conquer}, maka masalah penjumlahan sebelumnya dapat dibagi menjadi submasalah yang lebih kecil. Langkah pertama yang dapat dilakukan adalah menerapkan teknik rekursif untuk membagi-bagikan masalah menjadi masalah yang lebih kecil. Jika awalnya kita harus menghitung total keseluruhan list satu per satu, sekarang kita dapat melakukan perhitungan dengan memecah-mecah list terlebih dahulu:
+Dengan menerapkan Teknik \textit{Divide and Conquer}, maka masalah penjumlahan sebelumnya dapat dibagi menjadi submasalah yang lebih kecil. Langkah pertama yang dapat dilakukan adalah menerapkan teknik rekursif untuk membagi-bagikan masalah menjadi masalah yang lebih kecil. Jika awalnya kita harus menghitung total keseluruhan list satu per satu, sekarang kita dapat melakukan perhitungan dengan memecah-mecah list terlebih dahulu. Algoritma di Listing \ref{fig:lstHitungTotalIteratif} bisa ditulis ulang menjadi seperti Listing \ref{lst:DivideAndConquerSum}.
 
 \lstset{language=Python}
 \label{lst:DivideAndConquerSum}
 \begin{lstlisting}[frame=single]
 def SumOfList(MyList):
-  if len(MyList) <= 1:
-    return MyList[0] 
-	mid = len(MyList) // 2
-  left = SumOfList(MyList[:mid])
-  right = SumOfList(MyList[mid:])
-  return left + right
-	
+    if len(MyList) > 1:
+        mid = len(MyList) // 2
+        left = SumOfList(MyList[:mid])
+        right = SumOfList(MyList[mid:])
+        return Total(left,right)
+    else:
+        return MyList[0]
+
+def Total(left,right):
+    return left + right
 \end{lstlisting}
 
 Setelah membagikan list menjadi dua bagian terus menerus sampai bagian terkecilnya, penjumlahkan kedua nilai list tersebut dapat dilihat pada Figur \ref{fig:DivideAndConquerSum} berikut:
