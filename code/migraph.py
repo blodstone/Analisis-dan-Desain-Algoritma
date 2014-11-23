@@ -1,7 +1,7 @@
 class MiGraph(object):
     __ADD_EDGE_ERROR ="""
-    The edge parameter should be a tuple 
-    with 3 elements: vertex1, vertex2, 
+    The edge parameter should be a tuple
+    with 3 elements: vertex1, vertex2,
     and weight
     """
 
@@ -77,3 +77,85 @@ class MiGraph(object):
     def remove_edge(self, v1, v2):
         return self.__adj_list[v1].pop(v2, None)
 
+    i = 0
+
+    def clear_graph(self):
+        self.__color = {}
+        self.__predecessor = {}
+        self.__distance = {}
+        self.__adj_list = {}
+
+    def DFS_traversal(self,s):
+        global i
+        traversal = {}
+        i = 1
+        for u in self.__adj_list.keys():
+            self.__color[u] = "WHITE"
+        time = 0
+        #for u in self.__adj_list.keys():
+        if self.__color[s] == "WHITE":
+            self.DFS_visit(s,time,traversal)
+        return traversal
+
+    def DFS_visit(self,u,time,traversal):
+        global i
+        if u not in self.__predecessor.keys():
+            traversal[i] = {"nil":u}
+        else:
+            traversal[i] = {self.__predecessor[u]:u}
+        i = i + 1
+        time = time + 1
+        self.__distance[u] = time
+        self.__color[u] = "GRAY"
+        for v in self.__adj_list[u]:
+            if self.__color[v] == "WHITE":
+                self.__predecessor[v] = u
+                self.DFS_visit(v, time, traversal)
+        self.__color[u] = "BLACK"
+        time = time + 1
+
+    def BFS_traversal(self, s):
+        global i
+        traversal = {}
+        self.__color = {}
+        self.__distance = {}
+        self.__predecessor = {}
+        for key in self.__adj_list.keys():
+            self.__color[key] = "WHITE"
+            self.__distance[key] = 0
+        self.__color[s] = "GRAY"
+        self.__distance[s] = 0
+        Q = []
+        Q.append(s)
+        i = 1
+        while len(Q) != 0:
+            u = Q.pop(0)
+            if u not in self.__predecessor.keys():
+                traversal[i] = {"nil":u}
+            else:
+                traversal[i] = {self.__predecessor[u]:u}
+            i = i + 1
+            for v in self.__adj_list[u]:
+                if self.__color[v] == "WHITE":
+                    self.__color[v] = "GRAY"
+                    if self.__adj_list[u][v] == float("INF"):
+                        self.__distance[v] = 1
+                    else:
+                        self.__distance[v] = self.__adj_list[u][v] + 1
+                    self.__predecessor[v] = u
+                    Q.append(v)
+            self.__color[u] = "BLACK"
+        return traversal
+
+    def print_all_paths(self, s):
+        for v in self.__adj_list.keys():
+            self.print_path(s,v)
+
+    def print_path(self,s,v):
+        if v==s:
+            print(s)
+        elif self.__predecessor[v] == None:
+            print("no path")
+        else:
+            self.print_path(s, self.__predecessor[v])
+            print(v)
