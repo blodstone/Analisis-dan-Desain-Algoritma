@@ -17,7 +17,7 @@ Ada 2 algoritma Graph Traversal yang populer yaitu \textit{Breadth-First Search}
 
 \textit{Breadth-First Search} (BFS) merupakan metode Graph Traversal yang paling sederhana dan menjadi dasar dari banyak algoritma graph lainnya seperti algoritma Djikstra untuk mencari jalur terpendek dan algoritma Prim untuk mencari minimum spanning tree.
 
-Diberikan sebuah graph $G = (V,E)$ dan sebuah vertex awal $s$, maka algoritma \textit{Breadth-First Search} akan menjelajahi setiap edge dari G untuk menemukan semua vertex yang bisa dicapai dari $s$. \textit{Breadth-First Search} juga dapat mencari jumlah edge minimal (tanpa menghitung bobot edge) untuk mencapai sebuah vertex tertentu. Algoritma BFS bisa digunakan di graph berarah atau tidak berarah.
+Diberikan sebuah graph $G = (V,E)$ dan sebuah vertex awal $s$, maka algoritma \textit{Breadth-First Search} akan menjelajahi setiap edge dari G untuk menemukan semua vertex yang bisa dicapai dari $s$. \textit{Breadth-First Search} juga dapat mencari jumlah edge minimal (tanpa menghitung bobot edge) untuk mencapai sebuah vertex tertentu. Algoritma BFS bisa digunakan di graph berarah atau tidak berarah. Kompleksitas waktu dari BFS adalah O(V+E).
 
 Illustrasi BFS bisa dilihat di ~\ref{fig:BFS}.
 
@@ -145,7 +145,7 @@ Setiap kali kita memproses sebuah vertex, kita akan simpan ke dalam variabel $tr
 								
 \section{Depth-First Search}
 
-Strategi dari \textit{Depth-First Search} (DFS) berbeda dari BFS dimana BFS mengunjungi terlebih dahulu semua tetangga, maka DFS mengunjungi satu vertex secara mendalam sampai tidak bisa dikunjungi lagi baru pindah ke tetangga baru. 
+Strategi dari \textit{Depth-First Search} (DFS) berbeda dari BFS dimana BFS mengunjungi terlebih dahulu semua tetangga, maka DFS mengunjungi satu vertex secara mendalam sampai tidak bisa dikunjungi lagi baru pindah ke tetangga baru. Kompleksitas waktu dari DFS sama seperti BFS, O(V+E), akan tetapi untuk graph yang sangat besar sekali DFS bisa terlalu dalam menjelajahi satu verteks tanpa menjelajahi verteks lain.
 
 Illustrasi DFS bisa dilihat di ~\ref{fig:Dfs}.
 
