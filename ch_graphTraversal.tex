@@ -19,6 +19,14 @@ Ada 2 algoritma Graph Traversal yang populer yaitu \textit{Breadth-First Search}
 
 Diberikan sebuah graph $G = (V,E)$ dan sebuah vertex awal $s$, maka algoritma \textit{Breadth-First Search} akan menjelajahi setiap edge dari G untuk menemukan semua vertex yang bisa dicapai dari $s$. \textit{Breadth-First Search} juga dapat mencari jumlah edge minimal (tanpa menghitung bobot edge) untuk mencapai sebuah vertex tertentu. Algoritma BFS bisa digunakan di graph berarah atau tidak berarah.
 
+Illustrasi BFS bisa dilihat di ~\ref{fig:BFS}.
+
+\begin{figure}
+    \includegraphics[width=\textwidth,keepaspectratio]{fig/BFS.png}%
+	\caption{Illustrasi BFS}%
+	\label{fig:bfs}%
+\end{figure}
+
 \subsection{Implementasi Breadth-First Search}
 
 Implementasi lengkap dari BFS bisa dilihat dari Algo ~ref{algo:migraph-BFS}.
@@ -138,6 +146,15 @@ Setiap kali kita memproses sebuah vertex, kita akan simpan ke dalam variabel $tr
 \section{Depth-First Search}
 
 Strategi dari \textit{Depth-First Search} (DFS) berbeda dari BFS dimana BFS mengunjungi terlebih dahulu semua tetangga, maka DFS mengunjungi satu vertex secara mendalam sampai tidak bisa dikunjungi lagi baru pindah ke tetangga baru. 
+
+Illustrasi DFS bisa dilihat di ~\ref{fig:Dfs}.
+
+\begin{figure}
+    \includegraphics[width=\textwidth,keepaspectratio]{fig/DFS.png}%
+	\caption{Illustrasi DFS}%
+	\label{fig:Dfs}%
+\end{figure}
+
 
 \subsection{Implementasi Depth-First Search}
 
