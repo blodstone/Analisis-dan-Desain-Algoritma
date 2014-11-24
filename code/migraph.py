@@ -77,7 +77,7 @@ class MiGraph(object):
     def remove_edge(self, v1, v2):
         return self.__adj_list[v1].pop(v2, None)
 
-    i = 0
+    i = 1
 
     def clear_graph(self):
         self.__color = {}
@@ -85,20 +85,19 @@ class MiGraph(object):
         self.__distance = {}
         self.__adj_list = {}
 
-    def DFS_traversal(self,s):
-        global i
+    def DFS_traversal(self,s, i = 1):
         traversal = {}
         i = 1
         for u in self.__adj_list.keys():
             self.__color[u] = "WHITE"
         time = 0
-        #for u in self.__adj_list.keys():
+
         if self.__color[s] == "WHITE":
             self.DFS_visit(s,time,traversal)
         return traversal
 
     def DFS_visit(self,u,time,traversal):
-        global i
+        i = 0
         if u not in self.__predecessor.keys():
             traversal[i] = {"nil":u}
         else:
@@ -115,14 +114,13 @@ class MiGraph(object):
         time = time + 1
 
     def BFS_traversal(self, s):
-        global i
         traversal = {}
         self.__color = {}
         self.__distance = {}
         self.__predecessor = {}
         for key in self.__adj_list.keys():
             self.__color[key] = "WHITE"
-            self.__distance[key] = 0
+            self.__distance[key] = float("inf")
         self.__color[s] = "GRAY"
         self.__distance[s] = 0
         Q = []
@@ -138,10 +136,7 @@ class MiGraph(object):
             for v in self.__adj_list[u]:
                 if self.__color[v] == "WHITE":
                     self.__color[v] = "GRAY"
-                    if self.__adj_list[u][v] == float("INF"):
-                        self.__distance[v] = 1
-                    else:
-                        self.__distance[v] = self.__adj_list[u][v] + 1
+                    self.__distance[v] = self.__adj_list[u][v] + 1
                     self.__predecessor[v] = u
                     Q.append(v)
             self.__color[u] = "BLACK"
@@ -159,3 +154,4 @@ class MiGraph(object):
         else:
             self.print_path(s, self.__predecessor[v])
             print(v)
+
