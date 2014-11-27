@@ -37,6 +37,7 @@ Kedua, sifat-sifat umum yang dimiliki oleh sebuah MST yaitu:
     \item Sebuah graph dapat memiliki banyak MST
     \item Jika setiap edge yang ada dalam graph memiliki nilai unik, maka hanya akan terdapat satu MST di dalam graph tersebut
     \item Jika bobot dari semua edge selalu bernilai positif, MST yang didapatkan akan selalu merupakan subgraph dengan bobot terkecil yang menghubungkan seluruh vertex
+    \item Tidak boleh terdapat siklus (\textit(cycle)) di dalam MST, karena sebuah siklus karena total bobot graph dengan siklus akan selalu lebih besar dari graph tanpa siklus
 \end{enumerate}
 
 Pembentukan MST dari sebuah graph sendiri merupakan permasalahan optimasi yang dapat kita selesaikan dengan algoritma greedy. Pada bagian berikutnya kita akan membahas dua buah algoritma umum yang digunakan untuk membangun MST, yaitu algoritma Kruskall dan Prim.
@@ -44,3 +45,81 @@ Pembentukan MST dari sebuah graph sendiri merupakan permasalahan optimasi yang d
 \section{Algoritma Kruskall}
 
 \section{Algoritma Prim}
+
+Algoritma Prim membangun sebuah MST dengan membuat tree dari sebuah graph terlebih dahulu. Tree yang akan dibangun oleh algoritma Prim dimulai dari sebuah vertex acak, yang nantinya akan dibangun satu demi satu vertex untuk menjadi MST. Gambar~\ref{fig:prims-proc} menunjukkan hubungan graph dengan pohon MST yang dibangun dengan algoritma Prim.
+
+\begin{figure}
+    \includegraphics[width=\textwidth,keepaspectratio]{fig/PrimsProc.png}%
+	\caption{Kiri: Graph Asal, Kanan: Tree MST dengan Prim}%
+	\label{fig:prims-proc}%
+\end{figure}
+
+Algoritma Prim membuat tree (selanjutnya disebut sebagai Spanning Tree) karena sebuah Tree tidak mungkin menghasilkan siklus dalam graph. Jika terdapat siklus di dalam graph yang dihasilkan, maka graph tersebut tidak dapat dikatakan sebagai sebuah MST.
+
+Pembangunan Spanning Tree pada algoritma Prim sendiri dilakukan dalam beberapa tahap. Pada tahap pertama, kita menambahkan satu vertex sebagai akar dari Spanning Tree. Vertex manapun dapat dipilih sebagai akar dari Spanning Tree. Untuk iterasi-iterasi berikutnya, kita akan menambahkan vertex baru ke dalam Spanning Tree, sesuai dengan kriteria yang diwajibkan MST, yaitu vertex dengan bobot edge paling kecil dari vertex asal (sebelumnya).
+
+Urutan pengambilan vertex untuk dimasukkan ke dalam Spanning Tree sendiri dapat dilakukan dengan beberapa cara. Misalnya, kita dapat mengambil vertex dengan edge terendah terhadap vertex terakhir di Spanning Tree dengan menandai tiap vertex dengan ukuran jarak. Pendekatan yang lebih pintar dapat memanfaatkan Priority Queue untuk menandai urutan prioritas vertex yang akan dikunjungi.
+
+Agar tidak terlalu bingung, mari kita langsung lihat contoh implementasi algoritma Prim dengan Priority Queue. Fungsi Prim yang akan kita bangun menerima dua parameter, yaitu graph yang akan dicari MST-nya dan vertex awal untuk memulai algoritma Prim:
+
+\lstinputlisting[language=Python, 
+                 label={algo:prim-declaration},
+                 firstline=3,
+                 lastline=3,
+                 caption=Deklarasi Fungsi Prim
+                ]
+                {code/15-prims.py}
+
+Selanjutnya, kita dapat menginisalisasi variabel-variabel awal yang akan kita butuhkan. Variabel pertama yang diinisialisasi adalah $vtx$, yang menyimpan semua vertex asal. $q$ merupakan Priority Queue yang akan menyimpan seluruh vertex beserta tingkat prioritasnya. Untuk menyederhanakan implementasi, Priority Queue akan kita simpan dalam sebuah Dictionary, dengan key berupa vertex dan value berupa nilai prioritas.
+
+Sebagai nilai awal untuk $q$, kita akan mengisikan semua vertex yang ada, dengan prioritas maksimal (sebesar-besarnya). Hal ini dilakukan karena pada awal algoritma, kita belum mengetahui vertex mana yang akan dijalankan terlebih dahulu. Algoritma~\ref{algo:prim-init} menunjukkan langkah yang kita jalankan sejauh ini.
+
+\lstinputlisting[language=Python, 
+                 label={algo:prim-init},
+                 firstline=4,
+                 lastline=8,
+                 caption=Deklarasi Variabel Awal Prim
+                ]
+                {code/15-prims.py}
+
+Selanjutnya, kita dapat membuat Spanning Tree yang akan dibangun, dalam variabel $t$. Sama seperti Priority Queue, kita akan menyimpan pohon di dalam Dictionary, dengan key sebagai nod yang aktif dan vertex sebagai orang tua (\textit{parent}) dari node tersebut. Pada node akar, kita akan mengisikan orang tua dengan nilai None.
+
+Kita juga dapat sekaligus mengisikan nilai awal dari $t$ dan $q$, yaitu vertex awal yang dikirimkan oleh fungsi. Untuk $q$, prioritas vertex awal akan diisikan dengan $0$ agar pada iterasi selanjutnya kita dapat mulai dari vertex ini. Algoritma~\ref{algo:prim-init2} menunjukkan langkah kita sampai titik ini.
+
+\lstinputlisting[language=Python, 
+                 label={algo:prim-init2},
+                 firstline=10,
+                 lastline=13,
+                 caption=Inisialisasi Nilai Awal Prim
+                ]
+                {code/15-prims.py}
+
+Iterasi pembangunan Spanning Tree dapat dilakukan dengan mengambil seluruh tetangga vertex dengan Prioritas Utama (nilai minimum), dan membandingkan bobot edge antara vertex asal dengan seluruh tetangganya. Kita mencari nilai bobot edge yang lebih kecil dari nilai prioritas di sini. Nilai edge terkecil ini diambil karena kita ingin mengambil nilai minimum. Jika edge lebih kecil dari prioritas, kita akan menjadikan nilai edge tersebut nilai prioritas vertex. Nilai prioritas vertex ini akan terus diperbaharui sampai vertex menjadi prioritas terkecil. Hal ini akan otomatis mengeliminasi siklus, karena edge siklus tidak akan dapat menjadi prioritas terkecil; ingat: edge siklus akan selalu lebih besar dari edge non-siklus.
+
+Begitu kita mendapatkan edge dengan prioritas terkecil, kita dapat langsung memasukkannya ke dalam Spanning Tree. Algoritma~\ref{algo:prim-spanning-tree} menunjukkan langkah-langkah yang diambil untuk membangun Spanning Tree.
+
+\lstinputlisting[language=Python, 
+                 label={algo:prim-spanning-tree},
+                 firstline=15,
+                 lastline=25,
+                 caption=Pembangunan Spanning Tree
+                ]
+                {code/15-prims.py}
+
+Setelah mendapatkan Spanning Tree dari algoritma Prim, kita dapat membangun Graph MST-nya dengan cukup mudah: telusuri tree dan bangun node serta edge-nya, seperti yang dilakukan pada Algoritma~\ref{algo:prim-mst}.
+
+\lstinputlisting[language=Python, 
+                 label={algo:prim-mst},
+                 firstline=27,
+                 lastline=33,
+                 caption=Pembangunan MST dari Spanning Tree
+                ]
+                {code/15-prims.py}
+
+Keseluruhan algoritma Prim yang kita bangun dapat dilihat pada Algoritma~\ref{algo:prim-complete}.
+
+\lstinputlisting[language=Python, 
+                 label={algo:prim-complete},
+                 caption=Algoritma Prim
+                ]
+                {code/15-prims.py}
