@@ -40,9 +40,7 @@ Kedua, sifat-sifat umum yang dimiliki oleh sebuah MST yaitu:
     \item Tidak boleh terdapat siklus (\textit(cycle)) di dalam MST, karena sebuah siklus karena total bobot graph dengan siklus akan selalu lebih besar dari graph tanpa siklus
 \end{enumerate}
 
-Pembentukan MST dari sebuah graph sendiri merupakan permasalahan optimasi yang dapat kita selesaikan dengan algoritma greedy. Pada bagian berikutnya kita akan membahas dua buah algoritma umum yang digunakan untuk membangun MST, yaitu algoritma Kruskall dan Prim.
-
-\section{Algoritma Kruskall}
+Pembentukan MST dari sebuah graph sendiri merupakan permasalahan optimasi yang dapat kita selesaikan dengan algoritma greedy. Pada bagian berikutnya kita akan membahas dua buah algoritma umum yang digunakan untuk membangun MST, yaitu algoritma Kruskal dan Prim.
 
 \section{Algoritma Prim}
 
@@ -68,7 +66,7 @@ Agar tidak terlalu bingung, mari kita langsung lihat contoh implementasi algorit
                  lastline=3,
                  caption=Deklarasi Fungsi Prim
                 ]
-                {code/15-prims.py}
+                {code/16-prims-kruskal.py}
 
 Selanjutnya, kita dapat menginisalisasi variabel-variabel awal yang akan kita butuhkan. Variabel pertama yang diinisialisasi adalah $vtx$, yang menyimpan semua vertex asal. $q$ merupakan Priority Queue yang akan menyimpan seluruh vertex beserta tingkat prioritasnya. Untuk menyederhanakan implementasi, Priority Queue akan kita simpan dalam sebuah Dictionary, dengan key berupa vertex dan value berupa nilai prioritas.
 
@@ -80,7 +78,7 @@ Sebagai nilai awal untuk $q$, kita akan mengisikan semua vertex yang ada, dengan
                  lastline=8,
                  caption=Deklarasi Variabel Awal Prim
                 ]
-                {code/15-prims.py}
+                {code/16-prims-kruskal.py}
 
 Selanjutnya, kita dapat membuat Spanning Tree yang akan dibangun, dalam variabel $t$. Sama seperti Priority Queue, kita akan menyimpan pohon di dalam Dictionary, dengan key sebagai nod yang aktif dan vertex sebagai orang tua (\textit{parent}) dari node tersebut. Pada node akar, kita akan mengisikan orang tua dengan nilai None.
 
@@ -92,7 +90,7 @@ Kita juga dapat sekaligus mengisikan nilai awal dari $t$ dan $q$, yaitu vertex a
                  lastline=13,
                  caption=Inisialisasi Nilai Awal Prim
                 ]
-                {code/15-prims.py}
+                {code/16-prims-kruskal.py}
 
 Iterasi pembangunan Spanning Tree dapat dilakukan dengan mengambil seluruh tetangga vertex dengan Prioritas Utama (nilai minimum), dan membandingkan bobot edge antara vertex asal dengan seluruh tetangganya. Kita mencari nilai bobot edge yang lebih kecil dari nilai prioritas di sini. Nilai edge terkecil ini diambil karena kita ingin mengambil nilai minimum. Jika edge lebih kecil dari prioritas, kita akan menjadikan nilai edge tersebut nilai prioritas vertex. Nilai prioritas vertex ini akan terus diperbaharui sampai vertex menjadi prioritas terkecil. Hal ini akan otomatis mengeliminasi siklus, karena edge siklus tidak akan dapat menjadi prioritas terkecil; ingat: edge siklus akan selalu lebih besar dari edge non-siklus.
 
@@ -104,7 +102,7 @@ Begitu kita mendapatkan edge dengan prioritas terkecil, kita dapat langsung mema
                  lastline=25,
                  caption=Pembangunan Spanning Tree
                 ]
-                {code/15-prims.py}
+                {code/16-prims-kruskal.py}
 
 Setelah mendapatkan Spanning Tree dari algoritma Prim, kita dapat membangun Graph MST-nya dengan cukup mudah: telusuri tree dan bangun node serta edge-nya, seperti yang dilakukan pada Algoritma~\ref{algo:prim-mst}.
 
@@ -114,7 +112,7 @@ Setelah mendapatkan Spanning Tree dari algoritma Prim, kita dapat membangun Grap
                  lastline=33,
                  caption=Pembangunan MST dari Spanning Tree
                 ]
-                {code/15-prims.py}
+                {code/16-prims-kruskal.py}
 
 Keseluruhan algoritma Prim yang kita bangun dapat dilihat pada Algoritma~\ref{algo:prim-complete}.
 
@@ -122,4 +120,82 @@ Keseluruhan algoritma Prim yang kita bangun dapat dilihat pada Algoritma~\ref{al
                  label={algo:prim-complete},
                  caption=Algoritma Prim
                 ]
-                {code/15-prims.py}
+                {code/16-prims-kruskal.py}
+
+
+\section{Algoritma Kruskal}
+
+Algoritma Kruskal membangun sebuah MST dengan mengurutkan semua edge yang ada di dalam sebuah graph, dari mulai beban yang terkecil hingga terbesar. Edge yang telah terurut ini kemudian dimasukkan satu per satu ke dalam MST, dengan tetap memperhatikan apakah sebuah siklus terjadi atau tidak. Langkah ini diulangi sampai didapatkan semua vertex di dalam MST.
+
+Secara terstruktur, langkah-langkah untuk algoritma Kruskal adalah sebagai berikut:
+
+\begin{enumerate}
+    \item Urutkan semua edge secara menaik, berdasarkan bobot edge.
+    \item Ambil edge terkecil. Cek apakah edge membentuk siklus dari MST yang telah terbentuk. Jika tidak, masukkan edge ini ke dalam MST. Jika ya, jangan masukkan.
+    \item Ulangi langkah kedua sampai jumlah edge dalam MST adalah jumlah vertex - 1
+\end{enumerate}
+
+Langkah terakhir, tentunya dapat juga diganti dengan mengecek sampai keseluruhan edge habis, yang akan sedikit lebih menyederhanakan algoritma dengan mengorbankan jumlah langkah eksekusi.
+
+\subsection{Cek Siklus pada Graph}
+
+Deteksi apakah sebuah edge baru membentuk siklus di dalam MST dapat dilakukan dengan banyak algoritma. Salah satu algoritma yang paling populer yaitu algoritma Union-Find. Algoritma Union-Find diimplementasikan pada struktur data \textbf{Disjoint Set} dan dapat digunakan untuk berbagai keperluan. Pada bagian ini, kita akan menggunakan Union-Find untuk melakukan pengecekan apakah sebuah graph memiliki siklus atau tidak.
+
+Dasar dari algoritma Union-Find yaitu dua buah operasi, Union dan Find:
+
+\begin{itemize}
+    \item \textbf{\textit{Union}} menggabungkan dua buah subset menjadi satu subset baru.
+    \item \textbf{\textit{Find}} merupakan operasi untuk menentukan di dalam subset manakah sebuah elemen berada.
+\end{itemize}
+
+Implementasi sederhana dari Union dan Find dapat dilihat pada Algoritma~\ref{algo:union-find}.
+
+\lstinputlisting[language=Python, 
+                 label={algo:union-find},
+                 firstline=36,
+                 lastline=57,
+                 caption=Implementasi Union dan Find
+                ]
+                {code/16-prims-kruskal.py}
+
+Untuk mencari sebuah siklus di dalam graph, kita dapat menggunakan kedua operasi di atas dengan langkah berikut untuk mendeteksi siklus:
+
+\begin{enumerate}
+    \item Masukkan semua vertex yang ada ke dalam sebuah subset. \textit{Parent} dari masing-masing vertex adalah dirinya sendiri, karena kita belum membangun subset dengan lengkap. Kita kemudian dapat memberikan tingkat dari setiap vertex, dimulai dari 0. Tingkatan ini nantinya akan menentukan posisi akhir vertex di dalam subset.
+    \item Ambil satu edge dengan bobot terendah, dan telusuri \textit{Parent} dari kedua buah vertex yang membentuk edge tersebut. Jika parent sama, maka kedua edge berada dalam subset yang sama. Hal ini berarti graph memiliki siklus. Jika parent berbeda, lakukan union terhadap kedua graph.
+    \item Ulangi langkah kedua sampai seluruh edge telah dioperasikan.
+\end{enumerate}
+
+Algoritma~\ref{algo:cycle-detection} memperlihatkan contoh implementasi pendeteksian siklus pada sebuah graph, sesuai dengan langkah-langkah yang telah dijabarkan di atas.
+
+\lstinputlisting[language=Python, 
+                 label={algo:cycle-detection},
+                 firstline=59,
+                 lastline=68,
+                 caption=Deteksi Siklus dalam Graph
+                ]
+                {code/16-prims-kruskal.py}
+
+Kita kemudian dapat melihat bagaimana edge yang bukan siklus (pada baris ke 10 di algoritma~\ref{algo:cycle-detection} dapat langsung dijadikan sebagai anak pohon MST dalam algoritma Kruskal. Hal ini menyebabkan implementasi algoritma Kruskal tidak berbeda jauh dari algoritma~\ref{algo:cycle-detection}. 
+
+\subsection{Kruskal}
+
+Dari apa yang telah kita dapatkan, kita kemudian dapat mengimplementasikan algoritma Kruskal seperti yang dapat dilihat pada algoritma~\ref{algo:kruskal-core}.
+
+\lstinputlisting[language=Python, 
+                 label={algo:kruskal-core},
+                 firstline=59,
+                 lastline=69,
+                 caption=Deteksi Siklus dalam Graph
+                ]
+                {code/16-prims-kruskal.py}
+
+Jika dilengkapi dengan implementasi Disjoint Set dan Union-Find maka implementasi lengkap algoritma Kruskal dapat dilihat pada algoritma~\ref{algo:kruskal-all}.
+
+\lstinputlisting[language=Python, 
+                 label={algo:kruskal-all},
+                 firstline=35,
+                 lastline=71,
+                 caption=Algoritma Kruskal Lengkap
+                ]
+                {code/16-prims-kruskal.py}
