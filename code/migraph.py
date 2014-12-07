@@ -86,8 +86,7 @@ class MiGraph(object):
         self.__distance = {}
         self.__adj_list = {}
 
-    def DFS_traversal(self):
-        global timef,i
+    def DFS_traversal(self,s, i = 1):
         traversal = {}
         self.__finish_time = {}
         i = 1
@@ -95,13 +94,13 @@ class MiGraph(object):
         for u in self.__adj_list.keys():
             self.__color[u] = "WHITE"
             self.__finish_time[u]= 0
-        for u in self.__adj_list.keys():
+
             if self.__color[u] == "WHITE":
                 self.DFS_visit(s,traversal)
         return traversal
 
     def DFS_visit(self,u,traversal):
-        global timef,i
+        i = 0
         if u not in self.__predecessor.keys():
             traversal[i] = {"nil":u}
         else:
@@ -119,7 +118,6 @@ class MiGraph(object):
         self.__finish_time[u] = timef
 
     def BFS_traversal(self, s):
-        global i
         traversal = {}
         self.__color = {}
         self.__distance = {}
