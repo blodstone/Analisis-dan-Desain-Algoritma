@@ -77,7 +77,8 @@ class MiGraph(object):
     def remove_edge(self, v1, v2):
         return self.__adj_list[v1].pop(v2, None)
 
-    i = 0
+    i = 1
+    timef = 0
 
     def clear_graph(self):
         self.__color = {}
@@ -85,34 +86,37 @@ class MiGraph(object):
         self.__distance = {}
         self.__adj_list = {}
 
-    def DFS_traversal(self,s):
-        global i
+    def DFS_traversal(self):
+        global timef,i
         traversal = {}
+        self.__finish_time = {}
         i = 1
+        timef = 0
         for u in self.__adj_list.keys():
             self.__color[u] = "WHITE"
-        time = 0
-        #for u in self.__adj_list.keys():
-        if self.__color[s] == "WHITE":
-            self.DFS_visit(s,time,traversal)
+            self.__finish_time[u]= 0
+        for u in self.__adj_list.keys():
+            if self.__color[u] == "WHITE":
+                self.DFS_visit(s,traversal)
         return traversal
 
-    def DFS_visit(self,u,time,traversal):
-        global i
+    def DFS_visit(self,u,traversal):
+        global timef,i
         if u not in self.__predecessor.keys():
             traversal[i] = {"nil":u}
         else:
             traversal[i] = {self.__predecessor[u]:u}
         i = i + 1
-        time = time + 1
-        self.__distance[u] = time
+        timef = timef + 1
+        self.__distance[u] = timef
         self.__color[u] = "GRAY"
         for v in self.__adj_list[u]:
             if self.__color[v] == "WHITE":
                 self.__predecessor[v] = u
-                self.DFS_visit(v, time, traversal)
+                self.DFS_visit(v, traversal)
         self.__color[u] = "BLACK"
-        time = time + 1
+        timef = timef + 1
+        self.__finish_time[u] = timef
 
     def BFS_traversal(self, s):
         global i
@@ -122,7 +126,7 @@ class MiGraph(object):
         self.__predecessor = {}
         for key in self.__adj_list.keys():
             self.__color[key] = "WHITE"
-            self.__distance[key] = 0
+            self.__distance[key] = float("inf")
         self.__color[s] = "GRAY"
         self.__distance[s] = 0
         Q = []
@@ -138,10 +142,7 @@ class MiGraph(object):
             for v in self.__adj_list[u]:
                 if self.__color[v] == "WHITE":
                     self.__color[v] = "GRAY"
-                    if self.__adj_list[u][v] == float("INF"):
-                        self.__distance[v] = 1
-                    else:
-                        self.__distance[v] = self.__adj_list[u][v] + 1
+                    self.__distance[v] = self.__adj_list[u][v] + 1
                     self.__predecessor[v] = u
                     Q.append(v)
             self.__color[u] = "BLACK"
@@ -159,3 +160,4 @@ class MiGraph(object):
         else:
             self.print_path(s, self.__predecessor[v])
             print(v)
+
