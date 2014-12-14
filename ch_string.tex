@@ -227,9 +227,139 @@ Ada banyak apalikasi lain untuk \textit{suffix trie} seperti:
 Implementasi \textit{Suffix Array} adalah yang termudah dari semua. Lihat Algoritma ~\ref{algo:SuffixArray} untuk implementasi \textit{suffix array}.
 
 \lstinputlisting[language=Python, 
-                 firstline=1,
-                 lastline=3,
+                 firstline=4,
+                 lastline=9,
                  label={algo:SuffixArray},
                  caption=Membentuk suffix array
+                ]
+                {code/suffixArray.py}
+
+Untuk \textit{Suffix Array}, kita akan menggunakan \textit{OrderedDict} yang merupakan bagian dari \textit{collections}. Dengan \textit{dictionary} biasa kita tidak bisa mengurut isi dari \textit{dictionary}, akan tetapi dengan \textit{OrderedDict} kita bisa mengurut berdasarkan kunci. 
+
+\section{Algoritma Pemrosesan String}
+
+Untuk pemrosesan String terdapat banyak algoritma, kita akan melihat beberapa contoh algoritma yang bisa memanfaatkan \textit{suffix array}. Kita memilih menggunakan \textit{suffix array} dikarenakan implementasi \textit{suffix array} adalah yang paling mudah dibandingkan dengan \textit{suffix trie} dan \textit{suffix tree}.
+
+\subsection{Pencarian \textit{pattern} Substring dalam String (\textit{String Matching})}
+
+Dengan menggunakan \textit{Suffix Array} dari string $T$, kita bisa mencari \textit{pattern} string $P$ (dengan panjang $m$) dari string $T$ (panjang $n$) tersebut. Pencarian dengan menggunakan \textit{suffix array} lebih mudah dikarenakan 2 hal berikut.
+
+\begin{enumerate}
+	\item Jika seandainya $P$ adalah substring dari $T$, maka $P$ harus merupakan \textit{prefix} dari salah satu {suffix} $T$. 
+	\item Karena dalam \textit{suffix array}, semua \textit{suffix} sudah diurut berdasarkan \textit{lexicography} maka pencarian \textit{prefix} lebih sederhana. Kita cukup mencocokkan setiap huruf dari urutan pertama dalam \textit{suffix array} sampai urutan terakhir secara berturut. 
+\end{enumerate}
+
+Cara naif untuk mencari \textit{pattern} substring dalam sebuah string dalam \textit{suffix array} adalah menggunakan pencarian sekuensial untuk mencocokkan \textit{prefix} dari semua \textit{suffix} yang ada dalam \textit{suffix array}. Untuk illustrasi bisa dilihat di Gambar ~\ref{fig:searchABSuffixArraySequential}.
+
+	\begin{figure}
+		\includegraphics{fig/searchABSuffixArraySequential.png}%
+		\caption{Mencari \textit{pattern} $ab$ dari string $abaaba$}%
+		\label{fig:searchABSuffixArraySequential}%
+	\end{figure}
+
+Untuk implementasi pada Python bisa dilihat di Algoritma ~\ref{algo:StringMatchingNaif}.
+
+\lstinputlisting[language=Python, 
+                 firstline=11,
+                 lastline=16,
+                 label={algo:StringMatchingNaif},
+                 caption=\textit{String Matching} naif dengan suffix array
+                ]
+                {code/suffixArray.py}
+
+
+Untuk mempercepat pencarian, daripada menggunakan pencarian sekuensial kita akan menggunakan dua kali \textit{Binary Search} untuk mencari di bagian batas bawah dan batas atas. Waktu yang dibutuhkan untuk mencari adalah $O(m log n)$. Implementasi dari penggunaan \textit{Binary Search} bisa dilihat di Algoritma ~\ref{algo:StringMatchingBS}. 
+
+\lstinputlisting[language=Python, 
+                 firstline=18,
+                 lastline=47,
+                 label={algo:StringMatchingBS},
+                 caption=\textit{String Matching} suffix array dengan Binary Search
+                ]
+                {code/suffixArray.py}
+
+Cara kerja dari Algoritma ~\ref{algo:StringMatchingBS} bisa dilihat dari Gambar \ref{fig:StringMatchingBS} dimana kita akan mencari substring $GA$ dalama $GATAGACA$.
+
+	\begin{figure}
+		\includegraphics[width=\textwidth,keepaspectratio]{fig/StringMatchingBS.png}%
+		\caption{\textit{String matching} dengan \textit{Binary Search}.}%
+		\label{fig:StringMatchingBS}%
+	\end{figure}
+	
+Perlu diketahui, bahwa berbeda dengan menggunakan pencarian sekuensial, kita tak perlu mencocokkan satu per satu setiap suffix dalam string $GATAGACA$. Melainkan kita hanya perlu mencari suffix pertama dan suffix terakhir dari string tersebut yang memuat substring $GA$. Sebagai contohnya, dari gambar kita mendapatkan suffix pertama yang memuat $GA$ adalah suffix posisi ke 6 (i=6) yaitu $GATAGACA$, dan suffix terakhir adalah suffix posisi ke 7 (i=7) yaitu $GACA$, maka secara otomatis semua suffix dalam posisi ke 6 dan ke 7 adalah suffix yang memuat $GA$ (karena posisi berdekatan maka hanya ada dua, coba lakukan sekali lagi dengan pencarian substring $A$).
+
+Untuk mencari suffix pertama dan terakhir dibutuhkan dua kali \textit{Binary Search}. Satu untuk mencari yang pertama (\textit{lower bound}) dan satu lagi untuk mencari yang terakhir (\textit{upper bound}).
+
+Untuk mencari suffix pertama kita akan menggunakan \textit{Binary Search} yang bisa dilihat di Algoritma ~\ref{algo:StringMatchingBS1}.
+
+\lstinputlisting[language=Python, 
+                 firstline=21,
+                 lastline=29,
+                 label={algo:StringMatchingBS1},
+                 caption=\textit{Binary Search I} untuk mencari suffix pertama yang memuat substring
+                ]
+                {code/suffixArray.py}
+
+Setelah kita menggunakan \textit{Binary Search} untuk mencari suffix pertama, kita akan mengecek apakah di posisi tersebut ada terdapat substring yang kita inginkan tidak. Jika tidak kita akan mengembalikan -1. Untuk pengecekan lihat di Algoritma ~\ref{algo:StringMatchingNF} 
+
+\lstinputlisting[language=Python, 
+                 firstline=30,
+                 lastline=31,
+                 label={algo:StringMatchingNF},
+                 caption=Mengecek apakah di posisi tersebut terdapat substring yang kita inginkan atau tidak.
+                ]
+                {code/suffixArray.py}
+
+Untuk mencari suffix kedua kita juga akan menggunakan \textit{Binary Search} yang bisa dilihat di Algoritma ~\ref{algo:StringMatchingBS2}.
+
+\lstinputlisting[language=Python, 
+                 firstline=21,
+                 lastline=29,
+                 label={algo:StringMatchingBS2},
+                 caption=\textit{Binary Search II} untuk mencari suffix kedua yang memuat substring
+                ]
+                {code/suffixArray.py}
+
+
+
+\subsection{Pencarian pattern terpanjang yang berulang di dalam string}
+
+Diberikan sebuah string $T$, kita ingin mencari pattern $P$ terpanjang yang berulang (minimal >1) dalam string $T$. Misalnya: dalam string $banana$, maka pattern terpanjang yang berulang adalah $ana$.
+
+Untuk menyelesaikan masalah tersebut, kita memerlukan sebuah struktur data yang lebih efisien dan merupakan pengembangan dari \textit{suffix array} yaitu \textit{longest common prefix suffix array} (LCPA. Dalam LCPA, semua panjang LCP akan dihitung dan disimpan dalam \textit{suffix array}. Definisi dari LCP adalah: ``Diberikan dua buah string yaitu $u$ dan $v$, maka prefix terpanjang yang terdapat di kedua buah string tersebut adalah LCP''. Sebagai contohnya:
+
+LCP dari string $\textbf{a}$ dan $\textbf{a}abba$ adalah $a$ dengan panjang 1.
+
+LCP dari string $\textbf{ab}aaabba$ dan $\textbf{ab}ba$ adalah $ab$ dengan panjang 2.
+
+Sebagai contoh dari LCPA, kita bisa melihat contoh berikut dari string $banana$.
+
+
+\begin{center}
+  \begin{tabular}{ | c | c | c |c | c | c | c | c | }
+    \hline
+    i	& 1	& 2	& 3	& 4	& 5	& 6	& 7 \\ \hline
+		A[i]	& 7	& 6	& 4	& 2	& 1	& 5	& 3 \\ \hline
+		H[i]	& null	& 0 & 1 &	3 & 0 & 0 & 2 \\ \hline
+		1	& \$	& a	& a	& a	& b	& n	& n \\ \hline
+		2	& & \$	& n	& n	& a	& a	& a \\ \hline
+		3	& & & a	& a	& n	& \$	& n \\ \hline
+		4	& & & \$	& n	& a	& & a \\ \hline
+		5 & & & & a	& n	& & \$ \\ \hline
+		6	& & & & \$ & a	& & \\ \hline
+		7	& & & & & \$ & &  \\ 
+    \hline
+  \end{tabular}
+\end{center}
+
+Dari tabel, H[i] merupakan LCP dari setiap suffix $banana$ yang ada. Cara membaca tabel adalah kita membanding setiap H[i] dengan H[i-1] dan mencari jumlah prefix terpanjang. Sebagai contohnya H[3] adalah 1 karena H[2] ($a\$$) dan H[3]($ana\$$) ada kesamaan prefix dengan panjang sebanyak 1 ($a$). Sedangkan H[4] adalah 3 karena H[4] ($anana\$$) dan H[3] ($ana\$$) memiliki kesamaan prefix dengan panjang sebanyak 3 ($ana$). Dengan menyusun LCPA dari setiap suffix, kita bisa mendapatkan prefix dengan jumlah karakter terpanjang sebanyak 3 yang berada di suffix ($anana\$$).
+
+Algoritma pembentukan LCPA bisa dilihat di ~\ref{algo:LCPA}. Algoritma tersebut membentuk LCPA dengan menghitung prefix yang sama dari setiap suffix.
+
+\lstinputlisting[language=Python, 
+                 firstline=49,
+                 lastline=58,
+                 label={algo:LCPA},
+                 caption=Pembentukan LCPA dari \textit{suffix array}
                 ]
                 {code/suffixArray.py}
